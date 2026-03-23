@@ -447,6 +447,16 @@ nav {
 .prod-card-2 .prod-list li { color: rgba(255,255,255,0.75); }
 .prod-list li::before { content: '→'; color: var(--rose-pale); flex-shrink: 0; font-size: 0.75rem; margin-top: 1px; }
 .prod-card-2 .prod-list li::before { color: rgba(255,255,255,0.6); }
+.prod-price {
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 1.5rem; font-weight: 400; color: white;
+  margin-top: 28px; margin-bottom: 4px; line-height: 1.2;
+}
+.prod-price span {
+  font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.72rem; font-weight: 300; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.06em;
+}
 .prod-for {
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 32px; padding-top: 24px;
@@ -470,6 +480,11 @@ nav {
   font-family: 'Lora', Georgia, 'Times New Roman', serif;
   font-size: 1.2rem; font-weight: 400; color: var(--ink);
   margin-bottom: 10px; line-height: 1.3;
+}
+.mini-price {
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 1.15rem; font-weight: 400; color: var(--rose);
+  margin-bottom: 8px;
 }
 .mini-desc { font-size: 0.85rem; line-height: 1.75; color: var(--mid); }
 
