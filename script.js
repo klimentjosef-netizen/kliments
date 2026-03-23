@@ -85,7 +85,7 @@ const CALC_SERVICES = [
       'Pitch deck podklady (čísla)',
       'Reálné projekce, ne wishful thinking'
     ]},
-  { id:'mentoring', name:'Mentoring pro zakladatele', desc:'Balíček 3 hodin 1 na 1', price:7900, monthly:false,
+  { id:'mentoring', name:'Mentoring pro zakladatele', desc:'Balíček 3 hodin 1 na 1', price:9990, monthly:false,
     details: [
       '3 hodiny individuálních konzultací',
       'Finanční i byznysové poradenství',
