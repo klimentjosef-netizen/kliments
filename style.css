@@ -316,7 +316,7 @@ nav {
   transition: border-color 0.3s, background 0.3s, color 0.3s;
 }
 .p-skill:hover { border-color: var(--rose); background: var(--rose-blush); color: var(--rose-deep); }
-.p-stats { display: flex; gap: 32px; padding-top: 32px; border-top: 1px solid var(--border-light); }
+.p-stats { display: flex; gap: 40px; padding-top: 32px; border-top: 1px solid var(--border-light); flex-wrap: wrap; }
 .p-stat-n { font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 2rem; font-weight: 300; color: var(--rose); line-height: 1; }
 .p-stat-l { font-size: 0.68rem; color: var(--mid); margin-top: 4px; }
 
@@ -465,6 +465,9 @@ nav {
 }
 .andrea-section-left p {
   font-size: 1rem; line-height: 1.85; color: var(--mid); margin-bottom: 28px;
+}
+.andrea-section-left .profile-avatar {
+  width: 64px; height: 64px; font-size: 1.4rem;
 }
 .andrea-section-left .p-skills { margin-bottom: 28px; }
 .andrea-section-right .mini-card { margin-bottom: 16px; }
