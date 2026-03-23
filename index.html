@@ -6,643 +6,7 @@
 <title>Kliments - Finanční poradenství</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-  /* System font fallbacks in case Google Fonts don't load */
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap');
-</style>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --rose:       #c97b84;
-  --rose-deep:  #b5606a;
-  --rose-pale:  #e8c5c9;
-  --rose-blush: #f5e6e8;
-  --sand:       #d4b896;
-  --sand-deep:  #b89878;
-  --sand-pale:  #ede0d0;
-  --sand-light: #faf4ed;
-  --ink:        #1f1a18;
-  --ink-soft:   #3d3330;
-  --mid:        #2a2420;
-  --border:     rgba(31,26,24,0.1);
-  --border-light: rgba(31,26,24,0.06);
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--sand-light);
-  color: var(--ink);
-  font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
-  
-}
-
-/* ── CURSOR ── */
-#cur { display: none !important; 
-  position: fixed; width: 12px; height: 12px;
-  background: var(--rose); border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .3s, height .3s, background .3s, border-radius .3s;
-  mix-blend-mode: multiply;
-}
-#cur-r { display: none !important; 
-  position: fixed; width: 40px; height: 40px;
-  border: 1.5px solid var(--rose); border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width .35s, height .35s;
-  opacity: 0.5;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 64px; height: 76px;
-  background: rgba(250,244,237,0.88);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-light);
-}
-.nav-logo {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 1.35rem; font-weight: 400;
-  color: var(--ink); text-decoration: none;
-  letter-spacing: 0.02em;
-  display: flex; align-items: center; gap: 6px;
-}
-.nav-logo-dot { color: var(--rose); font-size: 1.8rem; line-height: 0; margin-bottom: -4px; }
-.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-.nav-links a {
-  font-size: 0.73rem; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--mid); text-decoration: none; transition: color 0.3s; font-weight: 400;
-}
-.nav-links a:hover { color: var(--ink); }
-.nav-pill {
-  background: var(--rose) !important;
-  color: white !important;
-  padding: 10px 26px !important; border-radius: 100px !important;
-  letter-spacing: 0.1em !important;
-  transition: background 0.3s, transform 0.2s !important;
-}
-.nav-pill:hover { background: var(--rose-deep) !important; transform: scale(1.04) !important; color: white !important; }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  padding-top: 76px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  overflow: hidden; position: relative;
-}
-
-/* Decorative blobs */
-.hero::before {
-  content: '';
-  position: absolute; width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,123,132,0.18) 0%, transparent 70%);
-  top: -100px; right: -100px; pointer-events: none;
-}
-.hero::after {
-  content: '';
-  position: absolute; width: 400px; height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212,184,150,0.22) 0%, transparent 70%);
-  bottom: 0; left: 30%; pointer-events: none;
-}
-
-.hero-left {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 64px 80px 64px;
-  position: relative; z-index: 2;
-}
-
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--rose-blush); border: 1px solid var(--rose-pale);
-  padding: 8px 20px; border-radius: 100px; margin-bottom: 40px;
-  align-self: flex-start;
-}
-.hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
-.hero-tag-text { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose-deep); font-weight: 500; }
-
-.hero-h1 {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: clamp(54px, 5.8vw, 90px);
-  font-weight: 300; line-height: 1.0;
-  color: var(--ink); margin-bottom: 10px;
-}
-.hero-h1 em { font-style: italic; color: var(--rose); }
-.hero-h1-sub {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-style: italic;
-  font-size: clamp(16px, 1.8vw, 24px); font-weight: 300;
-  color: var(--sand-deep); margin-bottom: 44px;
-}
-
-.hero-desc {
-  font-size: 1.05rem; line-height: 1.85; color: var(--mid);
-  max-width: 430px; margin-bottom: 52px;
-}
-.hero-desc strong { color: var(--ink); font-weight: 500; }
-
-.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-
-.btn-rose {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--rose); color: white;
-  padding: 16px 36px; border-radius: 100px; text-decoration: none;
-  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-  font-weight: 500; transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
-  box-shadow: 0 8px 28px rgba(201,123,132,0.35);
-}
-.btn-rose:hover { background: var(--rose-deep); transform: translateY(-2px); box-shadow: 0 14px 36px rgba(201,123,132,0.45); }
-
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 10px;
-  border: 1.5px solid var(--border); color: var(--mid);
-  padding: 16px 36px; border-radius: 100px; text-decoration: none;
-  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-  font-weight: 400; transition: border-color 0.3s, color 0.3s;
-}
-.btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
-
-.hero-right {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 120px 64px 80px 40px;
-  position: relative; z-index: 2;
-  gap: 20px;
-}
-
-/* Big decorative letter */
-.hero-deco-letter {
-  position: absolute; top: 50%; right: 40px;
-  transform: translateY(-50%);
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: clamp(200px, 25vw, 340px);
-  font-weight: 300; font-style: italic;
-  color: rgba(201,123,132,0.07);
-  line-height: 1; pointer-events: none; user-select: none;
-  z-index: 1;
-}
-
-.hero-card {
-  background: white;
-  border-radius: 24px;
-  padding: 36px 40px;
-  box-shadow: 0 4px 24px rgba(31,26,24,0.06);
-  border: 1px solid var(--border-light);
-  position: relative; z-index: 2;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.hero-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(31,26,24,0.1); }
-
-.hero-card-label {
-  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--rose); margin-bottom: 16px; font-weight: 500;
-  display: flex; align-items: center; gap: 8px;
-}
-.hero-card-name {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 1.6rem; font-weight: 400;
-  color: var(--ink); margin-bottom: 6px;
-}
-.hero-card-role { font-size: 0.8rem; color: var(--mid); margin-bottom: 20px; }
-.hero-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.hero-card-tag {
-  font-size: 0.65rem; letter-spacing: 0.08em;
-  background: var(--sand-pale); color: var(--ink-soft);
-  padding: 5px 14px; border-radius: 100px;
-}
-
-.hero-stats-row {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.hero-stat-card {
-  background: white; border-radius: 20px; padding: 28px 24px;
-  box-shadow: 0 2px 16px rgba(31,26,24,0.05);
-  border: 1px solid var(--border-light);
-  text-align: center;
-}
-.hero-stat-num {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 2.4rem; font-weight: 300; color: var(--rose);
-  line-height: 1; margin-bottom: 6px;
-}
-.hero-stat-label { font-size: 0.68rem; color: var(--mid); line-height: 1.4; }
-
-/* ── MARQUEE ── */
-.marquee-wrap {
-  background: var(--rose);
-  padding: 14px 0; overflow: hidden;
-}
-.marquee-track { display: flex; animation: marq 24s linear infinite; white-space: nowrap; }
-.marquee-item {
-  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.9); padding: 0 36px; font-weight: 400;
-  display: flex; align-items: center; gap: 36px;
-}
-.marquee-item::after { content: '✦'; font-size: 0.5rem; opacity: 0.6; }
-@keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ── SECTION COMMON ── */
-.s-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--rose); font-weight: 500; margin-bottom: 20px;
-}
-.s-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: var(--rose); border-radius: 2px; }
-.s-h2 {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: clamp(34px, 4vw, 58px);
-  font-weight: 300; line-height: 1.1; color: var(--ink);
-}
-.s-h2 em { font-style: italic; color: var(--rose); }
-
-/* ── PROFILES ── */
-.about { padding: 120px 64px; background: var(--sand-light); }
-.about-header { text-align: center; margin-bottom: 72px; }
-.about-header .s-eyebrow { justify-content: center; }
-.about-header .s-eyebrow::before { display: none; }
-.about-header p {
-  font-size: 1.1rem; color: var(--ink); line-height: 1.8;
-  max-width: 560px; margin: 20px auto 0;
-}
-
-.profiles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-
-.profile-card {
-  background: white; border-radius: 32px; overflow: hidden;
-  box-shadow: 0 4px 32px rgba(31,26,24,0.07);
-  border: 1px solid var(--border-light);
-  transition: transform 0.4s, box-shadow 0.4s;
-}
-.profile-card:hover { transform: translateY(-6px); box-shadow: 0 16px 52px rgba(31,26,24,0.12); }
-
-.profile-card-top {
-  padding: 52px 52px 40px;
-  position: relative; overflow: hidden;
-}
-.profile-card:first-child .profile-card-top { background: linear-gradient(135deg, var(--rose-blush) 0%, var(--sand-pale) 100%); }
-.profile-card:last-child .profile-card-top { background: linear-gradient(135deg, var(--sand-pale) 0%, var(--rose-blush) 100%); }
-
-.profile-card-bg-letter {
-  position: absolute; bottom: -30px; right: -10px;
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 160px; font-weight: 300; font-style: italic;
-  color: rgba(201,123,132,0.12); line-height: 1;
-  pointer-events: none; user-select: none;
-}
-
-.profile-avatar {
-  width: 80px; height: 80px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--rose-pale), var(--sand));
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 1.8rem; font-style: italic;
-  color: white; margin-bottom: 24px;
-  box-shadow: 0 8px 24px rgba(201,123,132,0.3);
-}
-.profile-chip-tag {
-  display: inline-block;
-  background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.8);
-  padding: 6px 16px; border-radius: 100px; margin-bottom: 16px;
-  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose-deep);
-}
-.p-name {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 2.4rem; font-weight: 300; line-height: 1.05;
-  color: var(--ink); margin-bottom: 4px;
-}
-.p-role { font-size: 0.82rem; color: var(--mid); letter-spacing: 0.06em; }
-
-.profile-card-body { padding: 40px 52px 52px; }
-.p-bio { font-size: 0.95rem; line-height: 1.85; color: var(--mid); margin-bottom: 32px; }
-.p-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
-.p-skill {
-  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1.5px solid var(--border); color: var(--ink-soft);
-  padding: 7px 16px; border-radius: 100px;
-  transition: border-color 0.3s, background 0.3s, color 0.3s;
-}
-.p-skill:hover { border-color: var(--rose); background: var(--rose-blush); color: var(--rose-deep); }
-.p-stats { display: flex; gap: 32px; padding-top: 32px; border-top: 1px solid var(--border-light); }
-.p-stat-n { font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 2rem; font-weight: 300; color: var(--rose); line-height: 1; }
-.p-stat-l { font-size: 0.68rem; color: var(--mid); margin-top: 4px; }
-
-/* ── PRODUCTS ── */
-.products-section { padding: 120px 64px; background: var(--ink); }
-.products-header { margin-bottom: 72px; display: flex; justify-content: space-between; align-items: flex-end; }
-.products-header .s-h2 { color: var(--sand-light); }
-.products-header .s-h2 em { color: var(--rose-pale); }
-.products-header .s-eyebrow { color: var(--rose-pale); }
-.products-header .s-eyebrow::before { background: var(--rose-pale); }
-.products-header-right { font-size: 0.88rem; color: rgba(250,244,237,0.4); max-width: 300px; text-align: right; line-height: 1.7; }
-
-.products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-
-.prod-card {
-  border-radius: 28px;
-  padding: 52px 48px;
-  position: relative; overflow: hidden;
-  transition: transform 0.4s;
-}
-.prod-card:hover { transform: translateY(-5px); }
-
-.prod-card-1 { background: linear-gradient(145deg, #2a2220 0%, #1f1a18 100%); border: 1px solid rgba(255,255,255,0.07); }
-.prod-card-2 { background: linear-gradient(145deg, var(--rose-deep) 0%, #8f4a52 100%); }
-.prod-card-3 { background: linear-gradient(145deg, #2e2926 0%, #221e1c 100%); border: 1px solid rgba(255,255,255,0.07); }
-.prod-card-4 {
-  background: linear-gradient(145deg, var(--sand-deep) 0%, #9a7a5a 100%);
-  grid-column: 1 / -1;
-}
-
-.prod-card-4 .prod-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-
-.prod-flag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-  background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 100px;
-  color: rgba(255,255,255,0.8); margin-bottom: 28px;
-}
-.prod-name {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 2rem; font-weight: 300; color: white;
-  line-height: 1.15; margin-bottom: 16px;
-}
-.prod-card-4 .prod-name { font-size: 2.6rem; }
-.prod-desc { font-size: 0.88rem; line-height: 1.75; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
-.prod-card-2 .prod-desc, .prod-card-4 .prod-desc { color: rgba(255,255,255,0.75); }
-
-.prod-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.prod-list li {
-  font-size: 0.82rem; color: rgba(255,255,255,0.55);
-  display: flex; gap: 12px; align-items: flex-start; line-height: 1.5;
-}
-.prod-card-2 .prod-list li, .prod-card-4 .prod-list li { color: rgba(255,255,255,0.75); }
-.prod-list li::before { content: '→'; color: var(--rose-pale); flex-shrink: 0; font-size: 0.75rem; margin-top: 1px; }
-.prod-card-2 .prod-list li::before { color: rgba(255,255,255,0.6); }
-.prod-card-4 .prod-list li::before { color: rgba(255,255,255,0.5); }
-
-.prod-for {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 32px; padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 0.68rem; color: rgba(255,255,255,0.35); letter-spacing: 0.08em;
-}
-.prod-for span { color: rgba(255,255,255,0.6); }
-
-.prod-card-4-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 100px;
-  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: white; margin-bottom: 20px;
-}
-
-/* ── MINI SERVICES ── */
-.mini-services { padding: 80px 64px; background: var(--sand-light); }
-.mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
-.mini-card {
-  background: white; border-radius: 24px; padding: 40px 36px;
-  box-shadow: 0 2px 20px rgba(31,26,24,0.06);
-  border: 1px solid var(--border-light);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.mini-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(31,26,24,0.1); }
-.mini-emoji { font-size: 2rem; margin-bottom: 20px; display: block; }
-.mini-name {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 1.2rem; font-weight: 400; color: var(--ink);
-  margin-bottom: 10px; line-height: 1.3;
-}
-.mini-desc { font-size: 0.85rem; line-height: 1.75; color: var(--mid); }
-
-/* ── WHY ── */
-.why-section { padding: 120px 64px; background: var(--rose-blush); }
-.why-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 100px; align-items: start; }
-.why-quote {
-  background: var(--rose);
-  border-radius: 28px;
-  padding: 48px 44px;
-  margin-top: 48px;
-  box-shadow: 0 12px 40px rgba(201,123,132,0.35);
-}
-.why-quote-text {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-style: italic;
-  font-size: 1.25rem; color: white; line-height: 1.6; margin-bottom: 20px;
-}
-.why-quote-sig { font-size: 0.78rem; color: rgba(255,255,255,0.65); }
-
-.why-intro { font-size: 1rem; line-height: 1.85; color: var(--mid); margin-top: 24px; max-width: 400px; }
-
-.why-items { display: flex; flex-direction: column; gap: 0; }
-.why-item {
-  display: flex; gap: 28px; padding: 36px 0;
-  border-bottom: 1px solid rgba(201,123,132,0.15);
-}
-.why-item:first-child { padding-top: 0; }
-.why-n {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 2.8rem; font-weight: 300;
-  color: var(--rose-pale); line-height: 1; flex-shrink: 0; width: 44px;
-}
-.why-t {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 1.15rem;
-  color: var(--ink); margin-bottom: 8px; font-weight: 400;
-}
-.why-d { font-size: 0.86rem; line-height: 1.75; color: var(--mid); }
-
-/* ── PROCESS ── */
-.process-section { padding: 120px 64px; background: white; }
-.process-header { text-align: center; margin-bottom: 80px; }
-.process-header .s-eyebrow { justify-content: center; }
-.process-header .s-eyebrow::before { display: none; }
-.process-steps { display: flex; gap: 0; position: relative; }
-.process-steps::before {
-  content: ''; position: absolute; top: 28px; left: 5%; right: 5%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--rose-pale) 20%, var(--rose-pale) 80%, transparent);
-}
-.p-step { flex: 1; text-align: center; padding: 0 20px; }
-.p-dot {
-  width: 16px; height: 16px; border-radius: 50%;
-  background: white; border: 2.5px solid var(--rose);
-  margin: 0 auto 28px; position: relative; z-index: 2;
-  transition: background 0.3s, transform 0.3s;
-}
-.p-step:hover .p-dot { background: var(--rose); transform: scale(1.3); }
-.p-num { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 10px; font-weight: 500; }
-.p-title { font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 1rem; color: var(--ink); margin-bottom: 10px; }
-.p-desc { font-size: 0.78rem; color: var(--mid); line-height: 1.65; }
-
-/* ── CTA BAND ── */
-.cta-band {
-  background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose) 50%, var(--sand-deep) 100%);
-  padding: 100px 64px;
-  text-align: center; position: relative; overflow: hidden;
-}
-.cta-band::before {
-  content: 'Kliments';
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-style: italic;
-  font-size: clamp(80px, 14vw, 180px);
-  color: rgba(255,255,255,0.06);
-  white-space: nowrap; pointer-events: none; user-select: none;
-  letter-spacing: 0.02em;
-}
-.cta-band-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.2); padding: 8px 22px; border-radius: 100px;
-  font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(255,255,255,0.85); margin-bottom: 28px;
-}
-.cta-band h2 {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: clamp(36px, 5vw, 70px); font-weight: 300;
-  color: white; line-height: 1.1; margin-bottom: 20px;
-}
-.cta-band h2 em { font-style: italic; opacity: 0.8; }
-.cta-band p { font-size: 1.05rem; color: rgba(255,255,255,0.65); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
-.cta-band-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn-white {
-  background: white; color: var(--rose-deep);
-  padding: 16px 40px; border-radius: 100px;
-  text-decoration: none; font-size: 0.78rem; letter-spacing: 0.12em;
-  text-transform: uppercase; font-weight: 500;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.15);
-}
-.btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.2); }
-.btn-outline-white {
-  border: 1.5px solid rgba(255,255,255,0.5); color: rgba(255,255,255,0.85);
-  padding: 16px 40px; border-radius: 100px;
-  text-decoration: none; font-size: 0.78rem; letter-spacing: 0.12em;
-  text-transform: uppercase; font-weight: 400;
-  transition: border-color 0.3s, color 0.3s;
-}
-.btn-outline-white:hover { border-color: white; color: white; }
-
-/* ── CONTACT ── */
-.contact-section {
-  display: grid; grid-template-columns: 1fr 1fr;
-  background: var(--sand-light);
-}
-.contact-left {
-  padding: 100px 64px;
-  background: var(--ink);
-  position: relative; overflow: hidden;
-}
-.contact-left::before {
-  content: '';
-  position: absolute; width: 500px; height: 500px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,123,132,0.12) 0%, transparent 70%);
-  top: -100px; right: -150px; pointer-events: none;
-}
-.contact-left .s-eyebrow { color: var(--rose-pale); }
-.contact-left .s-eyebrow::before { background: var(--rose-pale); }
-.contact-left .s-h2 { color: var(--sand-light); }
-.contact-left .s-h2 em { color: var(--rose-pale); }
-.contact-intro { font-size: 0.95rem; line-height: 1.85; color: rgba(250,244,237,0.45); margin-top: 24px; margin-bottom: 56px; max-width: 340px; }
-.c-persons { display: flex; flex-direction: column; gap: 36px; }
-.c-pname { font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 1.2rem; color: var(--sand-light); margin-bottom: 14px; }
-.c-line { display: flex; align-items: center; gap: 12px; font-size: 0.84rem; color: rgba(250,244,237,0.4); margin-bottom: 8px; }
-.c-icon { color: var(--rose-pale); font-size: 0.8rem; width: 18px; }
-.c-sep { height: 1px; background: rgba(255,255,255,0.06); margin: 4px 0; }
-.c-location { margin-top: 44px; padding-top: 44px; border-top: 1px solid rgba(255,255,255,0.07); }
-.c-loc-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose-pale); margin-bottom: 8px; }
-.c-loc-val { font-size: 0.88rem; color: rgba(250,244,237,0.4); line-height: 1.7; }
-
-.contact-right { padding: 100px 64px; }
-.contact-right .s-eyebrow { margin-bottom: 36px; }
-.form { display: flex; flex-direction: column; gap: 26px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.fg { display: flex; flex-direction: column; gap: 8px; }
-.fl { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); }
-.fi, .fs, .ft {
-  background: transparent; border: none;
-  border-bottom: 1.5px solid var(--border);
-  padding: 13px 0; font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
-  font-size: 0.9rem; color: var(--ink); outline: none;
-  transition: border-color 0.3s; font-weight: 300; appearance: none;
-}
-.fi:focus, .fs:focus, .ft:focus { border-color: var(--rose); }
-.fi::placeholder, .ft::placeholder { color: var(--mid); opacity: 0.45; }
-.ft { resize: none; height: 88px; }
-.fsub {
-  background: var(--rose); color: white; border: none;
-  padding: 16px 44px; border-radius: 100px;
-  font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
-  font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
-   font-weight: 500;
-  transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
-  align-self: flex-start;
-  box-shadow: 0 6px 24px rgba(201,123,132,0.3);
-}
-.fsub:hover { background: var(--rose-deep); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,123,132,0.4); }
-.fgdpr { font-size: 0.7rem; color: var(--mid); line-height: 1.6; opacity: 0.7; }
-
-/* ── FOOTER ── */
-footer {
-  background: var(--ink);
-  padding: 48px 64px;
-  display: flex; justify-content: space-between; align-items: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-.footer-logo {
-  font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 1.4rem;
-  color: var(--sand-light); font-weight: 300;
-  display: flex; align-items: center; gap: 4px;
-}
-.footer-logo-dot { color: var(--rose); }
-.footer-copy { font-size: 0.65rem; color: rgba(250,244,237,0.25); letter-spacing: 0.08em; }
-.footer-links { display: flex; gap: 28px; list-style: none; }
-.footer-links a {
-  font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(250,244,237,0.35); text-decoration: none; transition: color 0.3s;
-}
-.footer-links a:hover { color: var(--rose-pale); }
-
-/* ── REVEAL ── */
-.reveal { opacity: 1; transform: none; transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal.visible { opacity: 1; transform: none; }
-.d1 { transition-delay: 0.1s; }
-.d2 { transition-delay: 0.22s; }
-.d3 { transition-delay: 0.36s; }
-.d4 { transition-delay: 0.5s; }
-.d5 { transition-delay: 0.64s; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  nav { padding: 0 32px; }
-  .hero { grid-template-columns: 1fr; }
-  .hero-right { padding: 0 32px 64px; }
-  .hero-deco-letter { display: none; }
-  .profiles-grid { grid-template-columns: 1fr; }
-  .products-grid { grid-template-columns: 1fr; }
-  .prod-card-4 { grid-column: auto; }
-  .prod-card-4 .prod-inner { grid-template-columns: 1fr; gap: 32px; }
-  .mini-grid { grid-template-columns: 1fr 1fr; }
-  .why-inner { grid-template-columns: 1fr; gap: 60px; }
-  .process-steps { flex-wrap: wrap; }
-  .p-step { min-width: 45%; }
-  .process-steps::before { display: none; }
-  .contact-section { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 20px; text-align: center; }
-  .footer-links { justify-content: center; }
-  .hero-left, .hero-right, .contact-left, .contact-right { padding-left: 32px; padding-right: 32px; }
-  .about, .products-section, .mini-services, .why-section, .process-section, .cta-band { padding: 80px 32px; }
-}
-@media (max-width: 640px) {
-  .mini-grid { grid-template-columns: 1fr; }
-  .hero-stats-row { grid-template-columns: repeat(3, 1fr); }
-  .nav-links li:not(:last-child) { display: none; }
-  .p-step { min-width: 100%; }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -653,9 +17,9 @@ footer {
 <nav>
   <a class="nav-logo" href="#">Kliments<span class="nav-logo-dot">.</span></a>
   <ul class="nav-links">
-    <li><a href="#about">O nás</a></li>
+    <li><a href="#about">O mně</a></li>
     <li><a href="#services">Služby</a></li>
-    <li><a href="#why">Proč my</a></li>
+    <li><a href="#andrea">Andrea</a></li>
     <li><a href="#contact">Kontakt</a></li>
     <li><a href="#contact" class="nav-pill">Konzultace zdarma</a></li>
   </ul>
@@ -668,10 +32,9 @@ footer {
       <span class="hero-tag-dot"></span>
       <span class="hero-tag-text">Finanční poradenství · Ostrava & celá ČR</span>
     </div>
-    <h1 class="hero-h1">Josef<br>& <em>Andrea</em><br>Klimentovi</h1>
-    <p class="hero-h1-sub">Dva odborníci. Jeden tým.</p>
+    <h1 class="hero-h1">Vyšel jsem<br>z účetního.<br>Dnes pomáhám firmám<br>nepodcenit <em>svoje čísla.</em></h1>
     <p class="hero-desc">
-      <strong>Kompletní finanční péče</strong> pro vaši rodinu i vaše podnikání. Josef řídí firemní finance a oceňuje společnosti. Andrea zajišťuje, zhodnocuje a optimalizuje - pojišťovnictví, hypotéky, investice i benefity.
+      Finanční plán, cashflow, valuace — věci, které rozhodují o přežití byznysu. A které většina zakladatelů řeší až když je pozdě.
     </p>
     <div class="hero-btns">
       <a href="#contact" class="btn-rose">Konzultace zdarma →</a>
@@ -684,43 +47,30 @@ footer {
 
     <!-- Josef card -->
     <div class="hero-card reveal d1">
-      <p class="hero-card-label">👔 Finanční řízení & valuace</p>
+      <p class="hero-card-label">👔 Finanční poradce & business advisor</p>
       <p class="hero-card-name">Josef Kliment</p>
-      <p class="hero-card-role">Finanční poradce · Valuace · Finanční analýza</p>
+      <p class="hero-card-role">CFO na volné noze · Valuace · M&A</p>
       <div class="hero-card-tags">
         <span class="hero-card-tag">Finanční řízení</span>
         <span class="hero-card-tag">Valuace firem</span>
-        <span class="hero-card-tag">Finanční řízení</span>
-        <span class="hero-card-tag">Vedení účetnictví</span>
-      </div>
-    </div>
-
-    <!-- Andrea card -->
-    <div class="hero-card reveal d2">
-      <p class="hero-card-label">🌸 Pojišťovnictví & bankovnictví</p>
-      <p class="hero-card-name">Andrea Klimentová</p>
-      <p class="hero-card-role">Finanční poradce · Hypotéky · DIP & benefity</p>
-      <div class="hero-card-tags">
-        <span class="hero-card-tag">Pojišťovnictví</span>
-        <span class="hero-card-tag">Hypotéky</span>
-        <span class="hero-card-tag">Investice</span>
-        <span class="hero-card-tag">DIP & benefity</span>
+        <span class="hero-card-tag">M&A poradenství</span>
+        <span class="hero-card-tag">Startupy</span>
       </div>
     </div>
 
     <!-- Stats -->
-    <div class="hero-stats-row reveal d3">
+    <div class="hero-stats-row reveal d2">
       <div class="hero-stat-card">
-        <div class="hero-stat-num">20+</div>
-        <div class="hero-stat-label">let praxe<br>dohromady</div>
+        <div class="hero-stat-num">12+</div>
+        <div class="hero-stat-label">let<br>v oboru</div>
       </div>
       <div class="hero-stat-card">
-        <div class="hero-stat-num">360°</div>
-        <div class="hero-stat-label">komplexní<br>péče</div>
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">oceněných<br>firem</div>
       </div>
       <div class="hero-stat-card">
-        <div class="hero-stat-num">CZ</div>
-        <div class="hero-stat-label">online & osobně<br>celá republika</div>
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">vlastní<br>projekty</div>
       </div>
     </div>
   </div>
@@ -731,21 +81,19 @@ footer {
   <div class="marquee-track">
     <span class="marquee-item">Finanční řízení</span>
     <span class="marquee-item">Valuace společností</span>
-    <span class="marquee-item">Finanční řízení</span>
-    <span class="marquee-item">Rodinný finanční plán</span>
-    <span class="marquee-item">360° Finanční péče</span>
-    <span class="marquee-item">Hypoteční poradenství</span>
-    <span class="marquee-item">DIP & zaměstnanecké benefity</span>
-    <span class="marquee-item">Pojistná ochrana</span>
+    <span class="marquee-item">CFO na volné noze</span>
+    <span class="marquee-item">Cashflow management</span>
+    <span class="marquee-item">M&A poradenství</span>
+    <span class="marquee-item">Startupy od začátku</span>
+    <span class="marquee-item">Finanční plán</span>
     <span class="marquee-item">Ocenění firmy</span>
     <span class="marquee-item">Finanční řízení</span>
     <span class="marquee-item">Valuace společností</span>
-    <span class="marquee-item">Finanční řízení</span>
-    <span class="marquee-item">Rodinný finanční plán</span>
-    <span class="marquee-item">360° Finanční péče</span>
-    <span class="marquee-item">Hypoteční poradenství</span>
-    <span class="marquee-item">DIP & zaměstnanecké benefity</span>
-    <span class="marquee-item">Pojistná ochrana</span>
+    <span class="marquee-item">CFO na volné noze</span>
+    <span class="marquee-item">Cashflow management</span>
+    <span class="marquee-item">M&A poradenství</span>
+    <span class="marquee-item">Startupy od začátku</span>
+    <span class="marquee-item">Finanční plán</span>
     <span class="marquee-item">Ocenění firmy</span>
   </div>
 </div>
@@ -753,62 +101,56 @@ footer {
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-header reveal">
-    <p class="s-eyebrow">Kdo jsme</p>
-    <h2 class="s-h2">Manželé. Odborníci.<br><em>Váš finanční tým.</em></h2>
-    <p>Josef a Andrea Klimentovi - 10 let praxe každý, dohromady kompletní finanční péče pod jednou střechou. Žijeme v Ostravě, pracujeme s klienty z celé republiky.</p>
+    <p class="s-eyebrow">O mně</p>
+    <h2 class="s-h2">Vyšel jsem z čísel.<br><em>Zůstal jsem u nich.</em></h2>
+    <p>Začínal jsem v účetnictví. Postupně jsem se dostal k finančnímu řízení, oceňování firem a M&A poradenství. Dnes vedu vlastní projekty — a pomáhám ostatním nedělat chyby, které jsem viděl zblízka.</p>
   </div>
 
-  <div class="profiles-grid">
-    <div class="profile-card reveal d1">
-      <div class="profile-card-top">
-        <div class="profile-card-bg-letter">J</div>
-        <div class="profile-avatar">J</div>
-        <span class="profile-chip-tag">Finanční řízení & valuace</span>
-        <h2 class="p-name">Josef<br>Kliment</h2>
-        <p class="p-role">Finanční poradce · Finanční analytik</p>
+  <div class="profile-card reveal d1">
+    <div class="profile-card-top">
+      <div class="profile-card-bg-letter">J</div>
+      <div class="profile-avatar">J</div>
+      <span class="profile-chip-tag">Finanční poradce & business advisor</span>
+      <h2 class="p-name">Josef Kliment</h2>
+      <p class="p-role">CFO na volné noze · Valuace · M&A · Ostrava</p>
+    </div>
+    <div class="profile-card-body">
+      <p class="p-bio">Začínal jsem v účetnictví. Prošel jsem finančním řízením, oceňováním firem i poradenstvím při jejich prodeji. Dnes vedu vlastní firmy a pomáhám majitelům a zakladatelům nedělat chyby, které jsem viděl zblízka. Řeším čísla — a říkám věci na rovinu.</p>
+      <div class="p-skills">
+        <span class="p-skill">Finanční řízení</span>
+        <span class="p-skill">Valuace firem</span>
+        <span class="p-skill">M&A poradenství</span>
+        <span class="p-skill">Cashflow management</span>
+        <span class="p-skill">Finanční analýza</span>
+        <span class="p-skill">Startupy od základů</span>
       </div>
-      <div class="profile-card-body">
-        <p class="p-bio">Deset let praxe ve finančním řízení a oceňování firem. Pomáhám majitelům pochopit jejich čísla - a nastavit firmu tak, aby rostla. Hledám slabá místa, posiluji silné stránky a dávám financím směr.</p>
-        <div class="p-skills">
-          <span class="p-skill">Finanční řízení</span>
-          <span class="p-skill">Valuace firem</span>
-          <span class="p-skill">Finanční řízení</span>
-          <span class="p-skill">Finanční analýza</span>
-          <span class="p-skill">Vedení účetnictví</span>
-          <span class="p-skill">Strategické poradenství</span>
-        </div>
-        <div class="p-stats">
-          <div><div class="p-stat-n">10+</div><div class="p-stat-l">let v oboru</div></div>
-          <div><div class="p-stat-n">50+</div><div class="p-stat-l">oceněných firem</div></div>
-          <div><div class="p-stat-n">∞</div><div class="p-stat-l">spokojených klientů</div></div>
-        </div>
+      <div class="p-stats">
+        <div><div class="p-stat-n">12+</div><div class="p-stat-l">let v oboru</div></div>
+        <div><div class="p-stat-n">50+</div><div class="p-stat-l">oceněných firem</div></div>
+        <div><div class="p-stat-n">3</div><div class="p-stat-l">vlastní projekty</div></div>
       </div>
     </div>
+  </div>
 
-    <div class="profile-card reveal d3">
-      <div class="profile-card-top">
-        <div class="profile-card-bg-letter">A</div>
-        <div class="profile-avatar">A</div>
-        <span class="profile-chip-tag">Pojišťovnictví & bankovnictví</span>
-        <h2 class="p-name">Andrea<br>Klimentová</h2>
-        <p class="p-role">Certifikovaná finanční poradkyně</p>
+  <!-- Andrea block -->
+  <div class="andrea-block reveal d2">
+    <div class="andrea-block-left">
+      <p class="andrea-block-eyebrow">A ještě jedna věc</p>
+      <h3 class="andrea-block-title">Andrea Klimentová</h3>
+      <p class="andrea-block-subtitle">Pojišťovnictví · Hypotéky · DIP & benefity</p>
+      <p class="andrea-block-text">Moje žena Andrea pokrývá osobní a rodinné finance. Deset let zkušeností se všemi bankami a pojišťovnami. Pokud chcete komplexní péči pro sebe i firmu — jsme tu oba.</p>
+      <div class="andrea-block-tags">
+        <span class="hero-card-tag">Pojišťovnictví</span>
+        <span class="hero-card-tag">Hypotéky</span>
+        <span class="hero-card-tag">DIP & benefity</span>
+        <span class="hero-card-tag">Investice</span>
       </div>
-      <div class="profile-card-body">
-        <p class="p-bio">Deset let zkušeností se všemi bankami a pojišťovnami na trhu. Specializuji se na komplexní finanční plánování - od zajištění rodiny přes hypotéky až po optimalizaci firemních benefitů a DIP. Vždy hledám to nejlepší pro klienta, ne pro produkt.</p>
-        <div class="p-skills">
-          <span class="p-skill">Pojišťovnictví</span>
-          <span class="p-skill">Hypotéky & refinancování</span>
-          <span class="p-skill">Finanční plánování</span>
-          <span class="p-skill">DIP & benefity</span>
-          <span class="p-skill">Investice & spoření</span>
-          <span class="p-skill">Daňová optimalizace</span>
-        </div>
-        <div class="p-stats">
-          <div><div class="p-stat-n">10+</div><div class="p-stat-l">let v oboru</div></div>
-          <div><div class="p-stat-n">All</div><div class="p-stat-l">banky & pojišťovny</div></div>
-          <div><div class="p-stat-n">✓</div><div class="p-stat-l">certifikace</div></div>
-        </div>
-      </div>
+      <a href="#andrea" class="btn-ghost">Přejít na Andreinu sekci →</a>
+    </div>
+    <div class="andrea-block-right">
+      <div class="andrea-info-row"><span>🏠</span> Hypotéky & refinancování</div>
+      <div class="andrea-info-row"><span>👨‍👩‍👦</span> Rodinný finanční plán</div>
+      <div class="andrea-info-row"><span>💼</span> DIP & zaměstnanecké benefity</div>
     </div>
   </div>
 </section>
@@ -817,74 +159,52 @@ footer {
 <section class="products-section" id="services">
   <div class="products-header reveal">
     <div>
-      <p class="s-eyebrow">Naše produkty</p>
-      <h2 class="s-h2">Co pro vás<br><em>uděláme</em></h2>
+      <p class="s-eyebrow">Služby</p>
+      <h2 class="s-h2">Jak pomáhám<br><em>konkrétně</em></h2>
     </div>
-    <p class="products-header-right">Čtyři stěžejní produkty navržené tak, aby pokryly vaše finanční potřeby od A do Z.</p>
+    <p class="products-header-right">Tři fáze spolupráce — od prvního dne podnikání až po úspěšný prodej firmy.</p>
   </div>
 
   <div class="products-grid">
     <div class="prod-card prod-card-1 reveal d1">
-      <div class="prod-flag">📊 Josef Kliment</div>
-      <h3 class="prod-name">CFO<br>na volné noze</h3>
-      <p class="prod-desc">Pravidelné finanční řízení vaší firmy bez nutnosti zaměstnávat vlastního finančního ředitele. Získáte strategického partnera, který zná vaše čísla stejně dobře jako vy.</p>
+      <div class="prod-flag">🚀 Pro začínající firmy & startupy</div>
+      <h3 class="prod-name">Rozjeď to<br>správně</h3>
+      <p class="prod-desc">Finanční plán, rozpočet a cashflow od prvního dne. Pomůžu ti nastavit základy tak, aby tě nezaskočil první únor bez peněz.</p>
       <ul class="prod-list">
-        <li>Měsíční finanční reporting a analýza</li>
-        <li>Cashflow management a plánování</li>
+        <li>Sestavení finančního plánu</li>
+        <li>Nastavení cashflow sledování</li>
+        <li>Rozpočet a jeho hlídání</li>
+        <li>OSVČ vs. s.r.o. — kdy a jak přejít</li>
+        <li>Příprava pro první investory</li>
+      </ul>
+      <p class="prod-for">Ideální pro: <span>&nbsp;zakladatelé, startupy 0–3 roky</span></p>
+    </div>
+
+    <div class="prod-card prod-card-2 reveal d2">
+      <div class="prod-flag">📊 Průběžná spolupráce</div>
+      <h3 class="prod-name">CFO<br>na volné noze</h3>
+      <p class="prod-desc">Pravidelné finanční řízení vaší firmy bez vlastního finančního ředitele. Znám vaše čísla stejně dobře jako vy.</p>
+      <ul class="prod-list">
+        <li>Měsíční finanční reporting</li>
+        <li>Cashflow management</li>
         <li>Identifikace úspor a rizik</li>
         <li>Podpora při jednání s bankami</li>
+        <li>Strategické finanční plánování</li>
       </ul>
       <p class="prod-for">Ideální pro: <span>&nbsp;firmy 5–50 zaměstnanců</span></p>
     </div>
 
-    <div class="prod-card prod-card-2 reveal d2">
-      <div class="prod-flag">🔍 Josef Kliment</div>
-      <h3 class="prod-name">Ocenění<br>společnosti</h3>
-      <p class="prod-desc">Profesionální valuace s jasným výstupem a interpretací. Ať plánujete prodej, vstup investora, nebo chcete vědět, co vaše podnikání stojí.</p>
+    <div class="prod-card prod-card-3 reveal d3">
+      <div class="prod-flag">🔍 Jednorázová spolupráce</div>
+      <h3 class="prod-name">Prodej za<br>maximum</h3>
+      <p class="prod-desc">Profesionální valuace s jasným výstupem. Ať plánujete prodej, vstup investora, nebo chcete vědět, co vaše firma skutečně stojí.</p>
       <ul class="prod-list">
-        <li>Analýza historických finančních dat</li>
         <li>Ocenění metodami DCF a srovnávací analýzy</li>
-        <li>Identifikace co snižuje / zvyšuje hodnotu</li>
+        <li>Co hodnotu snižuje a zvyšuje</li>
+        <li>M&A poradenství při prodeji</li>
         <li>Písemná zpráva + konzultace výsledků</li>
       </ul>
       <p class="prod-for">Ideální pro: <span>&nbsp;prodej firmy, M&A, vstup investora</span></p>
-    </div>
-
-    <div class="prod-card prod-card-3 reveal d1">
-      <div class="prod-flag">👨‍👩‍👦 Andrea Klimentová</div>
-      <h3 class="prod-name">Rodinný<br>finanční plán</h3>
-      <p class="prod-desc">Kompletní nastavení osobních a rodinných financí. Pojistíme co máte, zhodnotíme co spoříte a připravíme vás na budoucnost - plánovanou i neplánovanou.</p>
-      <ul class="prod-list">
-        <li>Analýza a optimalizace pojistné ochrany</li>
-        <li>Hypoteční poradenství a refinancování</li>
-        <li>Nastavení spoření a investic dle cílů</li>
-        <li>Roční přehled a aktualizace plánu</li>
-      </ul>
-      <p class="prod-for">Ideální pro: <span>&nbsp;rodiny, páry, mladí s hypotékou</span></p>
-    </div>
-
-    <!-- FLAGSHIP -->
-    <div class="prod-card prod-card-4 reveal d2">
-      <div class="prod-inner">
-        <div>
-          <div class="prod-card-4-badge">⭐ Vlajkový produkt</div>
-          <div class="prod-flag" style="margin-bottom:20px">Josef + Andrea Klimentovi</div>
-          <h3 class="prod-name">360° Finanční<br>péče</h3>
-          <p class="prod-desc" style="max-width:400px">Naše nejkomplexnější služba. Josef řídí vaši firmu, Andrea zajišťuje vás a vaše lidi. Jedno kontaktní místo pro vše finanční - osobní i firemní. Nikdo jiný tohle nenabídne pod jednou střechou.</p>
-        </div>
-        <div>
-          <ul class="prod-list">
-            <li>Finanční poradenství + finanční řízení firmy</li>
-            <li>Osobní a rodinné finanční plánování</li>
-            <li>Nastavení DIP a penzijních benefitů pro zaměstnance</li>
-            <li>Daňová optimalizace přes pojistné produkty</li>
-            <li>Hypoteční poradenství a refinancování</li>
-            <li>Kvartální review a strategické plánování</li>
-            <li>Koordinace osobních a firemních financí</li>
-          </ul>
-          <p class="prod-for" style="margin-top:28px; padding-top:20px">Ideální pro: <span>&nbsp;majitelé firem, kteří chtějí vše pod jednou střechou</span></p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -902,14 +222,14 @@ footer {
       <p class="mini-desc">Jednorázová analýza finančního zdraví firmy. Zjistíte, kde ztrácíte, kde vyděláváte a dostanete konkrétní akční plán pro zlepšení výsledků.</p>
     </div>
     <div class="mini-card reveal d2">
-      <span class="mini-emoji">🏠</span>
-      <p class="mini-name">Hypoteční navigátor</p>
-      <p class="mini-desc">Průvodce celým procesem hypotéky - příprava, výběr z celého trhu, optimální podmínky. Andrea zajistí, že neplatíte víc, než musíte.</p>
+      <span class="mini-emoji">📊</span>
+      <p class="mini-name">Startup finanční kit</p>
+      <p class="mini-desc">Jednorázové nastavení financí pro nový byznys. Odejdete s plánem, šablonou cashflow a jasnem v číslech.</p>
     </div>
     <div class="mini-card reveal d3">
       <span class="mini-emoji">💼</span>
-      <p class="mini-name">Benefit & DIP Setup</p>
-      <p class="mini-desc">Nastavení zaměstnaneckých benefitů přes DIP a penzijní spoření. Daňově výhodné pro firmu i zaměstnance - zvýšíte atraktivitu bez zvýšení mzdových nákladů.</p>
+      <p class="mini-name">Příprava na investora</p>
+      <p class="mini-desc">Pomůžu vám připravit finanční podklady které investor chce vidět. Čistá čísla, reálné projekce, věrohodný pitch.</p>
     </div>
   </div>
 </section>
@@ -919,11 +239,11 @@ footer {
   <div class="why-inner">
     <div class="reveal">
       <p class="s-eyebrow">Proč Kliments</p>
-      <h2 class="s-h2">Finanční péče<br>jako <em>systém</em></h2>
-      <p class="why-intro">Nejsme jen poradci. Jsme manželé, kteří každý den propojují svět firemních financí se světem osobního zajištění. Vidíme vaši situaci celostně - a to se projevuje na výsledcích.</p>
+      <h2 class="s-h2">Proč to<br>funguje jako <em>systém</em></h2>
+      <p class="why-intro">Nejsem poradce co přijde jednou za rok. Jsem partner, který zná vaše čísla — a říká věci na rovinu, i když to není příjemné.</p>
       <div class="why-quote">
-        <p class="why-quote-text">„Každý klient si zaslouží finanční plán šitý na míru - ne produkt ze šuplíku."</p>
-        <p class="why-quote-sig">- Josef & Andrea Klimentovi, Ostrava</p>
+        <p class="why-quote-text">„Viděl jsem zblízka jak firmy umírají. Většinou ne na špatný nápad — ale na cashflow, který ignorovaly příliš dlouho."</p>
+        <p class="why-quote-sig">- Josef Kliment, Ostrava</p>
       </div>
     </div>
 
@@ -931,22 +251,22 @@ footer {
       <div class="why-item">
         <span class="why-n">01</span>
         <div>
-          <p class="why-t">Dva odborníci, jedno místo</p>
-          <p class="why-d">Josef a Andrea koordinují vaše firemní i osobní finance dohromady. Žádné mezery, žádné překrývání, žádné ztracené příležitosti mezi obory.</p>
+          <p class="why-t">Vím jak to chodí zevnitř</p>
+          <p class="why-d">Sám vedu vlastní firmy. Nejde o teorii — jde o věci, které řeším každý den.</p>
         </div>
       </div>
       <div class="why-item">
         <span class="why-n">02</span>
         <div>
-          <p class="why-t">Nezávislé poradenství</p>
-          <p class="why-d">Andrea pracuje se všemi bankami a pojišťovnami na trhu. Vždy dostanete to nejlepší dostupné řešení - ne to, co se právě hodí prodat.</p>
+          <p class="why-t">Říkám věci na rovinu</p>
+          <p class="why-d">Nedostanete nic zalakovaného. Dostanete reálný pohled na vaše čísla a konkrétní kroky.</p>
         </div>
       </div>
       <div class="why-item">
         <span class="why-n">03</span>
         <div>
-          <p class="why-t">20 let praxe v číslech</p>
-          <p class="why-d">Dohromady dvě dekády reálné práce s firmami i rodinami. Víme, co funguje v praxi - a dokážeme to vysvětlit srozumitelně.</p>
+          <p class="why-t">Od účetnictví po M&A</p>
+          <p class="why-d">12 let praxe od základů účetnictví po prodej firem. Rozumím celé cestě.</p>
         </div>
       </div>
       <div class="why-item">
@@ -955,6 +275,51 @@ footer {
           <p class="why-t">Online i osobně, celá ČR</p>
           <p class="why-d">Sídlíme v Ostravě, ale pracujeme s klienty z celé republiky. Online konzultace jsou stejně efektivní jako osobní setkání.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANDREA -->
+<section class="andrea-section" id="andrea">
+  <div class="reveal">
+    <p class="s-eyebrow">Andrea Klimentová</p>
+    <h2 class="s-h2">Pojišťovnictví,<br>hypotéky & <em>plánování</em></h2>
+  </div>
+
+  <div class="andrea-section-content">
+    <div class="andrea-section-left reveal d1">
+      <p>Zatímco já se starám o firemní čísla, Andrea pokrývá osobní a rodinné finance. Deset let zkušeností se všemi bankami a pojišťovnami. Vždy hledá nejlepší řešení pro klienta — ne pro produkt.</p>
+      <div class="p-skills">
+        <span class="p-skill">Pojišťovnictví</span>
+        <span class="p-skill">Hypotéky & refinancování</span>
+        <span class="p-skill">DIP & benefity</span>
+        <span class="p-skill">Investice & spoření</span>
+        <span class="p-skill">Finanční plánování</span>
+        <span class="p-skill">Daňová optimalizace</span>
+      </div>
+      <div class="p-stats">
+        <div><div class="p-stat-n">10+</div><div class="p-stat-l">let v oboru</div></div>
+        <div><div class="p-stat-n">All</div><div class="p-stat-l">banky & pojišťovny</div></div>
+        <div><div class="p-stat-n">✓</div><div class="p-stat-l">certifikace</div></div>
+      </div>
+    </div>
+
+    <div class="andrea-section-right reveal d2">
+      <div class="mini-card">
+        <span class="mini-emoji">🏠</span>
+        <p class="mini-name">Hypoteční navigátor</p>
+        <p class="mini-desc">Průvodce celým procesem hypotéky - příprava, výběr z celého trhu, optimální podmínky. Andrea zajistí, že neplatíte víc, než musíte.</p>
+      </div>
+      <div class="mini-card">
+        <span class="mini-emoji">👨‍👩‍👦</span>
+        <p class="mini-name">Rodinný finanční plán</p>
+        <p class="mini-desc">Kompletní nastavení osobních a rodinných financí. Pojistíme co máte, zhodnotíme co spoříte a připravíme vás na budoucnost.</p>
+      </div>
+      <div class="mini-card">
+        <span class="mini-emoji">💼</span>
+        <p class="mini-name">Benefit & DIP Setup</p>
+        <p class="mini-desc">Nastavení zaměstnaneckých benefitů přes DIP a penzijní spoření. Daňově výhodné pro firmu i zaměstnance - zvýšíte atraktivitu bez zvýšení mzdových nákladů.</p>
       </div>
     </div>
   </div>
@@ -1004,7 +369,7 @@ footer {
 <section class="cta-band">
   <div class="cta-band-tag">✦ Kliments · Ostrava & celá ČR</div>
   <h2>První konzultace<br><em>je zdarma</em></h2>
-  <p>Zjistěte za 30 minut, kde máte finanční rezervy - a co s tím dělat. Bez závazku, online nebo osobně.</p>
+  <p>30 minut. Řeknete mi kde jste, já řeknu jak vám můžu pomoct. Bez závazku.</p>
   <div class="cta-band-btns">
     <a href="#contact" class="btn-white">Rezervovat konzultaci →</a>
     <a href="#services" class="btn-outline-white">Prohlédnout služby</a>
@@ -1020,16 +385,17 @@ footer {
     <div class="c-persons">
       <div>
         <p class="c-pname">Josef Kliment</p>
-        <div class="c-line"><span class="c-icon">✉</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83e9ecf0e6e5c3e8efeaeee6edf7f0ade0f9">[email&#160;protected]</a></div>
+        <div class="c-line"><span class="c-icon">✉</span> josef@kliments.cz</div>
         <div class="c-line"><span class="c-icon">☎</span> +420 xxx xxx xxx</div>
         <div class="c-line"><span class="c-icon">◈</span> Finanční řízení, valuace, CFO</div>
       </div>
       <div class="c-sep"></div>
       <div>
         <p class="c-pname">Andrea Klimentová</p>
-        <div class="c-line"><span class="c-icon">✉</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="77161913051216371c1b1e1a1219030459140d">[email&#160;protected]</a></div>
+        <div class="c-line"><span class="c-icon">✉</span> andrea@kliments.cz</div>
         <div class="c-line"><span class="c-icon">☎</span> +420 xxx xxx xxx</div>
         <div class="c-line"><span class="c-icon">◈</span> Pojišťovnictví, hypotéky, plánování</div>
+        <div class="c-line"><span class="c-icon">&nbsp;</span> (pojišťovnictví, hypotéky, rodinné finance)</div>
       </div>
     </div>
     <div class="c-location">
@@ -1052,12 +418,13 @@ footer {
           <select class="fs">
             <option value="">Vyberte službu...</option>
             <option>Finanční řízení</option>
-            <option>Ocenění společnosti</option>
-            <option>Rodinný finanční plán</option>
-            <option>360° Finanční péče</option>
-            <option>Hypoteční navigátor</option>
-            <option>Benefit & DIP Setup</option>
-            <option>Firemní finanční audit</option>
+            <option>CFO na volné noze</option>
+            <option>Valuace společnosti</option>
+            <option>M&A poradenství</option>
+            <option>Startup finanční kit</option>
+            <option>Příprava na investora</option>
+            <option>Dotaz pro Andreu — pojišťovnictví</option>
+            <option>Dotaz pro Andreu — hypotéky</option>
             <option>Jiné</option>
           </select>
         </div>
@@ -1075,43 +442,12 @@ footer {
   <p class="footer-copy">© 2025 Kliments - Josef & Andrea Klimentovi · Ostrava</p>
   <ul class="footer-links">
     <li><a href="#">LinkedIn</a></li>
-    <li><a href="#">Instagram</a></li>
+    <li><a href="https://instagram.com/kliments.cz" target="_blank" rel="noopener">Instagram</a></li>
     <li><a href="#">GDPR</a></li>
     <li><a href="#contact">Kontakt</a></li>
   </ul>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Custom cursor
-const cur = document.getElementById('cur');
-const curR = document.getElementById('cur-r');
-let mx = 0, my = 0, rx = 0, ry = 0;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cur.style.left = mx + 'px';
-  cur.style.top = my + 'px';
-});
-
-(function loop() {
-  rx += (mx - rx) * 0.1;
-  ry += (my - ry) * 0.1;
-  curR.style.left = rx + 'px';
-  curR.style.top = ry + 'px';
-  requestAnimationFrame(loop);
-})();
-
-document.querySelectorAll('a, button, .prod-card, .mini-card, .profile-card, .p-skill').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cur.style.width = '20px'; cur.style.height = '20px';
-    curR.style.width = '60px'; curR.style.height = '60px';
-  });
-  el.addEventListener('mouseleave', () => {
-    cur.style.width = '12px'; cur.style.height = '12px';
-    curR.style.width = '40px'; curR.style.height = '40px';
-  });
-});
-
-// Scroll reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.
+<script src="script.js"></script>
+</body>
+</html>
