@@ -734,6 +734,38 @@ footer {
 .calc-svc-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
 .calc-svc-desc { font-size: 0.75rem; color: var(--mid); margin-top: 2px; }
 .calc-svc-price { font-size: 0.82rem; font-weight: 500; color: var(--rose); white-space: nowrap; }
+.calc-info-btn {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1.5px solid var(--border); background: transparent;
+  color: var(--mid); font-size: 0.7rem; font-weight: 600;
+  font-family: 'Lora', Georgia, serif; font-style: italic;
+  cursor: pointer; flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.calc-info-btn:hover { border-color: var(--rose); color: var(--rose); }
+.calc-info-btn.open { background: var(--rose); border-color: var(--rose); color: white; }
+.calc-svc-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 20px;
+}
+.calc-svc-detail.open {
+  max-height: 300px;
+  padding: 12px 20px 16px;
+}
+.calc-svc-detail ul {
+  list-style: none; display: flex; flex-direction: column; gap: 6px;
+  padding-left: 34px;
+}
+.calc-svc-detail li {
+  font-size: 0.78rem; color: var(--mid); line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.calc-svc-detail li::before {
+  content: '→'; color: var(--rose); flex-shrink: 0; font-size: 0.72rem; margin-top: 1px;
+}
+.calc-svc-wrap { margin-bottom: 0; }
 .calc-monthly-tag {
   font-size: 0.6rem; background: var(--rose-blush);
   color: var(--rose-deep); padding: 2px 8px;

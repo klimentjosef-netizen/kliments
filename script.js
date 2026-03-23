@@ -41,12 +41,50 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ── Pricing calculator ──
 const CALC_SERVICES = [
-  { id:'rozjed', name:'Rozjeď to správně', desc:'Finanční plán, cashflow, rozpočet', price:24900, monthly:false },
-  { id:'cfo', name:'CFO na volné noze', desc:'Měsíční finanční řízení a reporting', price:15000, monthly:true },
-  { id:'prodej', name:'Prodej za maximum', desc:'Valuace DCF, M&A poradenství', price:59900, monthly:false },
-  { id:'audit', name:'Firemní finanční audit', desc:'Jednorázová analýza zdraví firmy', price:9900, monthly:false },
-  { id:'kit', name:'Startup finanční kit', desc:'Rychlé nastavení financí', price:14900, monthly:false },
-  { id:'investor', name:'Příprava na investora', desc:'Finanční podklady pro fundraising', price:24900, monthly:false },
+  { id:'rozjed', name:'Rozjeď to správně', desc:'Finanční plán, cashflow, rozpočet', price:24900, monthly:false,
+    details: [
+      'Sestavení finančního plánu na míru',
+      'Nastavení cashflow sledování',
+      'Rozpočet a jeho hlídání',
+      'OSVČ vs. s.r.o., kdy a jak přejít',
+      'Příprava pro první investory'
+    ]},
+  { id:'cfo', name:'CFO na volné noze', desc:'Měsíční finanční řízení a reporting', price:15000, monthly:true,
+    details: [
+      'Měsíční finanční reporting',
+      'Cashflow management a plánování',
+      'Identifikace úspor a rizik',
+      'Podpora při jednání s bankami',
+      'Strategické finanční plánování'
+    ]},
+  { id:'prodej', name:'Prodej za maximum', desc:'Valuace DCF, M&A poradenství', price:59900, monthly:false,
+    details: [
+      'Ocenění metodami DCF a srovnávací analýzy',
+      'Analýza co hodnotu snižuje a zvyšuje',
+      'M&A poradenství při prodeji',
+      'Písemná zpráva + konzultace výsledků'
+    ]},
+  { id:'audit', name:'Firemní finanční audit', desc:'Jednorázová analýza zdraví firmy', price:9900, monthly:false,
+    details: [
+      'Kompletní analýza finančního zdraví',
+      'Kde firma ztrácí a kde vydělává',
+      'Konkrétní akční plán pro zlepšení',
+      'Porovnání s oborovým průměrem'
+    ]},
+  { id:'kit', name:'Startup finanční kit', desc:'Rychlé nastavení financí', price:14900, monthly:false,
+    details: [
+      'Jednorázové nastavení financí',
+      'Finanční plán pro první rok',
+      'Šablona cashflow tabulky',
+      'Doporučení účetního systému'
+    ]},
+  { id:'investor', name:'Příprava na investora', desc:'Finanční podklady pro fundraising', price:24900, monthly:false,
+    details: [
+      'Finanční model a projekce',
+      'Unit economics a KPI metriky',
+      'Pitch deck podklady (čísla)',
+      'Reálné projekce, ne wishful thinking'
+    ]},
 ];
 const CALC_PRESETS = {
   start: ['rozjed','kit'],
@@ -70,6 +108,9 @@ function renderCalcServices() {
   list.innerHTML = '';
   CALC_SERVICES.forEach(svc => {
     const checked = calcSelected.has(svc.id);
+    const wrap = document.createElement('div');
+    wrap.className = 'calc-svc-wrap';
+
     const row = document.createElement('div');
     row.className = 'calc-svc-row' + (checked ? ' checked' : '');
     row.innerHTML = `
@@ -78,13 +119,42 @@ function renderCalcServices() {
         <div class="calc-svc-name">${svc.name}${svc.monthly ? '<span class="calc-monthly-tag">měsíční</span>' : ''}</div>
         <div class="calc-svc-desc">${svc.desc}</div>
       </div>
-      <div class="calc-svc-price">od ${svc.price.toLocaleString('cs-CZ')} Kč</div>`;
-    row.onclick = () => {
+      <div class="calc-svc-price">od ${svc.price.toLocaleString('cs-CZ')} Kč</div>
+      <button class="calc-info-btn" title="Co se řeší">i</button>`;
+
+    row.querySelector('.calc-svc-check').onclick = (e) => {
+      e.stopPropagation();
       if (calcSelected.has(svc.id)) calcSelected.delete(svc.id);
       else calcSelected.add(svc.id);
       renderCalcServices();
     };
-    list.appendChild(row);
+    row.querySelector('.calc-svc-info').onclick = (e) => {
+      e.stopPropagation();
+      if (calcSelected.has(svc.id)) calcSelected.delete(svc.id);
+      else calcSelected.add(svc.id);
+      renderCalcServices();
+    };
+    row.querySelector('.calc-svc-price').onclick = (e) => {
+      e.stopPropagation();
+      if (calcSelected.has(svc.id)) calcSelected.delete(svc.id);
+      else calcSelected.add(svc.id);
+      renderCalcServices();
+    };
+
+    const infoBtn = row.querySelector('.calc-info-btn');
+    const detail = document.createElement('div');
+    detail.className = 'calc-svc-detail';
+    detail.innerHTML = '<ul>' + svc.details.map(d => '<li>' + d + '</li>').join('') + '</ul>';
+
+    infoBtn.onclick = (e) => {
+      e.stopPropagation();
+      detail.classList.toggle('open');
+      infoBtn.classList.toggle('open');
+    };
+
+    wrap.appendChild(row);
+    wrap.appendChild(detail);
+    list.appendChild(wrap);
   });
 }
 
