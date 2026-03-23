@@ -41,6 +41,13 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ── Pricing calculator ──
 const CALC_SERVICES = [
+  { id:'prohlidka', name:'Finanční zdravotní prohlídka', desc:'Analýza čísel, rizika, akční plán', price:4900, monthly:false,
+    details: [
+      'Analýza cashflow a výsledovky',
+      'Identifikace největších rizik',
+      'Konkrétní akční plán',
+      '90minutová konzultace výsledků'
+    ]},
   { id:'rozjed', name:'Rozjeď to správně', desc:'Finanční plán, cashflow, rozpočet', price:24900, monthly:false,
     details: [
       'Sestavení finančního plánu na míru',
@@ -71,13 +78,6 @@ const CALC_SERVICES = [
       'Konkrétní akční plán pro zlepšení',
       'Porovnání s oborovým průměrem'
     ]},
-  { id:'kit', name:'Startup finanční kit', desc:'Rychlé nastavení financí', price:14900, monthly:false,
-    details: [
-      'Jednorázové nastavení financí',
-      'Finanční plán pro první rok',
-      'Šablona cashflow tabulky',
-      'Doporučení účetního systému'
-    ]},
   { id:'investor', name:'Příprava na investora', desc:'Finanční podklady pro fundraising', price:24900, monthly:false,
     details: [
       'Finanční model a projekce',
@@ -85,9 +85,16 @@ const CALC_SERVICES = [
       'Pitch deck podklady (čísla)',
       'Reálné projekce, ne wishful thinking'
     ]},
+  { id:'mentoring', name:'Mentoring pro zakladatele', desc:'Balíček 3 hodin 1 na 1', price:7900, monthly:false,
+    details: [
+      '3 hodiny individuálních konzultací',
+      'Finanční i byznysové poradenství',
+      'Flexibilní rozložení v čase',
+      'Pro zakladatele co chtějí poradit'
+    ]},
 ];
 const CALC_PRESETS = {
-  start: ['rozjed','kit'],
+  start: ['prohlidka','rozjed'],
   running: ['cfo','audit'],
   sell: ['prodej','investor'],
 };
