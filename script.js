@@ -41,7 +41,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ── Pricing calculator ──
 const CALC_SERVICES = [
-  { id:'prohlidka', name:'Finanční zdravotní prohlídka', desc:'Analýza čísel, rizika, akční plán', price:4900, monthly:false,
+  { id:'prohlidka', name:'Finanční diagnóza', desc:'Vstupní, 90 min, ústní zpětná vazba', price:4900, monthly:false,
     details: [
       'Analýza cashflow a výsledovky',
       'Identifikace největších rizik',
@@ -71,13 +71,6 @@ const CALC_SERVICES = [
       'M&A poradenství při prodeji',
       'Písemná zpráva + konzultace výsledků'
     ]},
-  { id:'audit', name:'Firemní finanční audit', desc:'Jednorázová analýza zdraví firmy', price:9900, monthly:false,
-    details: [
-      'Kompletní analýza finančního zdraví',
-      'Kde firma ztrácí a kde vydělává',
-      'Konkrétní akční plán pro zlepšení',
-      'Porovnání s oborovým průměrem'
-    ]},
   { id:'investor', name:'Příprava na investora', desc:'Finanční podklady pro fundraising', price:24900, monthly:false,
     details: [
       'Finanční model a projekce',
@@ -85,7 +78,7 @@ const CALC_SERVICES = [
       'Pitch deck podklady (čísla)',
       'Reálné projekce, ne wishful thinking'
     ]},
-  { id:'mentoring', name:'Mentoring pro zakladatele', desc:'Balíček 3 hodin 1 na 1', price:9990, monthly:false,
+  { id:'mentoring', name:'Mentoring pro zakladatele', desc:'Balíček 3 hodin 1 na 1', price:9900, monthly:false,
     details: [
       '3 hodiny individuálních konzultací',
       'Finanční i byznysové poradenství',
@@ -95,7 +88,7 @@ const CALC_SERVICES = [
 ];
 const CALC_PRESETS = {
   start: ['prohlidka','rozjed'],
-  running: ['cfo','audit'],
+  running: ['cfo','prohlidka'],
   sell: ['prodej','investor'],
 };
 let calcSelected = new Set();
