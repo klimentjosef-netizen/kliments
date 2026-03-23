@@ -207,6 +207,12 @@ nav {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 .hero-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(31,26,24,0.1); }
+.hero-card-photo {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; object-position: center top;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(201,123,132,0.25);
+}
 .hero-card-label {
   font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--rose); margin-bottom: 16px; font-weight: 500;
