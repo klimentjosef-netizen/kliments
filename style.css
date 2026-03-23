@@ -155,7 +155,7 @@ nav {
 }
 .hero-left {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 64px 80px 64px;
+  padding: 60px 64px 60px 64px;
   position: relative; z-index: 2;
 }
 .hero-tag {
@@ -168,22 +168,22 @@ nav {
 .hero-tag-text { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose-deep); font-weight: 500; }
 .hero-h1 {
   font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: clamp(54px, 5.8vw, 90px);
+  font-size: clamp(36px, 4vw, 62px);
   font-weight: 300; line-height: 1.0;
   color: var(--ink); margin-bottom: 10px;
 }
 .hero-h1 em { font-style: italic; color: var(--rose); }
 .hero-desc {
-  font-size: 1.05rem; line-height: 1.85; color: var(--mid);
-  max-width: 430px; margin-bottom: 52px; margin-top: 44px;
+  font-size: 0.95rem; line-height: 1.85; color: var(--mid);
+  max-width: 430px; margin-bottom: 40px; margin-top: 28px;
 }
 .hero-desc strong { color: var(--ink); font-weight: 500; }
 .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 .hero-right {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 120px 64px 80px 40px;
+  padding: 100px 48px 60px 32px;
   position: relative; z-index: 2;
-  gap: 20px;
+  gap: 14px;
 }
 .hero-deco-letter {
   position: absolute; top: 50%; right: 40px;
@@ -200,7 +200,7 @@ nav {
 .hero-card {
   background: white;
   border-radius: 24px;
-  padding: 36px 40px;
+  padding: 24px 28px;
   box-shadow: 0 4px 24px rgba(31,26,24,0.06);
   border: 1px solid var(--border-light);
   position: relative; z-index: 2;
@@ -231,14 +231,14 @@ nav {
   gap: 16px;
 }
 .hero-stat-card {
-  background: white; border-radius: 20px; padding: 28px 24px;
+  background: white; border-radius: 20px; padding: 20px 16px;
   box-shadow: 0 2px 16px rgba(31,26,24,0.05);
   border: 1px solid var(--border-light);
   text-align: center;
 }
 .hero-stat-num {
   font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  font-size: 2.4rem; font-weight: 300; color: var(--rose);
+  font-size: 1.8rem; font-weight: 300; color: var(--rose);
   line-height: 1; margin-bottom: 6px;
 }
 .hero-stat-label { font-size: 0.68rem; color: var(--mid); line-height: 1.4; }
