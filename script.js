@@ -41,13 +41,6 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ── Pricing calculator ──
 const CALC_SERVICES = [
-  { id:'prohlidka', name:'Finanční diagnóza', desc:'Vstupní, 90 min, ústní zpětná vazba', price:4900, monthly:false,
-    details: [
-      'Analýza cashflow a výsledovky',
-      'Identifikace největších rizik',
-      'Konkrétní akční plán',
-      '90minutová konzultace výsledků'
-    ]},
   { id:'rozjed', name:'Rozjeď to správně', desc:'Finanční plán, cashflow, rozpočet', price:24900, monthly:false,
     details: [
       'Sestavení finančního plánu na míru',
@@ -71,6 +64,20 @@ const CALC_SERVICES = [
       'M&A poradenství při prodeji',
       'Písemná zpráva + konzultace výsledků'
     ]},
+  { id:'audit', name:'Firemní finanční audit', desc:'Jednorázová analýza zdraví firmy', price:9900, monthly:false,
+    details: [
+      'Kompletní analýza finančního zdraví',
+      'Kde firma ztrácí a kde vydělává',
+      'Konkrétní akční plán pro zlepšení',
+      'Porovnání s oborovým průměrem'
+    ]},
+  { id:'kit', name:'Startup finanční kit', desc:'Rychlé nastavení financí', price:14900, monthly:false,
+    details: [
+      'Jednorázové nastavení financí',
+      'Finanční plán pro první rok',
+      'Šablona cashflow tabulky',
+      'Doporučení účetního systému'
+    ]},
   { id:'investor', name:'Příprava na investora', desc:'Finanční podklady pro fundraising', price:24900, monthly:false,
     details: [
       'Finanční model a projekce',
@@ -78,17 +85,10 @@ const CALC_SERVICES = [
       'Pitch deck podklady (čísla)',
       'Reálné projekce, ne wishful thinking'
     ]},
-  { id:'mentoring', name:'Mentoring pro zakladatele', desc:'Balíček 3 hodin 1 na 1', price:9900, monthly:false,
-    details: [
-      '3 hodiny individuálních konzultací',
-      'Finanční i byznysové poradenství',
-      'Flexibilní rozložení v čase',
-      'Pro zakladatele co chtějí poradit'
-    ]},
 ];
 const CALC_PRESETS = {
-  start: ['prohlidka','rozjed'],
-  running: ['cfo','prohlidka'],
+  start: ['rozjed','kit'],
+  running: ['cfo','audit'],
   sell: ['prodej','investor'],
 };
 let calcSelected = new Set();
@@ -228,4 +228,57 @@ function calcGoStep(n) {
   document.querySelectorAll('.calc-dot').forEach((d, i) => d.classList.toggle('active', i < n));
   if (n === 2) renderCalcServices();
   if (n === 4) renderCalcResult();
+}
+
+// ── Chat widget ──
+let chatOpen = false;
+let chatHistory = [];
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chat-panel').style.display = chatOpen ? 'flex' : 'none';
+  document.getElementById('chat-bubble').style.display = chatOpen ? 'none' : 'flex';
+  if (chatOpen) document.getElementById('chat-input').focus();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  input.value = '';
+  addChatMsg(msg, 'user');
+  chatHistory.push({ role: 'user', content: msg });
+
+  const typing = addChatMsg('Přemýšlím...', 'typing');
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: chatHistory }),
+    });
+    const data = await res.json();
+    typing.remove();
+
+    if (data.reply) {
+      addChatMsg(data.reply, 'bot');
+      chatHistory.push({ role: 'assistant', content: data.reply });
+    } else {
+      addChatMsg('Omlouvám se, něco se pokazilo. Zkuste to prosím znovu.', 'bot');
+    }
+  } catch (e) {
+    typing.remove();
+    addChatMsg('Omlouvám se, nemohu se připojit. Zkuste to prosím později.', 'bot');
+  }
+}
+
+function addChatMsg(text, type) {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg chat-' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
 }
