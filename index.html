@@ -3,10 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kliments · Business architekt</title>
+<title>Kliments · Finanční poradenství</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="Kliments · Business Architect">
+<meta property="og:description" content="Josef Kliment. Byznys architekt a finanční ředitel. Ostrava a celá ČR.">
+<meta property="og:image" content="https://kliments.vercel.app/og-image.png">
+<meta property="og:url" content="https://kliments.vercel.app">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kliments · Business Architect">
+<meta name="twitter:description" content="Josef Kliment. Byznys architekt a finanční ředitel. Ostrava a celá ČR.">
+<meta name="twitter:image" content="https://kliments.vercel.app/og-image.png">
+<meta name="description" content="Josef Kliment. Byznys architekt a finanční ředitel. Ostrava a celá ČR.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,6 +28,7 @@
 <nav>
   <a class="nav-logo" href="#">Kliments<span class="nav-logo-dot">.</span></a>
   <ul class="nav-links">
+    <li><a href="#about">O mně</a></li>
     <li><a href="#services">Služby</a></li>
     <li><a href="#projects">Projekty</a></li>
     <li><a href="#contact">Kontakt</a></li>
@@ -32,10 +43,10 @@
       <span class="hero-tag-dot"></span>
       <span class="hero-tag-text">Josef Kliment · Ostrava</span>
     </div>
-    <h1 class="hero-h1">Začínal jsem<br>v účetnictví.<br>Dnes pomáhám firmám<br>vydělávat víc a <em>prodat se za maximum.</em></h1>
-    <p class="hero-desc">Finanční plán, cashflow, valuace.
-Věci, které rozhodují o přežití byznysu.
-A které většina zakladatelů řeší až když je pozdě.</p>
+    <h1 class="hero-h1">Začínal jsem<br>v účetnictví.<br>Dnes pomáhám firmám<br>vydělávat víc<br>a <em>prodat se za maximum.</em></h1>
+    <p class="hero-desc">
+      Finanční plán, cashflow, valuace. Věci, které rozhodují o přežití byznysu. A které většina zakladatelů řeší až když je pozdě.
+    </p>
     <div class="hero-btns">
       <a href="#contact" class="btn-rose">Konzultace zdarma →</a>
       <a href="#services" class="btn-ghost">Prohlédnout služby</a>
@@ -99,42 +110,115 @@ A které většina zakladatelů řeší až když je pozdě.</p>
   </div>
 </div>
 
-<!-- SLUŽBY -->
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-header reveal">
+    <p class="s-eyebrow">O mně</p>
+    <h2 class="s-h2">Od první faktury<br><em>po prodej firmy.</em></h2>
+    <p>Začínal jsem v účetnictví. Postupně jsem se dostal k finančnímu řízení, oceňování firem a M&A poradenství. Dnes vedu vlastní projekty a pomáhám ostatním nedělat chyby, které jsem viděl zblízka.</p>
+  </div>
+
+  <div class="profile-card reveal d1">
+    <div class="profile-card-top">
+      <div class="profile-card-bg-letter">J</div>
+      <img class="profile-avatar-img" src="josef.png" alt="Josef Kliment">
+      <span class="profile-chip-tag">Byznys architekt · Finanční ředitel</span>
+      <h2 class="p-name">Josef Kliment</h2>
+      <p class="p-role">Byznys architekt · Finanční ředitel · Ostrava</p>
+    </div>
+    <div class="profile-card-body">
+      <p class="p-bio">Přes deset let pracuji s čísly. Od účetnictví přes finanční řízení až po oceňování firem a M&A poradenství. Dnes vedu vlastní firmy a pomáhám majitelům a zakladatelům nedělat chyby, které jsem viděl zblízka. Řeším čísla a říkám věci na rovinu.</p>
+      <div class="p-skills">
+        <span class="p-skill">Finanční řízení</span>
+        <span class="p-skill">Valuace firem</span>
+        <span class="p-skill">M&A poradenství</span>
+        <span class="p-skill">Cashflow management</span>
+        <span class="p-skill">Finanční analýza</span>
+        <span class="p-skill">Startupy od základů</span>
+      </div>
+      <div class="p-stats">
+        <div><div class="p-stat-n">12+</div><div class="p-stat-l">let v oboru</div></div>
+        <div><div class="p-stat-n">30+</div><div class="p-stat-l">oceněných firem</div></div>
+        <div><div class="p-stat-n">6</div><div class="p-stat-l">vlastní projekty</div></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <p class="s-eyebrow">Vlastní projekty</p>
+      <h2 class="s-h2">Neradím z teorie.<br><em>Podnikám.</em></h2>
+    </div>
+    <p class="projects-header-right">6 vlastních projektů. Od účetnictví po AI, od financí po ubytování.</p>
+  </div>
+  <div class="projects-grid">
+    <a href="https://mnai-nine.vercel.app/" target="_blank" rel="noopener" class="project-card reveal d1">
+      <p class="project-name">M&Ai</p>
+      <p class="project-desc">M&A poradenství. Nákup, prodej a oceňování firem s pomocí moderních technologií.</p>
+      <span class="project-role">Zakladatel</span>
+    </a>
+    <a href="https://www.firsen.cz/" target="_blank" rel="noopener" class="project-card reveal d2">
+      <p class="project-name">Firsen</p>
+      <p class="project-desc">Komplexní účetní a finanční služby. Vedení účetnictví, daňové poradenství, finanční řízení.</p>
+      <span class="project-role">Zakladatel</span>
+    </a>
+    <a href="https://www.webbykliment.com/" target="_blank" rel="noopener" class="project-card reveal d3">
+      <p class="project-name">WebByKliment</p>
+      <p class="project-desc">Tvorba webů, micrositů, kalkulaček a webových aplikací na míru.</p>
+      <span class="project-role">Zakladatel</span>
+    </a>
+    <a href="https://www.darkee.cz/" target="_blank" rel="noopener" class="project-card reveal d1">
+      <p class="project-name">Dárkee</p>
+      <p class="project-desc">AI dárkový asistent. 8 otázek, 60 sekund, 5 personalizovaných tipů na dárek.</p>
+      <span class="project-role">Zakladatel</span>
+    </a>
+    <a href="https://kliments.vercel.app/" target="_blank" rel="noopener" class="project-card reveal d2">
+      <p class="project-name">Kliments</p>
+      <p class="project-desc">Finanční poradenství pro firmy i jednotlivce.</p>
+      <span class="project-role">Zakladatel</span>
+    </a>
+    <a href="https://www.chlumeckydvur.cz/" target="_blank" rel="noopener" class="project-card reveal d3">
+      <p class="project-name">Chlumecký dvůr</p>
+      <p class="project-desc">Ubytování a sport na Vysočině. Zemědělská usedlost mezi Jihlavou a Velkým Meziříčím.</p>
+      <span class="project-role">Spolumajitel</span>
+    </a>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
 <section class="products-section" id="services">
   <div class="products-header reveal">
     <div>
       <p class="s-eyebrow">Služby</p>
       <h2 class="s-h2">Jak pomáhám<br><em>konkrétně</em></h2>
     </div>
-    <p class="products-header-right">
-      Od první konzultace až po prodej firmy.
-      Vyberte kde jste a co potřebujete.
-    </p>
+    <p class="products-header-right">Tři fáze spolupráce. Od prvního dne podnikání až po úspěšný prodej firmy.</p>
   </div>
 
   <div class="products-grid">
-
     <div class="prod-card prod-card-1 reveal d1">
-      <div class="prod-flag">⚡ Vstupní služba</div>
-      <h3 class="prod-name">Finanční<br>diagnóza</h3>
-      <p class="prod-desc">Jednorázová analýza vašich čísel.
-      Zjistíte kde ztrácíte, kde vyděláváte
-      a co udělat jako první krok.</p>
+      <div class="prod-flag">🚀 Pro začínající firmy & startupy</div>
+      <h3 class="prod-name">Rozjeď to<br>správně</h3>
+      <p class="prod-desc">Finanční plán, rozpočet a cashflow od prvního dne. Pomůžu ti nastavit základy tak, aby tě nezaskočil první únor bez peněz.</p>
       <ul class="prod-list">
-        <li>Analýza cashflow a výsledovky</li>
-        <li>Identifikace největších rizik</li>
-        <li>Konkrétní akční plán</li>
-        <li>90minutová konzultace výsledků</li>
+        <li>Sestavení finančního plánu</li>
+        <li>Nastavení cashflow sledování</li>
+        <li>Rozpočet a jeho hlídání</li>
+        <li>OSVČ vs. s.r.o., kdy a jak přejít</li>
+        <li>Příprava pro první investory</li>
       </ul>
-      <p class="prod-for">od <span>4 900 Kč jednorázově</span></p>
+      <div class="prod-price">od 24 900 Kč <span>jednorázově</span></div>
+      <p class="prod-for">Ideální pro: <span>&nbsp;zakladatelé, startupy 0–3 roky</span></p>
     </div>
 
     <div class="prod-card prod-card-2 reveal d2">
       <div class="prod-flag">📊 Průběžná spolupráce</div>
       <h3 class="prod-name">CFO<br>na volné noze</h3>
-      <p class="prod-desc">Pravidelné finanční řízení vaší firmy
-      bez vlastního finančního ředitele.
-      Znám vaše čísla stejně dobře jako vy.</p>
+      <p class="prod-desc">Pravidelné finanční řízení vaší firmy bez vlastního finančního ředitele. Znám vaše čísla stejně dobře jako vy.</p>
       <ul class="prod-list">
         <li>Měsíční finanční reporting</li>
         <li>Cashflow management</li>
@@ -142,63 +226,98 @@ A které většina zakladatelů řeší až když je pozdě.</p>
         <li>Podpora při jednání s bankami</li>
         <li>Strategické finanční plánování</li>
       </ul>
-      <p class="prod-for">od <span>15 000 Kč / měsíc</span></p>
+      <div class="prod-price">od 15 000 Kč <span>/ měsíc</span></div>
+      <p class="prod-for">Ideální pro: <span>&nbsp;firmy 5–50 zaměstnanců</span></p>
     </div>
 
     <div class="prod-card prod-card-3 reveal d3">
       <div class="prod-flag">🔍 Jednorázová spolupráce</div>
       <h3 class="prod-name">Prodej za<br>maximum</h3>
-      <p class="prod-desc">Profesionální valuace s jasným výstupem.
-      Ať plánujete prodej, vstup investora,
-      nebo chcete vědět co vaše firma stojí.</p>
+      <p class="prod-desc">Profesionální valuace s jasným výstupem. Ať plánujete prodej, vstup investora, nebo chcete vědět, co vaše firma skutečně stojí.</p>
       <ul class="prod-list">
         <li>Ocenění metodami DCF a srovnávací analýzy</li>
         <li>Co hodnotu snižuje a zvyšuje</li>
         <li>M&A poradenství při prodeji</li>
         <li>Písemná zpráva + konzultace výsledků</li>
       </ul>
-      <p class="prod-for">od <span>59 900 Kč jednorázově</span></p>
+      <div class="prod-price">od 59 900 Kč <span>jednorázově</span></div>
+      <p class="prod-for">Ideální pro: <span>&nbsp;prodej firmy, M&A, vstup investora</span></p>
     </div>
-
   </div>
+</section>
 
-  <div class="mini-grid" style="margin-top: 20px;">
-
+<!-- MINI SERVICES -->
+<section class="mini-services">
+  <div class="reveal">
+    <p class="s-eyebrow">Další služby</p>
+    <h2 class="s-h2">A ještě <em>víc</em></h2>
+  </div>
+  <div class="mini-grid">
     <div class="mini-card reveal d1">
-      <span class="mini-emoji">🚀</span>
-      <p class="mini-name">Rozjeď to správně</p>
-      <p class="mini-desc">Finanční plán, rozpočet a cashflow
-      od prvního dne. Aby tě nezaskočil první únor bez peněz.</p>
-      <p style="margin-top:12px; font-size:0.78rem;
-        color:var(--rose); font-weight:500;">
-        od 24 900 Kč
-      </p>
+      <span class="mini-emoji">📋</span>
+      <p class="mini-name">Firemní finanční audit</p>
+      <p class="mini-price">od 9 900 Kč</p>
+      <p class="mini-desc">Jednorázová analýza finančního zdraví firmy. Zjistíte, kde ztrácíte, kde vyděláváte a dostanete konkrétní akční plán pro zlepšení výsledků.</p>
     </div>
-
     <div class="mini-card reveal d2">
+      <span class="mini-emoji">📊</span>
+      <p class="mini-name">Startup finanční kit</p>
+      <p class="mini-price">od 14 900 Kč</p>
+      <p class="mini-desc">Jednorázové nastavení financí pro nový byznys. Odejdete s plánem, šablonou cashflow a jasnem v číslech.</p>
+    </div>
+    <div class="mini-card reveal d3">
       <span class="mini-emoji">💼</span>
       <p class="mini-name">Příprava na investora</p>
-      <p class="mini-desc">Finanční podklady které investor
-      chce vidět. Čistá čísla, reálné projekce,
-      věrohodný pitch.</p>
-      <p style="margin-top:12px; font-size:0.78rem;
-        color:var(--rose); font-weight:500;">
-        od 24 900 Kč
-      </p>
+      <p class="mini-price">od 24 900 Kč</p>
+      <p class="mini-desc">Pomůžu vám připravit finanční podklady které investor chce vidět. Čistá čísla, reálné projekce, věrohodný pitch.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHY -->
+<section class="why-section" id="why">
+  <div class="why-inner">
+    <div class="reveal">
+      <p class="s-eyebrow">Proč Kliments</p>
+      <h2 class="s-h2">Proč to<br>funguje jako <em>systém</em></h2>
+      <p class="why-intro">Nejsem poradce co přijde jednou za rok. Jsem partner, který zná vaše čísla a říká věci na rovinu, i když to není příjemné.</p>
+      <div class="why-quote">
+        <p class="why-quote-text">„Viděl jsem zblízka jak firmy umírají. Většinou ne na špatný nápad, ale na cashflow, který ignorovaly příliš dlouho."</p>
+        <p class="why-quote-sig">- Josef Kliment, Ostrava</p>
+      </div>
     </div>
 
-    <div class="mini-card reveal d3">
-      <span class="mini-emoji">🎯</span>
-      <p class="mini-name">Mentoring pro zakladatele</p>
-      <p class="mini-desc">1 na 1 konzultace pro ty co nepotřebují
-      full servis ale chtějí poradit.
-      Balíček 3 hodin.</p>
-      <p style="margin-top:12px; font-size:0.78rem;
-        color:var(--rose); font-weight:500;">
-        od 9 900 Kč
-      </p>
+    <div class="why-items reveal d2">
+      <div class="why-item">
+        <span class="why-n">01</span>
+        <div>
+          <p class="why-t">Vím jak to chodí zevnitř</p>
+          <p class="why-d">Sám vedu vlastní firmy. Nejde o teorii, jde o věci, které řeším každý den.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="why-n">02</span>
+        <div>
+          <p class="why-t">Říkám věci na rovinu</p>
+          <p class="why-d">Nedostanete nic zalakovaného. Dostanete reálný pohled na vaše čísla a konkrétní kroky.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="why-n">03</span>
+        <div>
+          <p class="why-t">Od účetnictví po M&A</p>
+          <p class="why-d">12 let praxe od základů účetnictví po prodej firem. Rozumím celé cestě.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="why-n">04</span>
+        <div>
+          <p class="why-t">Online i osobně, celá ČR</p>
+          <p class="why-d">Sídlím v Ostravě, pracuji s klienty z celé republiky. Online konzultace jsou stejně efektivní jako osobní setkání.</p>
+        </div>
+      </div>
     </div>
-
   </div>
 </section>
 
@@ -300,55 +419,53 @@ A které většina zakladatelů řeší až když je pozdě.</p>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section class="projects-section" id="projects">
-  <div class="projects-header reveal">
-    <div>
-      <p class="s-eyebrow">Vlastní projekty</p>
-      <h2 class="s-h2">Neradím z teorie.<br><em>Podnikám.</em></h2>
-    </div>
-    <p class="projects-header-right">6 vlastních projektů. Od účetnictví po AI, od financí po ubytování.</p>
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="process-header reveal">
+    <p class="s-eyebrow">Jak to funguje</p>
+    <h2 class="s-h2">Pět kroků k <em>lepším číslům</em></h2>
   </div>
-  <div class="projects-grid">
-    <a href="https://mnai-nine.vercel.app/" target="_blank" rel="noopener" class="project-card reveal d1">
-      <p class="project-name">M&Ai</p>
-      <p class="project-desc">M&A poradenství. Nákup, prodej a oceňování firem s pomocí moderních technologií.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.firsen.cz/" target="_blank" rel="noopener" class="project-card reveal d2">
-      <p class="project-name">Firsen</p>
-      <p class="project-desc">Komplexní účetní a finanční služby. Vedení účetnictví, daňové poradenství, finanční řízení.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.webbykliment.com/" target="_blank" rel="noopener" class="project-card reveal d3">
-      <p class="project-name">WebByKliment</p>
-      <p class="project-desc">Tvorba webů, micrositů, kalkulaček a webových aplikací na míru.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.darkee.cz/" target="_blank" rel="noopener" class="project-card reveal d1">
-      <p class="project-name">Dárkee</p>
-      <p class="project-desc">AI dárkový asistent. 8 otázek, 60 sekund, 5 personalizovaných tipů na dárek.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://kliments.vercel.app/" target="_blank" rel="noopener" class="project-card reveal d2">
-      <p class="project-name">Kliments</p>
-      <p class="project-desc">Finanční poradenství pro firmy i jednotlivce.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.chlumeckydvur.cz/" target="_blank" rel="noopener" class="project-card reveal d3">
-      <p class="project-name">Chlumecký dvůr</p>
-      <p class="project-desc">Ubytování a sport na Vysočině. Zemědělská usedlost mezi Jihlavou a Velkým Meziříčím.</p>
-      <span class="project-role">Spolumajitel</span>
-    </a>
+  <div class="process-steps">
+    <div class="p-step reveal d1">
+      <div class="p-dot"></div>
+      <p class="p-num">01</p>
+      <p class="p-title">Úvodní konzultace</p>
+      <p class="p-desc">Bezplatné 30minutové setkání. Poznáme vaši situaci, vy poznáte nás.</p>
+    </div>
+    <div class="p-step reveal d2">
+      <div class="p-dot"></div>
+      <p class="p-num">02</p>
+      <p class="p-title">Analýza situace</p>
+      <p class="p-desc">Zmapujeme vaše firemní čísla. Najdeme příležitosti i rizika.</p>
+    </div>
+    <div class="p-step reveal d3">
+      <div class="p-dot"></div>
+      <p class="p-num">03</p>
+      <p class="p-title">Návrh řešení</p>
+      <p class="p-desc">Konkrétní plán šitý přesně na vaši situaci a cíle.</p>
+    </div>
+    <div class="p-step reveal d4">
+      <div class="p-dot"></div>
+      <p class="p-num">04</p>
+      <p class="p-title">Implementace</p>
+      <p class="p-desc">Provedeme vás celým procesem a postaráme se o hladké nastavení.</p>
+    </div>
+    <div class="p-step reveal d5">
+      <div class="p-dot"></div>
+      <p class="p-num">05</p>
+      <p class="p-title">Průběžná péče</p>
+      <p class="p-desc">Pravidelně revidujeme a reagujeme na změny v životě i ve firmě.</p>
+    </div>
   </div>
 </section>
+
 
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="contact-left reveal">
     <p class="s-eyebrow">Kontakt</p>
     <h2 class="s-h2">Pojďme si<br><em>promluvit</em></h2>
-    <p class="contact-intro">Ozvu se do 24 hodin. Preferujete telefon? Zavolejte přímo, jsem k dispozici.</p>
+    <p class="contact-intro">Ozveme se do 24 hodin. Preferujete telefon? Zavolejte přímo, jsme k dispozici.</p>
     <div class="c-persons">
       <div>
         <p class="c-pname">Josef Kliment</p>
@@ -375,13 +492,12 @@ A které většina zakladatelů řeší až když je pozdě.</p>
           <label class="fl">Zajímá mě</label>
           <select class="fs">
             <option value="">Vyberte službu...</option>
-            <option>Finanční diagnóza</option>
-            <option>Rozjeď to správně</option>
+            <option>Finanční řízení</option>
             <option>CFO na volné noze</option>
-            <option>Prodej za maximum</option>
-
+            <option>Valuace společnosti</option>
+            <option>M&A poradenství</option>
+            <option>Startup finanční kit</option>
             <option>Příprava na investora</option>
-            <option>Mentoring pro zakladatele</option>
             <option>Jiné</option>
           </select>
         </div>
