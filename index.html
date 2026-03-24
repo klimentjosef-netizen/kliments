@@ -32,6 +32,7 @@
     <li><a href="#services">Služby</a></li>
     <li><a href="#projects">Projekty</a></li>
     <li><a href="#contact">Kontakt</a></li>
+    <li><a href="https://app.kliments.cz" target="_blank" rel="noopener">Portál</a></li>
     <li><a href="#contact" class="nav-pill">Konzultace zdarma</a></li>
   </ul>
 </nav>
@@ -50,6 +51,10 @@
     <div class="hero-btns">
       <a href="#contact" class="btn-rose">Konzultace zdarma →</a>
       <a href="#services" class="btn-ghost">Prohlédnout služby</a>
+    </div>
+    <div class="hero-portal-hint">
+      <span style="font-size:16px">🔐</span>
+      <span>Každý klient dostane přístup do osobního portálu</span>
     </div>
   </div>
 
@@ -155,37 +160,30 @@
     </div>
     <p class="projects-header-right">6 vlastních projektů. Od účetnictví po AI, od financí po ubytování.</p>
   </div>
-  <div class="projects-grid">
-    <a href="https://mnai-nine.vercel.app/" target="_blank" rel="noopener" class="project-card reveal d1">
-      <p class="project-name">M&Ai</p>
-      <p class="project-desc">M&A poradenství. Nákup, prodej a oceňování firem s pomocí moderních technologií.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.firsen.cz/" target="_blank" rel="noopener" class="project-card reveal d2">
-      <p class="project-name">Firsen</p>
-      <p class="project-desc">Komplexní účetní a finanční služby. Vedení účetnictví, daňové poradenství, finanční řízení.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.webbykliment.com/" target="_blank" rel="noopener" class="project-card reveal d3">
-      <p class="project-name">WebByKliment</p>
-      <p class="project-desc">Tvorba webů, micrositů, kalkulaček a webových aplikací na míru.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.darkee.cz/" target="_blank" rel="noopener" class="project-card reveal d1">
-      <p class="project-name">Dárkee</p>
-      <p class="project-desc">AI dárkový asistent. 8 otázek, 60 sekund, 5 personalizovaných tipů na dárek.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://kliments.vercel.app/" target="_blank" rel="noopener" class="project-card reveal d2">
-      <p class="project-name">Kliments</p>
-      <p class="project-desc">Finanční poradenství pro firmy i jednotlivce.</p>
-      <span class="project-role">Zakladatel</span>
-    </a>
-    <a href="https://www.chlumeckydvur.cz/" target="_blank" rel="noopener" class="project-card reveal d3">
-      <p class="project-name">Chlumecký dvůr</p>
-      <p class="project-desc">Ubytování a sport na Vysočině. Zemědělská usedlost mezi Jihlavou a Velkým Meziříčím.</p>
-      <span class="project-role">Spolumajitel</span>
-    </a>
+
+  <div class="projects-grid" id="proj-grid"></div>
+
+  <div class="proj-lightbox" id="proj-lb">
+    <div class="proj-lb-inner">
+      <div class="proj-lb-header">
+        <div>
+          <div class="proj-lb-title" id="proj-lb-title"></div>
+          <div class="proj-lb-role" id="proj-lb-role"></div>
+        </div>
+        <button class="proj-lb-close" onclick="closeProjLb()">✕</button>
+      </div>
+      <div class="proj-lb-preview">
+        <span class="proj-lb-badge" id="proj-lb-badge"></span>
+        <div class="proj-lb-main-title" id="proj-lb-main-title"></div>
+        <div class="proj-lb-desc" id="proj-lb-desc"></div>
+        <div class="proj-lb-metrics" id="proj-lb-metrics"></div>
+        <div class="proj-lb-chart" id="proj-lb-chart"></div>
+      </div>
+      <div class="proj-lb-footer">
+        <span class="proj-lb-url" id="proj-lb-url"></span>
+        <a class="btn-rose proj-lb-cta" id="proj-lb-btn" href="#" target="_blank" rel="noopener">Navštívit projekt →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -212,6 +210,7 @@
         <li>Příprava pro první investory</li>
       </ul>
       <div class="prod-price">od 24 900 Kč <span>jednorázově</span></div>
+      <p class="prod-portal-tag">🔐 Včetně přístupu do klientského portálu</p>
       <p class="prod-for">Ideální pro: <span>&nbsp;zakladatelé, startupy 0–3 roky</span></p>
     </div>
 
@@ -227,6 +226,7 @@
         <li>Strategické finanční plánování</li>
       </ul>
       <div class="prod-price">od 15 000 Kč <span>/ měsíc</span></div>
+      <p class="prod-portal-tag">🔐 Včetně přístupu do klientského portálu</p>
       <p class="prod-for">Ideální pro: <span>&nbsp;firmy 5–50 zaměstnanců</span></p>
     </div>
 
@@ -241,6 +241,7 @@
         <li>Písemná zpráva + konzultace výsledků</li>
       </ul>
       <div class="prod-price">od 59 900 Kč <span>jednorázově</span></div>
+      <p class="prod-portal-tag">🔐 Včetně přístupu do klientského portálu</p>
       <p class="prod-for">Ideální pro: <span>&nbsp;prodej firmy, M&A, vstup investora</span></p>
     </div>
   </div>
@@ -315,6 +316,62 @@
         <div>
           <p class="why-t">Online i osobně, celá ČR</p>
           <p class="why-d">Sídlím v Ostravě, pracuji s klienty z celé republiky. Online konzultace jsou stejně efektivní jako osobní setkání.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<section class="portal-section" id="portal">
+  <div class="portal-inner reveal">
+    <div class="portal-left">
+      <p class="s-eyebrow">Klientský portál</p>
+      <h2 class="s-h2">Vaše čísla. Kdykoli.<br><em>Na jednom místě.</em></h2>
+      <p class="portal-desc">Každý klient dostane přístup do osobního portálu. Reporty, dashboardy a přímá komunikace se mnou, vše přehledně na jednom místě.</p>
+      <div class="portal-features">
+        <div class="portal-feature">
+          <div class="pf-icon">📊</div>
+          <div>
+            <div class="pf-title">Reporty online</div>
+            <div class="pf-desc">Cashflow, KPIs a rizika aktualizované každý měsíc. Žádné PDF v emailu.</div>
+          </div>
+        </div>
+        <div class="portal-feature">
+          <div class="pf-icon">💬</div>
+          <div>
+            <div class="pf-title">Přímá komunikace</div>
+            <div class="pf-desc">Chat přímo se mnou. Odpovídám do 24 hodin.</div>
+          </div>
+        </div>
+        <div class="portal-feature">
+          <div class="pf-icon">🔒</div>
+          <div>
+            <div class="pf-title">Soukromý přístup</div>
+            <div class="pf-desc">Každý klient vidí pouze svoje data a reporty.</div>
+          </div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-rose" style="align-self:flex-start;margin-top:8px;display:inline-flex;text-decoration:none">Chci přístup do portálu →</a>
+    </div>
+    <div class="portal-right">
+      <div class="portal-mockup">
+        <div class="pm-browser">
+          <div class="pm-chrome">
+            <div class="pm-dots"><span></span><span></span><span></span></div>
+            <div class="pm-url">app.kliments.cz</div>
+          </div>
+          <div class="pm-screen">
+            <img src="screen_02_dashboard.png" alt="Klientský portál — dashboard" width="100%">
+          </div>
+        </div>
+        <div class="pm-phone">
+          <div class="pm-phone-inner">
+            <div class="pm-phone-notch"></div>
+            <div class="pm-phone-screen">
+              <img src="screen_mobile_02_dashboard.png" alt="Portál na mobilu" width="100%">
+            </div>
+          </div>
         </div>
       </div>
     </div>
