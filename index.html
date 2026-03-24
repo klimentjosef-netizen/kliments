@@ -206,52 +206,11 @@
       <p class="svc-portal">🔐 Včetně přístupu do portálu</p>
     </div>
   </div>
-</section>
 
-
-<!-- WHY -->
-<section class="why-section" id="why">
-  <div class="why-inner">
-    <div class="reveal">
-      <p class="s-eyebrow">Proč Kliments</p>
-      <h2 class="s-h2">Proč to<br>funguje jako <em>systém</em></h2>
-      <p class="why-intro">Nejsem poradce co přijde jednou za rok. Jsem partner, který zná vaše čísla a říká věci na rovinu, i když to není příjemné.</p>
-      <div class="why-quote">
-        <p class="why-quote-text">„Viděl jsem zblízka jak firmy umírají. Většinou ne na špatný nápad, ale na cashflow, který ignorovaly příliš dlouho."</p>
-        <p class="why-quote-sig">- Josef Kliment, Ostrava</p>
-      </div>
-    </div>
-
-    <div class="why-items reveal d2">
-      <div class="why-item">
-        <span class="why-n">01</span>
-        <div>
-          <p class="why-t">Vím jak to chodí zevnitř</p>
-          <p class="why-d">Sám vedu vlastní firmy. Nejde o teorii, jde o věci, které řeším každý den.</p>
-        </div>
-      </div>
-      <div class="why-item">
-        <span class="why-n">02</span>
-        <div>
-          <p class="why-t">Říkám věci na rovinu</p>
-          <p class="why-d">Nedostanete nic zalakovaného. Dostanete reálný pohled na vaše čísla a konkrétní kroky.</p>
-        </div>
-      </div>
-      <div class="why-item">
-        <span class="why-n">03</span>
-        <div>
-          <p class="why-t">Od účetnictví po M&A</p>
-          <p class="why-d">12 let praxe od základů účetnictví po prodej firem. Rozumím celé cestě.</p>
-        </div>
-      </div>
-      <div class="why-item">
-        <span class="why-n">04</span>
-        <div>
-          <p class="why-t">Online i osobně, celá ČR</p>
-          <p class="why-d">Sídlím v Ostravě, pracuji s klienty z celé republiky. Online konzultace jsou stejně efektivní jako osobní setkání.</p>
-        </div>
-      </div>
-    </div>
+  <div class="svc-calc-cta reveal" style="text-align:center;margin-top:48px">
+    <button class="btn-calc-open" onclick="openCalcModal()">
+      <span>🧮</span> Spočítat orientační cenu →
+    </button>
   </div>
 </section>
 
@@ -310,6 +269,47 @@
     </div>
   </div>
 </section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="process-header reveal">
+    <p class="s-eyebrow">Jak to funguje</p>
+    <h2 class="s-h2">Pět kroků k <em>lepším číslům</em></h2>
+  </div>
+  <div class="process-steps">
+    <div class="p-step reveal d1">
+      <div class="p-dot"></div>
+      <p class="p-num">01</p>
+      <p class="p-title">Úvodní konzultace</p>
+      <p class="p-desc">Bezplatné 30minutové setkání. Poznáme vaši situaci, vy poznáte nás.</p>
+    </div>
+    <div class="p-step reveal d2">
+      <div class="p-dot"></div>
+      <p class="p-num">02</p>
+      <p class="p-title">Analýza situace</p>
+      <p class="p-desc">Zmapujeme vaše firemní čísla. Najdeme příležitosti i rizika.</p>
+    </div>
+    <div class="p-step reveal d3">
+      <div class="p-dot"></div>
+      <p class="p-num">03</p>
+      <p class="p-title">Návrh řešení</p>
+      <p class="p-desc">Konkrétní plán šitý přesně na vaši situaci a cíle.</p>
+    </div>
+    <div class="p-step reveal d4">
+      <div class="p-dot"></div>
+      <p class="p-num">04</p>
+      <p class="p-title">Implementace</p>
+      <p class="p-desc">Provedeme vás celým procesem a postaráme se o hladké nastavení.</p>
+    </div>
+    <div class="p-step reveal d5">
+      <div class="p-dot"></div>
+      <p class="p-num">05</p>
+      <p class="p-title">Průběžná péče</p>
+      <p class="p-desc">Pravidelně revidujeme a reagujeme na změny v životě i ve firmě.</p>
+    </div>
+  </div>
+</section>
+
 
 <!-- PROJECTS -->
 <section class="projects-section" id="projects">
@@ -374,144 +374,77 @@
   </div>
 </section>
 
-<!-- PRICING CALCULATOR -->
-<section class="pricing-section" id="pricing">
-  <div class="pricing-header reveal">
-    <p class="s-eyebrow">Ceník</p>
-    <h2 class="s-h2">Spočítejte si<br><em>orientační cenu</em></h2>
-  </div>
-
-  <div class="pricing-calc reveal d1">
-
-    <!-- PROGRESS -->
-    <div class="calc-progress">
-      <div class="calc-dot active" id="d1"></div>
-      <div class="calc-dot" id="d2"></div>
-      <div class="calc-dot" id="d3"></div>
-      <div class="calc-dot" id="d4"></div>
-    </div>
-
-    <!-- KROK 1 -->
-    <div class="calc-step active" id="step1">
-      <p class="calc-step-num">Krok 1 ze 3</p>
-      <h3 class="calc-step-title">Kde jste s firmou?</h3>
-      <p class="calc-step-sub">Vyberte situaci, která vás nejvíce vystihuje</p>
-      <div class="calc-sit-grid">
-        <button class="calc-sit-btn" onclick="selectSituation('start')" id="sit-start">
-          <span class="calc-sit-icon">🚀</span>
-          <span class="calc-sit-label">Začínám podnikat</span>
-          <span class="calc-sit-desc">Nová firma nebo startup</span>
-        </button>
-        <button class="calc-sit-btn" onclick="selectSituation('running')" id="sit-running">
-          <span class="calc-sit-icon">⚙️</span>
-          <span class="calc-sit-label">Firma běží</span>
-          <span class="calc-sit-desc">Potřebuji zlepšit finanční řízení</span>
-        </button>
-        <button class="calc-sit-btn" onclick="selectSituation('sell')" id="sit-sell">
-          <span class="calc-sit-icon">💼</span>
-          <span class="calc-sit-label">Prodej nebo investor</span>
-          <span class="calc-sit-desc">Chystám exit nebo fundraising</span>
-        </button>
+<!-- CALC MODAL -->
+<div id="calc-modal" class="calc-modal" style="display:none" onclick="if(event.target===this)closeCalcModal()">
+  <div class="calc-modal-inner">
+    <div class="calc-modal-header">
+      <div>
+        <h3 class="font-serif text-lg text-ink">Spočítejte si orientační cenu</h3>
       </div>
-      <button class="btn-rose calc-btn-next" onclick="calcGoStep(2)" id="btn1" style="opacity:0.4;pointer-events:none">Pokračovat →</button>
+      <button class="calc-modal-close" onclick="closeCalcModal()">✕</button>
     </div>
-
-    <!-- KROK 2 -->
-    <div class="calc-step" id="step2">
-      <p class="calc-step-num">Krok 2 ze 3</p>
-      <h3 class="calc-step-title">Co potřebujete?</h3>
-      <p class="calc-step-sub">Upravte předvyplněné služby dle potřeby</p>
-      <div class="calc-services-list" id="calc-services-list"></div>
-      <div class="calc-nav">
-        <button class="btn-ghost" onclick="calcGoStep(1)">← Zpět</button>
-        <button class="btn-rose" onclick="calcGoStep(3)">Pokračovat →</button>
+    <div class="calc-modal-body">
+      <div class="calc-progress">
+        <div class="calc-dot active" id="d1"></div>
+        <div class="calc-dot" id="d2"></div>
+        <div class="calc-dot" id="d3"></div>
+        <div class="calc-dot" id="d4"></div>
       </div>
-    </div>
-
-    <!-- KROK 3 -->
-    <div class="calc-step" id="step3">
-      <p class="calc-step-num">Krok 3 ze 3</p>
-      <h3 class="calc-step-title">Jak velká je firma?</h3>
-      <p class="calc-step-sub">Cena se liší podle rozsahu spolupráce</p>
-      <div class="calc-size-grid">
-        <button class="calc-size-btn" onclick="selectSize(1.0, this)">
-          <span class="calc-size-num">1–5</span>
-          <span class="calc-size-label">zaměstnanců</span>
-        </button>
-        <button class="calc-size-btn" onclick="selectSize(1.2, this)">
-          <span class="calc-size-num">6–15</span>
-          <span class="calc-size-label">zaměstnanců</span>
-        </button>
-        <button class="calc-size-btn" onclick="selectSize(1.4, this)">
-          <span class="calc-size-num">16–50</span>
-          <span class="calc-size-label">zaměstnanců</span>
-        </button>
-        <button class="calc-size-btn" onclick="selectSize(0, this)">
-          <span class="calc-size-num">50+</span>
-          <span class="calc-size-label">zaměstnanců</span>
-        </button>
+      <div class="calc-step active" id="step1">
+        <p class="calc-step-num">Krok 1 ze 3</p>
+        <h3 class="calc-step-title">Kde jste s firmou?</h3>
+        <div class="calc-sit-grid">
+          <button class="calc-sit-btn" onclick="selectSituation('start')" id="sit-start">
+            <span class="calc-sit-icon">🚀</span>
+            <span class="calc-sit-label">Začínám podnikat</span>
+          </button>
+          <button class="calc-sit-btn" onclick="selectSituation('running')" id="sit-running">
+            <span class="calc-sit-icon">⚙️</span>
+            <span class="calc-sit-label">Firma běží</span>
+          </button>
+          <button class="calc-sit-btn" onclick="selectSituation('sell')" id="sit-sell">
+            <span class="calc-sit-icon">💼</span>
+            <span class="calc-sit-label">Prodej / investor</span>
+          </button>
+        </div>
+        <button class="btn-rose" onclick="calcGoStep(2)" id="btn1" style="opacity:0.4;pointer-events:none;width:100%">Pokračovat →</button>
       </div>
-      <div class="calc-nav">
-        <button class="btn-ghost" onclick="calcGoStep(2)">← Zpět</button>
-        <button class="btn-rose calc-btn-next" onclick="calcGoStep(4)" id="btn3" style="opacity:0.4;pointer-events:none">Zobrazit cenu →</button>
+      <div class="calc-step" id="step2">
+        <p class="calc-step-num">Krok 2 ze 3</p>
+        <h3 class="calc-step-title">Co potřebujete?</h3>
+        <div class="calc-services-list" id="calc-services-list"></div>
+        <div class="calc-nav">
+          <button class="btn-ghost" onclick="calcGoStep(1)">← Zpět</button>
+          <button class="btn-rose" onclick="calcGoStep(3)">Pokračovat →</button>
+        </div>
       </div>
-    </div>
-
-    <!-- KROK 4 — VÝSLEDEK -->
-    <div class="calc-step" id="step4">
-      <p class="calc-step-num">Orientační kalkulace</p>
-      <h3 class="calc-step-title">Váš odhad spolupráce</h3>
-      <div class="calc-result" id="calc-result"></div>
-      <p class="calc-note">Finální cena závisí na rozsahu projektu a bude upřesněna na úvodní konzultaci. Konzultace je zdarma a nezávazná.</p>
-      <div class="calc-nav" style="margin-top:1.5rem">
-        <button class="btn-ghost" onclick="calcGoStep(3)">← Upravit</button>
-        <a href="#contact" class="btn-rose">Domluvit konzultaci →</a>
+      <div class="calc-step" id="step3">
+        <p class="calc-step-num">Krok 3 ze 3</p>
+        <h3 class="calc-step-title">Jak velká je firma?</h3>
+        <div class="calc-size-grid">
+          <button class="calc-size-btn" onclick="selectSize(1.0,this)"><span class="calc-size-num">1–5</span><span class="calc-size-label">zaměstnanců</span></button>
+          <button class="calc-size-btn" onclick="selectSize(1.2,this)"><span class="calc-size-num">6–15</span><span class="calc-size-label">zaměstnanců</span></button>
+          <button class="calc-size-btn" onclick="selectSize(1.4,this)"><span class="calc-size-num">16–50</span><span class="calc-size-label">zaměstnanců</span></button>
+          <button class="calc-size-btn" onclick="selectSize(0,this)"><span class="calc-size-num">50+</span><span class="calc-size-label">zaměstnanců</span></button>
+        </div>
+        <div class="calc-nav">
+          <button class="btn-ghost" onclick="calcGoStep(2)">← Zpět</button>
+          <button class="btn-rose" onclick="calcGoStep(4)" id="btn3" style="opacity:0.4;pointer-events:none">Zobrazit cenu →</button>
+        </div>
       </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process-section">
-  <div class="process-header reveal">
-    <p class="s-eyebrow">Jak to funguje</p>
-    <h2 class="s-h2">Pět kroků k <em>lepším číslům</em></h2>
-  </div>
-  <div class="process-steps">
-    <div class="p-step reveal d1">
-      <div class="p-dot"></div>
-      <p class="p-num">01</p>
-      <p class="p-title">Úvodní konzultace</p>
-      <p class="p-desc">Bezplatné 30minutové setkání. Poznáme vaši situaci, vy poznáte nás.</p>
-    </div>
-    <div class="p-step reveal d2">
-      <div class="p-dot"></div>
-      <p class="p-num">02</p>
-      <p class="p-title">Analýza situace</p>
-      <p class="p-desc">Zmapujeme vaše firemní čísla. Najdeme příležitosti i rizika.</p>
-    </div>
-    <div class="p-step reveal d3">
-      <div class="p-dot"></div>
-      <p class="p-num">03</p>
-      <p class="p-title">Návrh řešení</p>
-      <p class="p-desc">Konkrétní plán šitý přesně na vaši situaci a cíle.</p>
-    </div>
-    <div class="p-step reveal d4">
-      <div class="p-dot"></div>
-      <p class="p-num">04</p>
-      <p class="p-title">Implementace</p>
-      <p class="p-desc">Provedeme vás celým procesem a postaráme se o hladké nastavení.</p>
-    </div>
-    <div class="p-step reveal d5">
-      <div class="p-dot"></div>
-      <p class="p-num">05</p>
-      <p class="p-title">Průběžná péče</p>
-      <p class="p-desc">Pravidelně revidujeme a reagujeme na změny v životě i ve firmě.</p>
+      <div class="calc-step" id="step4">
+        <p class="calc-step-num">Orientační kalkulace</p>
+        <h3 class="calc-step-title">Váš odhad spolupráce</h3>
+        <div class="calc-result" id="calc-result"></div>
+        <p class="calc-note">Finální cena závisí na rozsahu projektu. Konzultace je nezávazná.</p>
+        <div class="calc-nav" style="margin-top:1rem">
+          <button class="btn-ghost" onclick="calcGoStep(3)">← Upravit</button>
+          <a href="#contact" class="btn-rose" onclick="closeCalcModal()">Domluvit konzultaci →</a>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
+</div>
 
 <!-- CONTACT -->
 <section class="contact-section" id="contact">

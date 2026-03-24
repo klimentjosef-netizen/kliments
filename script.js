@@ -230,6 +230,16 @@ function calcGoStep(n) {
   if (n === 4) renderCalcResult();
 }
 
+function openCalcModal() {
+  document.getElementById('calc-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  calcGoStep(1);
+}
+function closeCalcModal() {
+  document.getElementById('calc-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 // ── Chat widget ──
 let chatOpen = false;
 let chatHistory = [];
@@ -281,4 +291,134 @@ function addChatMsg(text, type) {
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
   return div;
+}
+
+// ── Projects grid + lightbox ──
+const PROJ_DATA = [
+  {
+    id: 1, title: 'M&Ai', role: 'Zakladatel',
+    badge: 'M&A PORADENSTVÍ', url: 'mnai-nine.vercel.app',
+    link: 'https://mnai-nine.vercel.app',
+    desc: 'M&A poradenství s pomocí moderních technologií. Nákup, prodej a oceňování firem od startupů po velké korporace. Ocenění firem v rozsahu 20M až 2 miliard Kč.',
+    metrics: [['20M–2Mrd','Rozsah ocenění'],['60+','Klientů'],['12+','Let praxe'],['DCF','Hlavní metoda']],
+    bars: [40,55,70,85,95,100],
+    tags: ['Valuace','M&A','AI technologie'],
+    chips: ['60+ klientů','2Mrd max','AI'],
+  },
+  {
+    id: 2, title: 'Firsen', role: 'Zakladatel',
+    badge: 'ÚČETNICTVÍ & FINANCE', url: 'firsen.cz',
+    link: 'https://www.firsen.cz',
+    desc: 'Komplexní účetní a finanční služby pro firmy všech velikostí. Vedení účetnictví, daňové poradenství a finanční řízení pod jednou střechou.',
+    metrics: [['60+','Aktivních klientů'],['100 %','Online agenda'],['12+','Let praxe'],['CZ','Celá republika']],
+    bars: [30,45,55,65,80,90],
+    tags: ['Účetnictví','Daně','Finanční řízení'],
+    chips: ['60+ klientů','Online','CZ'],
+  },
+  {
+    id: 3, title: 'WebByKliment', role: 'Zakladatel',
+    badge: 'WEB DEVELOPMENT', url: 'webbykliment.com',
+    link: 'https://www.webbykliment.com',
+    desc: 'Tvorba webů, micrositů, kalkulaček a webových aplikací na míru. Desítky realizovaných projektů pro firmy z ČR i zahraničí.',
+    metrics: [['30+','Projektů'],['React','Technologie'],['Next.js','Framework'],['Vercel','Deployment']],
+    bars: [20,35,50,70,85,100],
+    tags: ['Weby na míru','React','Kalkulačky'],
+    chips: ['30+ projektů','Next.js','React'],
+  },
+  {
+    id: 4, title: 'Dárkee', role: 'Zakladatel',
+    badge: 'AI STARTUP', url: 'darkee.cz',
+    link: 'https://www.darkee.cz',
+    desc: 'AI dárkový asistent. 8 otázek, 60 sekund, 5 personalizovaných tipů na dárek. Startup využívající generativní AI pro každodenní rozhodování.',
+    metrics: [['8','Otázek'],['60s','Do výsledku'],['5','Tipů'],['AI','Powered']],
+    bars: [10,30,55,70,80,95],
+    tags: ['AI','Startup','Generativní AI'],
+    chips: ['AI','60 sekund','Startup'],
+  },
+  {
+    id: 5, title: 'Kliments', role: 'Zakladatel',
+    badge: 'FINANČNÍ PORADENSTVÍ', url: 'kliments.cz',
+    link: 'https://www.kliments.cz',
+    desc: 'Byznys architektura a finanční řízení pro firmy a zakladatele. Od první faktury po prodej firmy. CFO na volné noze, valuace, M&A a mentoring.',
+    metrics: [['6','Služeb'],['4 900 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
+    bars: [50,60,70,80,90,100],
+    tags: ['CFO','Valuace','Mentoring'],
+    chips: ['CFO','Valuace','M&A'],
+  },
+  {
+    id: 6, title: 'Chlumecký dvůr', role: 'Spolumajitel',
+    badge: 'UBYTOVÁNÍ & SPORT', url: 'chlumeckydvur.cz',
+    link: 'https://www.chlumeckydvur.cz',
+    desc: 'Zemědělská usedlost s ubytováním a sportem na Vysočině. Aktivní správa marketingu a online rezervací penzionu.',
+    metrics: [['Vysočina','Lokalita'],['Sport','Aktivity'],['Penzion','Ubytování'],['Online','Rezervace']],
+    bars: [40,50,65,75,85,80],
+    tags: ['Ubytování','Sport','Vysočina'],
+    chips: ['Vysočina','Sport','Penzion'],
+  },
+];
+
+(function initProjects() {
+  const grid = document.getElementById('proj-grid');
+  if (!grid) return;
+  grid.innerHTML = PROJ_DATA.map(p => `
+    <div class="proj-card reveal" onclick="openProjLb(${p.id})">
+      <div class="proj-preview">
+        <div class="proj-preview-bar"></div>
+        <div class="proj-preview-title">${p.title}</div>
+        <div class="proj-preview-role">${p.role}</div>
+        <div class="proj-preview-chips">
+          ${p.chips.map(c=>`<span class="proj-chip">${c}</span>`).join('')}
+        </div>
+        <div class="proj-mini-chart">
+          ${miniProjBars(p.bars)}
+        </div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-name">${p.title}</div>
+        <div class="proj-card-sub">${p.role}</div>
+        <div class="proj-card-tags">
+          ${p.tags.map(t=>`<span class="proj-tag">${t}</span>`).join('')}
+        </div>
+        <button class="proj-btn" onclick="event.stopPropagation();openProjLb(${p.id})">Zobrazit projekt →</button>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('#proj-grid .reveal').forEach(el => io.observe(el));
+})();
+
+function miniProjBars(bars) {
+  const max = Math.max(...bars.map(Math.abs));
+  return bars.map(v => {
+    const h = Math.round(Math.abs(v) / max * 100);
+    const col = v >= 0 ? '#c97b84' : '#e8c5c9';
+    return `<div class="proj-mini-bar" style="height:${h}%;background:${col}"></div>`;
+  }).join('');
+}
+
+function openProjLb(id) {
+  const p = PROJ_DATA.find(x => x.id === id);
+  document.getElementById('proj-lb-title').textContent = p.title;
+  document.getElementById('proj-lb-role').textContent = p.role + ' · ' + p.url;
+  document.getElementById('proj-lb-badge').textContent = p.badge;
+  document.getElementById('proj-lb-main-title').textContent = p.title;
+  document.getElementById('proj-lb-desc').textContent = p.desc;
+  document.getElementById('proj-lb-metrics').innerHTML = p.metrics.map(([v,l]) => `
+    <div class="proj-lb-metric">
+      <div class="proj-lb-metric-val">${v}</div>
+      <div class="proj-lb-metric-lbl">${l}</div>
+    </div>
+  `).join('');
+  const max = Math.max(...p.bars.map(Math.abs));
+  document.getElementById('proj-lb-chart').innerHTML = p.bars.map(v => {
+    const h = Math.round(Math.abs(v) / max * 100);
+    const col = v >= 0 ? '#c97b84' : '#e8c5c9';
+    return `<div class="proj-lb-bar" style="height:${h}%;background:${col}"></div>`;
+  }).join('');
+  document.getElementById('proj-lb-url').textContent = p.url;
+  document.getElementById('proj-lb-btn').href = p.link;
+  document.getElementById('proj-lb').classList.add('open');
+}
+
+function closeProjLb() {
+  document.getElementById('proj-lb').classList.remove('open');
 }
