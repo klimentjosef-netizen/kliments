@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/portal/:path*", "destination": "https://kliments-portal.vercel.app/:path*" },
-    { "source": "/portal", "destination": "https://kliments-portal.vercel.app/" }
+    { "source": "/portal", "destination": "/portal.html" },
+    { "source": "/portal/:path*", "destination": "https://kliments-portal.vercel.app/portal/:path*" }
   ]
 }
