@@ -1,6 +1,8 @@
 {
+  "redirects": [
+    { "source": "/portal", "destination": "/portal/login", "statusCode": 302 }
+  ],
   "rewrites": [
-    { "source": "/portal", "destination": "/portal.html" },
     { "source": "/portal/:path*", "destination": "https://kliments-portal.vercel.app/portal/:path*" }
   ]
 }
