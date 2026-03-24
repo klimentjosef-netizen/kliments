@@ -370,33 +370,34 @@ nav {
 .andrea-info-row span:first-child { font-size: 1.1rem; }
 
 /* ── PROJECTS ── */
-.projects-section { padding: 120px 64px; background: var(--sand-light); }
+.projects-section { padding: 120px 64px; background: var(--ink); }
 .projects-header { margin-bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; }
-.projects-header .s-h2 { color: var(--ink); }
-.projects-header .s-h2 em { color: var(--rose); }
-.projects-header .s-eyebrow { color: var(--rose); }
-.projects-header .s-eyebrow::before { background: var(--rose); }
-.projects-header-right { font-size: 0.88rem; color: var(--mid); max-width: 300px; text-align: right; line-height: 1.7; }
+.projects-header .s-h2 { color: var(--sand-light); }
+.projects-header .s-h2 em { color: var(--rose-pale); }
+.projects-header .s-eyebrow { color: var(--rose-pale); }
+.projects-header .s-eyebrow::before { background: var(--rose-pale); }
+.projects-header-right { font-size: 0.88rem; color: rgba(250,244,237,0.4); max-width: 300px; text-align: right; line-height: 1.7; }
 
 .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
 .project-card {
-  background: white; border: 1px solid var(--border-light);
+  background: linear-gradient(145deg, #2a2220 0%, #1f1a18 100%);
+  border: 1px solid rgba(255,255,255,0.07);
   border-radius: 24px; padding: 32px 28px;
   text-decoration: none; display: flex; flex-direction: column;
   transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(31,26,24,0.1);
-  border-color: var(--rose);
+  box-shadow: 0 12px 40px rgba(201,123,132,0.15);
+  border-color: rgba(201,123,132,0.3);
 }
 .project-role {
   font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--rose); font-weight: 500; margin-bottom: 12px;
+  color: var(--rose-pale); font-weight: 500; margin-bottom: 12px;
 }
 .project-name {
   font-family: 'Lora', Georgia, serif;
-  font-size: 1.3rem; font-weight: 400; color: var(--ink);
+  font-size: 1.3rem; font-weight: 400; color: white;
   margin-bottom: 14px;
 }
 .project-points {
@@ -404,18 +405,18 @@ nav {
   margin-bottom: 20px; flex: 1;
 }
 .project-points li {
-  font-size: 0.78rem; color: var(--mid); line-height: 1.5;
+  font-size: 0.78rem; color: rgba(250,244,237,0.45); line-height: 1.5;
   display: flex; align-items: flex-start; gap: 8px;
 }
 .project-points li::before {
-  content: '→'; color: var(--rose); flex-shrink: 0; font-size: 0.72rem; margin-top: 1px;
+  content: '→'; color: var(--rose-pale); flex-shrink: 0; font-size: 0.72rem; margin-top: 1px;
 }
 .project-link {
-  font-size: 0.7rem; color: var(--rose); letter-spacing: 0.06em;
-  padding-top: 16px; border-top: 1px solid var(--border-light);
+  font-size: 0.7rem; color: var(--rose-pale); letter-spacing: 0.06em;
+  padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.07);
   transition: color 0.2s;
 }
-.project-card:hover .project-link { color: var(--rose-deep); }
+.project-card:hover .project-link { color: white; }
 
 /* ── PRODUCTS ── */
 .products-section { padding: 120px 64px; background: var(--ink); }
