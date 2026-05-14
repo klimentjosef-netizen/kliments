@@ -638,31 +638,55 @@
 
   <div class="contact-right reveal d2">
     <p class="s-eyebrow">Napište nám</p>
-    <div class="form">
+    <form class="form" id="lead-form" novalidate>
       <div class="form-row">
-        <div class="fg"><label class="fl">Jméno a příjmení</label><input class="fi" type="text" placeholder="Jan Novák"></div>
-        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="jan@firma.cz"></div>
+        <div class="fg">
+          <label class="fl" for="lf-name">Jméno a příjmení</label>
+          <input id="lf-name" name="name" class="fi" type="text" placeholder="Jan Novák" required autocomplete="name">
+        </div>
+        <div class="fg">
+          <label class="fl" for="lf-email">E-mail</label>
+          <input id="lf-email" name="email" class="fi" type="email" placeholder="jan@firma.cz" required autocomplete="email">
+        </div>
       </div>
       <div class="form-row">
-        <div class="fg"><label class="fl">Telefon</label><input class="fi" type="tel" placeholder="+420 xxx xxx xxx"></div>
         <div class="fg">
-          <label class="fl">Zajímá mě</label>
-          <select class="fs">
+          <label class="fl" for="lf-phone">Telefon</label>
+          <input id="lf-phone" name="phone" class="fi" type="tel" placeholder="+420 xxx xxx xxx" autocomplete="tel">
+        </div>
+        <div class="fg">
+          <label class="fl" for="lf-interest">Zajímá mě</label>
+          <select id="lf-interest" name="interest" class="fs">
             <option value="">Vyberte službu...</option>
-            <option>Finanční řízení</option>
+            <option>Příprava firmy na prodej</option>
             <option>CFO na volné noze</option>
-            <option>Valuace společnosti</option>
-            <option>M&A poradenství</option>
-            <option>Startup finanční kit</option>
+            <option>Firemní audit</option>
+            <option>Startup kit</option>
             <option>Příprava na investora</option>
+            <option>Rozjeď to správně</option>
+            <option>Jednorázová konzultace</option>
             <option>Jiné</option>
           </select>
         </div>
       </div>
-      <div class="fg"><label class="fl">Zpráva</label><textarea class="ft" placeholder="Stručně popište svou situaci..."></textarea></div>
-      <button class="fsub">Odeslat zprávu →</button>
+      <div class="fg">
+        <label class="fl" for="lf-message">Zpráva</label>
+        <textarea id="lf-message" name="message" class="ft" placeholder="Stručně popište svou situaci..." rows="4"></textarea>
+      </div>
+
+      <!-- honeypot proti botum -->
+      <div class="fg-honey" aria-hidden="true">
+        <label>Web</label>
+        <input name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="fsub" id="lf-submit">
+        <span class="fsub-label">Odeslat zprávu →</span>
+        <span class="fsub-spinner" aria-hidden="true"></span>
+      </button>
       <p class="fgdpr">Odesláním souhlasíte se zpracováním osobních údajů pro účely zodpovězení vašeho dotazu. Vaše data neposíláme třetím stranám.</p>
-    </div>
+      <p class="lf-status" id="lf-status" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 

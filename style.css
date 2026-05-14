@@ -638,7 +638,49 @@ nav {
   cursor: pointer;
 }
 .fsub:hover { background: var(--rose-deep); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,123,132,0.4); }
+.fsub:disabled { opacity: 0.7; cursor: wait; transform: none; }
+.fsub.is-loading { padding-right: 60px; position: relative; }
+.fsub .fsub-spinner {
+  position: absolute;
+  right: 24px; top: 50%;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  transform: translateY(-50%) rotate(0deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.fsub.is-loading .fsub-spinner {
+  opacity: 1;
+  animation: fsub-spin 0.7s linear infinite;
+}
+@keyframes fsub-spin { to { transform: translateY(-50%) rotate(360deg); } }
+
 .fgdpr { font-size: 0.7rem; color: var(--mid); line-height: 1.6; opacity: 0.7; }
+
+.fg-honey {
+  position: absolute !important;
+  left: -10000px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+}
+
+.lf-status {
+  margin-top: 14px; font-size: 0.85rem; line-height: 1.5;
+  padding: 12px 16px; border-radius: 10px;
+  display: none;
+}
+.lf-status:not(:empty) { display: block; }
+.lf-status-ok {
+  background: rgba(107,157,122,0.12);
+  color: #3d6a4d;
+  border: 1px solid rgba(107,157,122,0.25);
+}
+.lf-status-err {
+  background: var(--rose-blush);
+  color: var(--rose-deep);
+  border: 1px solid var(--rose-pale);
+}
 
 /* ── FOOTER ── */
 footer {

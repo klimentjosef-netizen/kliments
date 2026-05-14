@@ -422,3 +422,67 @@ function openProjLb(id) {
 function closeProjLb() {
   document.getElementById('proj-lb').classList.remove('open');
 }
+
+/* ── LEAD FORM ── */
+(function initLeadForm() {
+  const form = document.getElementById('lead-form');
+  if (!form) return;
+
+  const statusEl = document.getElementById('lf-status');
+  const submitBtn = document.getElementById('lf-submit');
+
+  function setStatus(kind, text) {
+    if (!statusEl) return;
+    statusEl.className = 'lf-status lf-status-' + kind;
+    statusEl.textContent = text;
+  }
+
+  function setLoading(on) {
+    if (!submitBtn) return;
+    submitBtn.disabled = on;
+    submitBtn.classList.toggle('is-loading', on);
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    setStatus('', '');
+
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      interest: form.interest.value,
+      message: form.message.value.trim(),
+      website: form.website.value, // honeypot
+    };
+
+    if (!data.name || !data.email) {
+      setStatus('err', 'Vyplňte prosím jméno a e-mail.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      setStatus('err', 'Zkontrolujte prosím tvar e-mailu.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const r = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await r.json().catch(() => ({}));
+      if (!r.ok || !json.ok) {
+        setStatus('err', json.error || 'Omlouvám se, něco se pokazilo. Napište prosím přímo na josef@kliments.cz.');
+      } else {
+        setStatus('ok', 'Děkuji. Ozvu se vám do 24 hodin.');
+        form.reset();
+      }
+    } catch (err) {
+      setStatus('err', 'Nepodařilo se odeslat zprávu. Napište prosím přímo na josef@kliments.cz.');
+    } finally {
+      setLoading(false);
+    }
+  });
+})();
