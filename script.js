@@ -300,7 +300,7 @@ const PROJ_DATA = [
     badge: 'M&A PORADENSTVÍ', url: 'mnai-nine.vercel.app',
     link: 'https://mnai-nine.vercel.app',
     desc: 'M&A poradenství s pomocí moderních technologií. Nákup, prodej a oceňování firem od startupů po velké korporace. Ocenění firem v rozsahu 20M až 2 miliard Kč.',
-    metrics: [['20M–2Mrd','Rozsah ocenění'],['60+','Klientů'],['12+','Let praxe'],['DCF','Hlavní metoda']],
+    metrics: [['20M až 2Mrd','Rozsah ocenění'],['60+','Klientů'],['12+','Let praxe'],['DCF','Hlavní metoda']],
     bars: [40,55,70,85,95,100],
     tags: ['Valuace','M&A','AI technologie'],
     chips: ['60+ klientů','2Mrd max','AI'],

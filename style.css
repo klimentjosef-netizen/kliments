@@ -1137,6 +1137,23 @@ footer {
 }
 .audience-list strong { color: var(--ink); font-weight: 500; }
 
+/* ── AUDIENCE SOLO (jednoslupcove "JE" provedeni) ── */
+.audience-card.audience-solo {
+  max-width: 960px; margin: 0 auto;
+  padding: 48px 56px;
+}
+.audience-list-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 18px 40px; padding-top: 4px;
+}
+@media (max-width: 900px) {
+  .audience-card.audience-solo { padding: 36px 32px; }
+  .audience-list-grid { grid-template-columns: 1fr; gap: 14px; }
+}
+@media (max-width: 640px) {
+  .audience-card.audience-solo { padding: 28px 22px; }
+}
+
 /* ── WAVE 1: PORTAL CTA ROW ── */
 .portal-cta-row {
   display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;
