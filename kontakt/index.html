@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt · Josef Kliment | Kliments.cz</title>
+<meta name="description" content="Domluvte si nezávaznou konzultaci zdarma. Josef Kliment, finanční ředitel a M&A poradce. Ostrava, celá ČR.">
+<link rel="canonical" href="https://www.kliments.cz/kontakt/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Kontakt · Kliments.cz">
+<meta property="og:description" content="Domluvte si nezávaznou konzultaci zdarma. Ostrava, celá ČR.">
+<meta property="og:image" content="https://www.kliments.cz/og-image.png">
+<meta property="og:url" content="https://www.kliments.cz/kontakt/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="shared-nav"></div>
+
+<section class="subpage-hero">
+  <div class="subpage-hero-inner">
+    <p class="s-eyebrow">Kontakt</p>
+    <h1 class="subpage-hero-h1">
+      Pojďme si<br>
+      <em>promluvit.</em>
+    </h1>
+    <p class="subpage-hero-lead">
+      Úvodní konzultace je zdarma a nezávazná. Ozveme se do 24 hodin.
+    </p>
+  </div>
+</section>
+
+<section class="sp-section">
+  <div class="sp-content">
+    <div class="kontakt-grid">
+      <div class="kontakt-info reveal">
+        <div class="c-persons">
+          <div>
+            <p class="c-pname">Josef Kliment</p>
+            <div class="c-line"><span class="c-icon">&check;</span> josef@kliments.cz</div>
+            <div class="c-line"><span class="c-icon">&loz;</span> Byznys architekt, Finanční ředitel</div>
+          </div>
+        </div>
+        <div class="c-location" style="margin-top:32px">
+          <p class="c-loc-label">Sídlo a působnost</p>
+          <p class="c-loc-val">Ostrava, Česká republika<br>Online i osobně, celá ČR</p>
+        </div>
+      </div>
+
+      <div class="kontakt-form reveal d2">
+        <form class="form" id="lead-form" novalidate>
+          <div class="form-row">
+            <div class="fg">
+              <label class="fl" for="lf-name">Jméno a příjmení</label>
+              <input id="lf-name" name="name" class="fi" type="text" placeholder="Jan Novák" required autocomplete="name">
+            </div>
+            <div class="fg">
+              <label class="fl" for="lf-email">E-mail</label>
+              <input id="lf-email" name="email" class="fi" type="email" placeholder="jan@firma.cz" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label class="fl" for="lf-phone">Telefon</label>
+              <input id="lf-phone" name="phone" class="fi" type="tel" placeholder="+420 xxx xxx xxx" autocomplete="tel">
+            </div>
+            <div class="fg">
+              <label class="fl" for="lf-interest">Zajímá mě</label>
+              <select id="lf-interest" name="interest" class="fs">
+                <option value="">Vyberte službu...</option>
+                <option>Příprava firmy na prodej</option>
+                <option>CFO na volné noze</option>
+                <option>Firemní audit</option>
+                <option>Startup kit</option>
+                <option>Příprava na investora</option>
+                <option>Jednorázová konzultace</option>
+                <option>Jiné</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="lf-message">Zpráva</label>
+            <textarea id="lf-message" name="message" class="ft" placeholder="Stručně popište svou situaci..." rows="4"></textarea>
+          </div>
+          <div class="fg-honey" aria-hidden="true">
+            <label>Web</label>
+            <input name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" class="fsub" id="lf-submit">
+            <span class="fsub-label">Odeslat zprávu &rarr;</span>
+            <span class="fsub-spinner" aria-hidden="true"></span>
+          </button>
+          <p class="fgdpr">Odesláním souhlasíte se zpracováním osobních údajů pro účely zodpovězení vašeho dotazu.</p>
+          <p class="lf-status" id="lf-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="shared-footer"></div>
+<script src="/shared.js"></script>
+<script>
+(function initLeadForm() {
+  const form = document.getElementById('lead-form');
+  if (!form) return;
+  const statusEl = document.getElementById('lf-status');
+  const submitBtn = document.getElementById('lf-submit');
+  function setStatus(kind, text) { if (statusEl) { statusEl.className = 'lf-status lf-status-' + kind; statusEl.textContent = text; } }
+  function setLoading(on) { if (submitBtn) { submitBtn.disabled = on; submitBtn.classList.toggle('is-loading', on); } }
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    setStatus('', '');
+    const data = { name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(), interest: form.interest.value, message: form.message.value.trim(), website: form.website.value };
+    if (!data.name || !data.email) { setStatus('err', 'Vyplňte prosím jméno a e-mail.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { setStatus('err', 'Zkontrolujte prosím tvar e-mailu.'); return; }
+    setLoading(true);
+    try {
+      const r = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const json = await r.json().catch(() => ({}));
+      if (!r.ok || !json.ok) { setStatus('err', json.error || 'Něco se pokazilo. Napište prosím přímo na josef@kliments.cz.'); }
+      else { setStatus('ok', 'Děkuji. Ozvu se vám do 24 hodin.'); form.reset(); }
+    } catch (err) { setStatus('err', 'Nepodařilo se odeslat. Napište prosím přímo na josef@kliments.cz.'); }
+    finally { setLoading(false); }
+  });
+})();
+</script>
+</body>
+</html>
