@@ -486,3 +486,61 @@ function closeProjLb() {
     }
   });
 })();
+
+/* ── Social proof testimonial rotation ── */
+(function initProofRotation() {
+  const testimonials = document.querySelectorAll('.proof-testimonial');
+  const dots = document.querySelectorAll('.proof-dot');
+  if (testimonials.length === 0) return;
+
+  let current = 0;
+  let timer;
+
+  function show(idx) {
+    testimonials.forEach(t => t.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    testimonials[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    current = idx;
+  }
+
+  function next() {
+    show((current + 1) % testimonials.length);
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 5000);
+  }
+
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      show(parseInt(d.dataset.proof));
+      startTimer();
+    });
+  });
+
+  startTimer();
+})();
+
+/* ── Sticky lead magnet banner ── */
+(function initStickyLead() {
+  const banner = document.getElementById('sticky-lead');
+  if (!banner) return;
+
+  let dismissed = false;
+
+  window.addEventListener('scroll', function() {
+    if (dismissed) return;
+    if (window.scrollY > 600) {
+      banner.classList.add('visible');
+    } else {
+      banner.classList.remove('visible');
+    }
+  });
+
+  window.dismissStickyLead = function() {
+    dismissed = true;
+    banner.classList.remove('visible');
+  };
+})();
