@@ -2661,6 +2661,176 @@ footer {
 }
 .kp-hero-trust strong { color: var(--ink); font-weight: 500; }
 
+/* Split hero layout — text vlevo + browser mockup vpravo */
+.kp-hero-split {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.kp-hero-split-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 64px;
+  align-items: center;
+}
+.kp-hero-text {
+  max-width: 560px;
+}
+.kp-hero-split .subpage-hero-h1 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.12;
+}
+.kp-hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.kp-hero-browser {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 50px 100px -32px rgba(20, 20, 30, 0.4),
+    0 22px 44px -18px rgba(196, 117, 132, 0.28);
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 660px;
+  transform: perspective(1600px) rotateY(-7deg) rotateX(2deg);
+  transition: transform 400ms ease;
+}
+.kp-hero-browser:hover {
+  transform: perspective(1600px) rotateY(-4deg) rotateX(1deg) translateY(-4px);
+}
+.kp-hero-chrome {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: #f5f3ef;
+  border-bottom: 1px solid var(--border-light);
+}
+.kp-hero-dots {
+  display: flex;
+  gap: 6px;
+}
+.kp-hero-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.kp-hero-dots span:nth-child(1) { background: #e8a8a8; }
+.kp-hero-dots span:nth-child(2) { background: #e8ccae; }
+.kp-hero-dots span:nth-child(3) { background: #b6d4b3; }
+.kp-hero-url {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  color: var(--mid);
+  background: #ffffff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  flex: 1;
+  max-width: 320px;
+}
+.kp-hero-screen {
+  background: #fafafa;
+  position: relative;
+}
+.kp-hero-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.kp-hero-mobile {
+  position: absolute;
+  right: -24px;
+  bottom: -44px;
+  width: 165px;
+  background: #1a1a22;
+  border-radius: 26px;
+  padding: 8px;
+  box-shadow:
+    0 30px 60px -20px rgba(20, 20, 30, 0.55),
+    0 12px 24px -12px rgba(196, 117, 132, 0.25);
+  border: 1px solid #2a2a32;
+  overflow: hidden;
+  transform: rotate(4deg);
+}
+.kp-hero-mobile-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 14px;
+  background: #1a1a22;
+  border-radius: 0 0 12px 12px;
+  z-index: 2;
+}
+.kp-hero-mobile img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+@media (max-width: 1100px) {
+  .kp-hero-split-inner {
+    gap: 48px;
+  }
+  .kp-hero-mobile {
+    width: 140px;
+    right: -16px;
+    bottom: -32px;
+  }
+}
+@media (max-width: 900px) {
+  .kp-hero-split {
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+  .kp-hero-split-inner {
+    grid-template-columns: 1fr;
+    padding: 0 32px;
+    gap: 56px;
+  }
+  .kp-hero-text {
+    max-width: 100%;
+  }
+  .kp-hero-browser {
+    transform: none;
+    max-width: 560px;
+  }
+  .kp-hero-browser:hover {
+    transform: translateY(-4px);
+  }
+  .kp-hero-mobile {
+    width: 130px;
+    right: -12px;
+    bottom: -28px;
+  }
+}
+@media (max-width: 560px) {
+  .kp-hero-split-inner {
+    padding: 0 22px;
+    gap: 40px;
+  }
+  .kp-hero-mobile {
+    width: 110px;
+    right: -6px;
+    bottom: -22px;
+    border-radius: 22px;
+    padding: 6px;
+  }
+  .kp-hero-mobile-notch {
+    width: 50px;
+    height: 12px;
+  }
+}
+
 /* Sekce 2 — Tradiční vs Portál */
 .kp-compare-section { background: var(--sand-light); }
 .kp-compare-grid {
