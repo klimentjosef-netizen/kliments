@@ -474,13 +474,13 @@ function closeProjLb() {
       });
       const json = await r.json().catch(() => ({}));
       if (!r.ok || !json.ok) {
-        setStatus('err', json.error || 'Omlouvám se, něco se pokazilo. Napište prosím přímo na josef@kliments.cz.');
+        setStatus('err', json.error || 'Omlouvám se, něco se pokazilo. Napište prosím přímo na kliment.josef@email.cz.');
       } else {
         setStatus('ok', 'Děkuji. Ozvu se vám do 24 hodin.');
         form.reset();
       }
     } catch (err) {
-      setStatus('err', 'Nepodařilo se odeslat zprávu. Napište prosím přímo na josef@kliments.cz.');
+      setStatus('err', 'Nepodařilo se odeslat zprávu. Napište prosím přímo na kliment.josef@email.cz.');
     } finally {
       setLoading(false);
     }
