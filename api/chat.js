@@ -35,7 +35,7 @@ Vstupní jednorázové služby:
    - Rizikové faktory, růstové scénáře
    - Investorský pohled s Exit Readiness Score
 
-2. FIREMNÍ AUDIT (od 9 900 Kč)
+2. FIREMNÍ AUDIT (od 14 900 Kč)
    - 6 modulů: ziskovost, marketing, retence, sklady, ceny, provoz
    - Výstup: prioritní akce seřazené podle dopadu v Kč
 

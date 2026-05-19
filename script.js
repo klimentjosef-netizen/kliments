@@ -169,7 +169,7 @@ const PROJ_DATA = [
     badge: 'FINANČNÍ ŘÍZENÍ', url: 'kliments.cz',
     link: 'https://www.kliments.cz',
     desc: 'Externí finanční ředitel pro české firmy. CFO na volné noze, valuace, firemní audit, startup kit. Zlepšuji fungování firem od první faktury po případný prodej.',
-    metrics: [['4','Hlavní služby'],['9 900 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
+    metrics: [['4','Hlavní služby'],['14 900 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
     bars: [50,60,70,80,90,100],
     tags: ['CFO','Valuace','Mentoring'],
     chips: ['CFO','Valuace','M&A'],
