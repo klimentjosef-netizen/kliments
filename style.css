@@ -2305,3 +2305,302 @@ footer {
 @media (max-width: 1024px) {
   .hero-phone { display: none; }
 }
+
+/* ── PORTAL V2 — kompletni prepis sekce ── */
+.portal-v2 {
+  padding: 120px 64px;
+  background: var(--sand-light);
+  position: relative;
+}
+.pv2-intro {
+  max-width: 880px;
+  margin: 0 auto 80px;
+  text-align: center;
+}
+.pv2-eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--rose);
+  font-weight: 500; margin-bottom: 24px;
+}
+.pv2-headline {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(34px, 4.4vw, 58px);
+  font-weight: 300; line-height: 1.08;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.pv2-headline em { font-style: italic; color: var(--rose); }
+.pv2-subline {
+  font-size: 1.02rem; line-height: 1.8;
+  color: var(--mid);
+  max-width: 720px; margin: 0 auto;
+}
+
+.pv2-block {
+  max-width: 1140px;
+  margin: 0 auto 96px;
+}
+.pv2-h3 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 300; line-height: 1.2;
+  color: var(--ink);
+  text-align: center; margin-bottom: 48px;
+  max-width: 880px;
+  margin-left: auto; margin-right: auto;
+}
+.pv2-h3 em { font-style: italic; color: var(--rose); }
+
+/* Pilíře */
+.pv2-pillars {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.pv2-pillar {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 36px 32px;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.pv2-pillar:hover {
+  transform: translateY(-3px);
+  border-color: var(--rose-pale);
+  box-shadow: 0 16px 40px rgba(31,26,24,0.06);
+}
+.pv2-pillar-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--rose-blush);
+  color: var(--rose-deep);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.pv2-pillar-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.18rem; font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 12px; line-height: 1.35;
+}
+.pv2-pillar-text {
+  font-size: 0.92rem; line-height: 1.7;
+  color: var(--mid);
+}
+
+/* 4 funkční karty */
+.pv2-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+.pv2-feature {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 28px;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.pv2-feature:hover {
+  transform: translateY(-3px);
+  border-color: var(--rose-pale);
+  box-shadow: 0 16px 40px rgba(31,26,24,0.06);
+}
+.pv2-frame {
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 22px;
+  background: var(--sand-light);
+}
+.pv2-chrome {
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.pv2-dots { display: flex; gap: 5px; }
+.pv2-dots span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--rose-pale);
+}
+.pv2-url {
+  background: var(--sand-light);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 0.62rem; color: var(--mid);
+  flex: 1; text-align: center;
+  letter-spacing: 0.02em;
+  font-family: 'Outfit', monospace;
+  border: 1px solid var(--border-light);
+}
+.pv2-quote {
+  padding: 24px 22px;
+  background: linear-gradient(180deg, var(--sand-light) 0%, var(--sand-pale) 100%);
+  min-height: 80px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pv2-quote-text {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.pv2-quote-text em { font-style: italic; }
+.pv2-badge {
+  display: inline-block;
+  background: var(--rose);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.6rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+.pv2-feature-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+.pv2-feature-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--mid);
+}
+
+/* Srovnávací tabulka */
+.pv2-table-wrap {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 28px 32px;
+  overflow-x: auto;
+  margin-bottom: 32px;
+}
+.pv2-table-wrap:focus { outline: 2px solid var(--rose); outline-offset: 2px; }
+.pv2-compare {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+.pv2-compare th,
+.pv2-compare td {
+  padding: 16px 14px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.pv2-compare thead th {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  font-weight: 500;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border-light);
+}
+.pv2-compare thead th.pv2-th-mine {
+  color: var(--rose);
+  font-weight: 600;
+}
+.pv2-compare tbody th {
+  text-align: left;
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-size: 0.88rem;
+}
+.pv2-compare tbody tr {
+  border-bottom: 1px solid var(--border-light);
+}
+.pv2-compare tbody tr:last-child { border-bottom: 0; }
+.pv2-td-mine {
+  background: rgba(201,123,132,0.04);
+  font-weight: 500;
+  color: var(--ink);
+}
+.pv2-y {
+  color: #4f7a5e;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.pv2-n {
+  color: var(--mid);
+  opacity: 0.4;
+  font-size: 1.1rem;
+}
+.pv2-p {
+  font-size: 0.78rem;
+  color: var(--mid);
+  font-style: italic;
+}
+.pv2-price-row {
+  background: var(--sand-light);
+}
+.pv2-price-row th,
+.pv2-price-row td {
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+.pv2-price-row small {
+  font-size: 0.7rem; color: var(--mid);
+}
+.pv2-table-tagline {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.18rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink);
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.pv2-table-tagline em {
+  font-style: italic; color: var(--rose);
+}
+
+/* CTA blok */
+.pv2-cta-block {
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pv2-cta-h3 { margin-bottom: 28px; }
+.pv2-cta-row {
+  display: flex; justify-content: center;
+  gap: 14px; flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.pv2-cta-note {
+  font-size: 0.85rem;
+  color: var(--mid);
+  font-style: italic;
+  margin-bottom: 48px;
+}
+.pv2-dashboard-mockup {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .portal-v2 { padding: 80px 32px; }
+  .pv2-pillars { grid-template-columns: 1fr; gap: 18px; }
+  .pv2-features { grid-template-columns: 1fr; gap: 22px; }
+  .pv2-table-wrap { padding: 20px; }
+}
+@media (max-width: 640px) {
+  .portal-v2 { padding: 64px 22px; }
+  .pv2-pillar { padding: 28px 24px; }
+  .pv2-feature { padding: 22px; }
+  .pv2-quote { padding: 18px; min-height: 70px; }
+  .pv2-quote-text { font-size: 0.85rem; }
+  .pv2-cta-row a { width: 100%; justify-content: center; }
+  .pv2-compare th, .pv2-compare td { padding: 12px 8px; font-size: 0.78rem; }
+}
