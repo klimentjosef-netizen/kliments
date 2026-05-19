@@ -2755,14 +2755,14 @@ footer {
 
 /* "Vice o portalu" odkaz pod CTA v portal-v2 */
 .pv2-more-link {
-  margin-top: 18px;
-  font-size: 0.85rem;
+  margin-top: 24px;
   text-align: center;
+  font-size: 0.85rem;
 }
 .pv2-more-link a {
   color: var(--mid);
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
   text-decoration-color: var(--rose-pale);
   transition: color 0.25s, text-decoration-color 0.25s;
 }
