@@ -42,6 +42,7 @@
               <li><a href="/sluzby/firemni-audit/">Firemní audit</a></li>
               <li><a href="/sluzby/startup-kit/">Startup kit</a></li>
               <li><a href="/sluzby/priprava-na-prodej/">Příprava na prodej</a></li>
+              <li><a href="/klientsky-portal/">Klientský portál</a></li>
             </ul>
           </div>
           <div class="footer-col">

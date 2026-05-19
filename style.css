@@ -2616,3 +2616,181 @@ footer {
   .pv2-cta-row a { width: 100%; justify-content: center; }
   .pv2-compare th, .pv2-compare td { padding: 12px 8px; font-size: 0.78rem; }
 }
+
+/* ── KLIENTSKY PORTAL LANDING PAGE ── */
+.kp-hero {
+  position: relative;
+  overflow: hidden;
+}
+.kp-hero::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,123,132,0.12) 0%, transparent 70%);
+  top: -150px; right: -100px;
+  pointer-events: none;
+}
+.kp-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--rose);
+  font-weight: 500; margin-bottom: 24px;
+}
+.kp-hero-eyebrow-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rose);
+  box-shadow: 0 0 0 4px rgba(201,123,132,0.18);
+}
+.kp-hero-note {
+  font-size: 0.78rem; color: var(--mid);
+  margin-top: 14px; opacity: 0.8;
+  font-style: italic;
+}
+.kp-hero-trust {
+  list-style: none;
+  display: flex; gap: 32px;
+  margin-top: 40px;
+  font-size: 0.85rem; color: var(--mid);
+  flex-wrap: wrap;
+}
+.kp-hero-trust li { display: inline-flex; align-items: center; gap: 8px; }
+.kp-hero-trust li:not(:last-child)::after {
+  content: '·'; margin-left: 32px;
+  color: var(--rose); font-weight: 600;
+}
+.kp-hero-trust strong { color: var(--ink); font-weight: 500; }
+
+/* Sekce 2 — Tradiční vs Portál */
+.kp-compare-section { background: var(--sand-light); }
+.kp-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 40px;
+  margin-top: 56px;
+}
+.kp-compare-col {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 36px 32px;
+  border: 1px solid var(--border-light);
+}
+.kp-compare-trad {
+  background: #f5f1ec;
+  opacity: 0.92;
+}
+.kp-compare-mine {
+  border-top: 4px solid var(--rose);
+  box-shadow: 0 8px 32px rgba(201,123,132,0.1);
+}
+.kp-compare-header { margin-bottom: 28px; }
+.kp-compare-label {
+  display: inline-block;
+  font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; font-weight: 500;
+}
+.kp-compare-trad .kp-compare-label { color: var(--mid); }
+.kp-compare-mine .kp-compare-label { color: var(--rose-deep); }
+
+.kp-compare-list {
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 22px;
+}
+.kp-compare-list li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.kp-compare-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+}
+.kp-compare-icon-bad {
+  background: rgba(31,26,24,0.06);
+  color: var(--mid);
+}
+.kp-compare-icon-good {
+  background: var(--rose-blush);
+  color: var(--rose-deep);
+}
+.kp-compare-list strong {
+  display: block;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+}
+.kp-compare-trad .kp-compare-list div {
+  font-size: 0.86rem;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.kp-compare-mine .kp-compare-list div {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.kp-compare-tagline {
+  text-align: center;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: 16px;
+}
+.kp-compare-tagline em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+/* "Vice o portalu" odkaz pod CTA v portal-v2 */
+.pv2-more-link {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+.pv2-more-link a {
+  color: var(--mid);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rose-pale);
+  transition: color 0.25s, text-decoration-color 0.25s;
+}
+.pv2-more-link a:hover {
+  color: var(--rose);
+  text-decoration-color: var(--rose);
+}
+
+@media (max-width: 1024px) {
+  .kp-hero-trust { gap: 18px; }
+  .kp-hero-trust li:not(:last-child)::after { margin-left: 18px; }
+  .kp-compare-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .kp-compare-mine { order: -1; } /* na mobilu portal nahore */
+}
+@media (max-width: 640px) {
+  .kp-hero-trust {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .kp-hero-trust li:not(:last-child)::after { display: none; }
+  .kp-compare-col {
+    padding: 28px 24px;
+  }
+  .kp-compare-tagline {
+    font-size: 1rem;
+  }
+}
