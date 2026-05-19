@@ -31,7 +31,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="footer-logo">Kliments<span class="footer-logo-dot">.</span></div>
-          <p class="footer-tagline">Externí finanční ředitel a M&A poradce.<br>Ostrava, celá ČR.</p>
+          <p class="footer-tagline">Externí finanční ředitel. Zlepšuji fungování firem.<br>Ostrava, celá ČR.</p>
         </div>
         <div class="footer-cols">
           <div class="footer-col">
