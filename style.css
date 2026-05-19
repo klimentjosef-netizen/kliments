@@ -2794,3 +2794,123 @@ footer {
     font-size: 1rem;
   }
 }
+
+/* KP Landing — Sekce 3: 8 hlubokych funkci */
+.kp-features-section {
+  background: white;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.kp-features-content {
+  max-width: 1180px;
+}
+.kp-features-lead {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  max-width: 680px;
+  margin-bottom: 56px;
+}
+
+.kp-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.kp-feature {
+  background: var(--sand-light);
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  padding: 28px 30px 24px;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.kp-feature:hover {
+  transform: translateY(-3px);
+  border-color: var(--rose-pale);
+  box-shadow: 0 14px 36px rgba(31,26,24,0.06);
+}
+.kp-feature-num {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--rose);
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.kp-feature-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.kp-feature-text {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.kp-feature-quote {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--mid);
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: 'Outfit', 'Segoe UI', monospace;
+  letter-spacing: 0.01em;
+  font-style: italic;
+  position: relative;
+}
+.kp-feature-quote::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 16px;
+  width: 24px; height: 2px;
+  background: var(--rose);
+  transform: translateY(-1px);
+  border-radius: 2px;
+}
+
+.kp-features-foot {
+  margin-top: 48px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--mid);
+  font-style: italic;
+  max-width: 720px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.85;
+}
+
+@media (max-width: 900px) {
+  .kp-features-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .kp-features-section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .kp-feature {
+    padding: 24px 22px 20px;
+  }
+  .kp-feature-title {
+    font-size: 1.05rem;
+  }
+  .kp-feature-text {
+    font-size: 0.86rem;
+  }
+  .kp-feature-quote {
+    font-size: 0.74rem;
+    padding: 10px 14px;
+  }
+}
