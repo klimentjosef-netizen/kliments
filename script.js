@@ -166,10 +166,10 @@ const PROJ_DATA = [
   },
   {
     id: 5, title: 'Kliments', role: 'Zakladatel',
-    badge: 'FINANČNÍ PORADENSTVÍ', url: 'kliments.cz',
+    badge: 'FINANČNÍ ŘÍZENÍ', url: 'kliments.cz',
     link: 'https://www.kliments.cz',
-    desc: 'Byznys architektura a finanční řízení pro firmy a zakladatele. Od první faktury po prodej firmy. CFO na volné noze, valuace, M&A a mentoring.',
-    metrics: [['6','Služeb'],['4 900 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
+    desc: 'Externí finanční ředitel pro české firmy. CFO na volné noze, valuace, firemní audit, startup kit. Zlepšuji fungování firem od první faktury po případný prodej.',
+    metrics: [['4','Hlavní služby'],['9 900 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
     bars: [50,60,70,80,90,100],
     tags: ['CFO','Valuace','Mentoring'],
     chips: ['CFO','Valuace','M&A'],
