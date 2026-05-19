@@ -15,6 +15,7 @@
       <ul class="nav-links">
         <li><a href="${root}#services">Služby</a></li>
         <li><a href="${root}#projects">Projekty</a></li>
+        <li><a href="/blog/">Blog</a></li>
         <li><a href="${root}#faq">FAQ</a></li>
         <li><a href="${root}#contact">Kontakt</a></li>
         <li><a href="/portal" class="nav-pill">Přístup do portálu &rarr;</a></li>
