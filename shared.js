@@ -14,6 +14,7 @@
       </button>
       <ul class="nav-links">
         <li><a href="${root}#services">Služby</a></li>
+        <li><a href="/klientsky-portal/">Portál</a></li>
         <li><a href="${root}#projects">Projekty</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="${root}#faq">FAQ</a></li>
