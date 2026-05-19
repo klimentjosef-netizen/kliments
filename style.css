@@ -1285,7 +1285,12 @@ footer {
   flex-wrap: wrap; gap: 16px;
 }
 
-/* ── HERO PORTAL MOCKUP (block 1) ── */
+/* ── HERO PORTAL MOCKUP (block 1) ──
+   Hero telefony (portal-mockup + animovany phone) vyrazeny —
+   vrati se az s realnymi screenshoty (desktop + mobile). Styly
+   ponechany zakomentovane pro pozdejsi navrat bez nutnosti
+   prepisovat. */
+/*
 .hero-portal-mockup {
   position: relative;
   display: block;
@@ -1377,6 +1382,7 @@ footer {
   font-size: 0.7rem; color: var(--mid);
   letter-spacing: 0.04em;
 }
+*/
 
 /* ── WAVE 1: RESPONSIVE ── */
 @media (max-width: 1024px) {
@@ -1387,8 +1393,8 @@ footer {
   .footer { padding: 48px 32px 20px; }
   .footer-top { grid-template-columns: 1fr; gap: 36px; }
   .footer-cols { gap: 28px; }
-  .hpm-josef { left: 0; bottom: -24px; padding: 10px 16px 10px 10px; }
-  .hpm-josef img { width: 40px; height: 40px; }
+  /* .hpm-josef { left: 0; bottom: -24px; padding: 10px 16px 10px 10px; } */
+  /* .hpm-josef img { width: 40px; height: 40px; } */
 }
 @media (max-width: 640px) {
   .hero-trust { gap: 6px 14px; font-size: 0.72rem; }
@@ -1406,12 +1412,12 @@ footer {
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .portal-cta-row { flex-direction: column; }
   .portal-cta-row a { width: 100%; justify-content: center; }
-  .hpm-tag-top { font-size: 0.62rem; padding: 6px 14px; }
-  .hpm-screen img { max-height: 280px; }
-  .hpm-josef { bottom: -22px; padding: 8px 14px 8px 8px; gap: 10px; }
-  .hpm-josef img { width: 36px; height: 36px; }
-  .hpm-josef-name { font-size: 0.82rem; }
-  .hpm-josef-role { font-size: 0.62rem; }
+  /* .hpm-tag-top { font-size: 0.62rem; padding: 6px 14px; } */
+  /* .hpm-screen img { max-height: 280px; } */
+  /* .hpm-josef { bottom: -22px; padding: 8px 14px 8px 8px; gap: 10px; } */
+  /* .hpm-josef img { width: 36px; height: 36px; } */
+  /* .hpm-josef-name { font-size: 0.82rem; } */
+  /* .hpm-josef-role { font-size: 0.62rem; } */
 }
 
 /* ── BLOK 3: VLAJKOVA SLUZBA (FLAGSHIP) ── */
@@ -2205,7 +2211,12 @@ footer {
   .blog-cta-block { padding: 24px; }
   .blog-lead { font-size: 1rem; padding-left: 18px; }
 }
-/* ── HERO PHONE MOCKUP s animaci ── */
+/* ── HERO PHONE MOCKUP s animaci ──
+   Hero telefony (portal-mockup + animovany phone) vyrazeny —
+   vrati se az s realnymi screenshoty (desktop + mobile). Styly
+   ponechany zakomentovane pro pozdejsi navrat bez nutnosti
+   prepisovat. */
+/*
 .hero-phone {
   position: absolute;
   right: -10px; bottom: -36px;
@@ -2305,6 +2316,7 @@ footer {
 @media (max-width: 1024px) {
   .hero-phone { display: none; }
 }
+*/
 
 /* ── PORTAL V2 — kompletni prepis sekce ── */
 .portal-v2 {
