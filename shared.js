@@ -37,10 +37,11 @@
           <div class="footer-col">
             <p class="footer-col-h">Služby</p>
             <ul>
-              <li><a href="/sluzby/priprava-na-prodej/">Příprava na prodej</a></li>
               <li><a href="/sluzby/cfo-na-volne-noze/">CFO na volné noze</a></li>
+              <li><a href="/sluzby/valuace/">Valuace</a></li>
               <li><a href="/sluzby/firemni-audit/">Firemní audit</a></li>
               <li><a href="/sluzby/startup-kit/">Startup kit</a></li>
+              <li><a href="/sluzby/priprava-na-prodej/">Příprava na prodej</a></li>
             </ul>
           </div>
           <div class="footer-col">
