@@ -3337,6 +3337,12 @@ footer {
   font-weight: 600;
   flex-shrink: 0;
 }
+.portal-teaser-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
 .portal-teaser-cta {
   display: inline-flex;
   align-items: center;
@@ -3357,6 +3363,26 @@ footer {
   background: var(--rose-deep);
   transform: translateY(-2px);
   box-shadow: 0 20px 44px -16px rgba(196, 117, 132, 0.7);
+}
+.portal-teaser-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  font-size: 1.02rem;
+  padding: 18px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+.portal-teaser-cta-ghost:hover {
+  border-color: var(--rose);
+  color: var(--rose-deep);
+  background: rgba(196, 117, 132, 0.06);
 }
 .portal-teaser-note {
   margin: 16px 0 0;
@@ -3490,7 +3516,13 @@ footer {
   .portal-teaser-lead {
     font-size: 1rem;
   }
-  .portal-teaser-cta {
+  .portal-teaser-ctas {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .portal-teaser-cta,
+  .portal-teaser-cta-ghost {
     padding: 18px 28px;
     font-size: 1rem;
     width: 100%;
