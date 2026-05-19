@@ -43,6 +43,95 @@
   }
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Je portál v ceně, nebo ho platím zvlášť?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Portál je v ceně každé spolupráce, jednorázové i měsíční. Když máte CFO (od 15 000 Kč/měsíc), Valuaci (od 39 900 Kč), Audit (14 900 Kč) nebo Startup kit (od 14 900 Kč), dostanete přístup automaticky. Žádné samostatné předplatné, žádný setup poplatek navíc."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co když nemám účetnictví v Pohodě, ale v něčem jiném?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Importuji z Pohody, Money S3, FlexiBee, ABRA Flexi i z čistých CSV. Pokud máte něco exotického, mrkneme na export. Pro 95 % případů funguje import z CSV bankovních výpisů (ČSOB, KB, Air Bank, mBank, Fio, Raiffeisen, Revolut Business) bez ohledu na účetní systém."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Funguje portál v mobilu, nebo jen v počítači?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Funguje plnohodnotně v mobilu i na desktopu. Otevřete v Safari nebo Chromu na telefonu a všechny taby fungují stejně jako v počítači. Cashflow, výsledovka, daňový kalendář, chat, dokumenty. Nepotřebujete žádnou aplikaci ze store."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak je to s přihlášením a bezpečností dat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Přihlášení e-mailem a heslem přes Supabase Auth (stejná infrastruktura, kterou používají i banky a fintech firmy). Data jsou uložena v EU (Frankfurt), šifrovaná na úrovni databáze, zálohovaná denně. Každý klient vidí pouze vlastní data — Row-Level Security na databázové úrovni."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co když nejsem technický typ? Naučím se v tom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Portál jsem stavěl pro majitele firem, ne pro IT lidi. Cashflow je graf s posuvníkem, výsledovka je tabulka, chat je chat. Pokud zvládnete e-mail a internetové bankovnictví, zvládnete portál. První přihlášení vám projdeme spolu — trvá to 15 minut."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Můžu si portál nejdřív prohlédnout, než se rozhodnu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Na úvodní schůzce vám portál ukážu naživo na svém účtu. Projedeme cashflow, výsledovku, chat, daňový kalendář. Uvidíte konkrétní data konkrétního klienta (s jeho svolením a anonymizovaná) a poznáte, jestli vám to sedí dřív, než cokoli podepíšete."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co když chci portál, ale nepotřebuji žádnou ze služeb?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Portál samostatně bez služby nenabízím. Není to SaaS produkt, je to nástroj, kterým s vámi pracuji. Bez měsíčního reportingu, valuace nebo auditu by byl portál prázdný dashboard. Nejmenší vstup je jednorázový Audit od 14 900 Kč nebo Startup kit od 14 900 Kč."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co se stane s daty, když ukončíme spolupráci?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Před ukončením vám pošlu kompletní export všech dat — výkazy, cashflow, historie chatu, dokumenty. Buď XLSX a PDF, nebo strojový JSON pro nového poradce. Účet v portálu zůstává aktivní ještě 90 dní pro případné dotazy. Pak data podle vašeho přání buď archivuji, nebo smazávám."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Je portál opravdu v ceně auditu za 14 900 Kč?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ano. I u jednorázového Firemního auditu (14 900 Kč) nebo Startup kitu (14 900 Kč) dostanete přístup do portálu — všechny dashboardy, dokumenty, chat. Liší se rozsah dat: u jednorázovky nahrávám historii a předávám výstup, u CFO spolupráce aktualizuji každý měsíc."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak je to s GDPR a zpracováním dat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jsem zpracovatel vašich dat na základě smlouvy o zpracování osobních údajů, která je součástí každé spolupráce. Data uložena v EU, neprodávám je, neposkytuji třetím stranám, kromě případů, kdy mi to ukládá zákon (FÚ, ČSSZ při kontrole — ale to byste řešili stejně tak v Pohodě)."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -386,6 +475,126 @@
 
     <p class="kp-timeline-foot reveal">
       <strong>Měsíční výpovědní doba.</strong> Pokud po prvním měsíci uvidíte, že nejsem váš člověk, rozcházíme se v dobrém. Žádné dlouhé smlouvy, žádné penále.
+    </p>
+  </div>
+</section>
+
+<section class="sp-section kp-faq-section">
+  <div class="sp-content kp-faq-content">
+    <p class="s-eyebrow">Co se ptají majitelé firem nejčastěji</p>
+    <h2 class="sp-h2">
+      Otázky, které dostávám <em>na úvodních schůzkách.</em>
+    </h2>
+    <p class="kp-faq-lead">
+      Deset nejčastějších věcí, které majitelé firem chtějí vědět, než portál začnou používat. Pokud vaši otázku tady nevidíte, napište mi v chatu nebo na úvodní schůzce — odpovím konkrétně k vaší situaci.
+    </p>
+
+    <div class="kp-faq-list">
+
+      <details class="kp-faq-item reveal d1" open>
+        <summary>
+          <span class="kp-faq-q">Je portál v ceně, nebo ho platím zvlášť?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Portál je v ceně každé spolupráce, jednorázové i měsíční. Když máte CFO (od 15 000 Kč/měsíc), <a href="/sluzby/valuace/">Valuaci</a> (od 39 900 Kč), <a href="/sluzby/firemni-audit/">Audit</a> (14 900 Kč) nebo <a href="/sluzby/startup-kit/">Startup kit</a> (od 14 900 Kč), dostanete přístup automaticky. Žádné samostatné předplatné, žádný setup poplatek navíc.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Co když nemám účetnictví v Pohodě, ale v něčem jiném?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Importuji z Pohody, Money S3, FlexiBee, ABRA Flexi i z čistých CSV. Pokud máte něco exotického, mrkneme na export. Pro 95&nbsp;% případů funguje import z CSV bankovních výpisů (ČSOB, KB, Air Bank, mBank, Fio, Raiffeisen, Revolut Business) bez ohledu na účetní systém.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Funguje portál v mobilu, nebo jen v počítači?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Funguje plnohodnotně v mobilu i na desktopu. Otevřete v Safari nebo Chromu na telefonu a všechny taby fungují stejně jako v počítači. Cashflow, výsledovka, daňový kalendář, chat, dokumenty. Nepotřebujete žádnou aplikaci ze store.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Jak je to s přihlášením a bezpečností dat?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Přihlášení e-mailem a heslem přes Supabase Auth (stejná infrastruktura, kterou používají i banky a fintech firmy). Data jsou uložena v EU (Frankfurt), šifrovaná na úrovni databáze, zálohovaná denně. Každý klient vidí pouze vlastní data, Row-Level Security na databázové úrovni.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Co když nejsem technický typ? Naučím se v tom?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Portál jsem stavěl pro majitele firem, ne pro IT lidi. Cashflow je graf s posuvníkem, výsledovka je tabulka, chat je chat. Pokud zvládnete e-mail a internetové bankovnictví, zvládnete portál. První přihlášení vám projdeme spolu, trvá to 15 minut.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Můžu si portál nejdřív prohlédnout, než se rozhodnu?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Na úvodní schůzce vám portál ukážu naživo na svém účtu. Projedeme cashflow, výsledovku, chat, daňový kalendář. Uvidíte konkrétní data konkrétního klienta (s jeho svolením a anonymizovaná) a poznáte, jestli vám to sedí dřív, než cokoli podepíšete.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Co když chci portál, ale nepotřebuji žádnou ze služeb?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Portál samostatně bez služby nenabízím. Není to SaaS produkt, je to nástroj, kterým s vámi pracuji. Bez měsíčního reportingu, valuace nebo auditu by byl portál prázdný dashboard. Nejmenší vstup je jednorázový <a href="/sluzby/firemni-audit/">Firemní audit</a> od 14 900 Kč nebo <a href="/sluzby/startup-kit/">Startup kit</a> od 14 900 Kč.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Co se stane s daty, když ukončíme spolupráci?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Před ukončením vám pošlu kompletní export všech dat: výkazy, cashflow, historii chatu, dokumenty. Buď XLSX a PDF, nebo strojový JSON pro nového poradce. Účet v portálu zůstává aktivní ještě 90 dní pro případné dotazy. Pak data podle vašeho přání buď archivuji, nebo smazávám.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Je portál opravdu v ceně auditu za 14 900 Kč?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Ano. I u jednorázového <a href="/sluzby/firemni-audit/">Firemního auditu</a> (14 900 Kč) nebo <a href="/sluzby/startup-kit/">Startup kitu</a> (14 900 Kč) dostanete přístup do portálu, všechny dashboardy, dokumenty, chat. Liší se rozsah dat: u jednorázovky nahrávám historii a předávám výstup, u CFO spolupráce aktualizuji každý měsíc.
+        </div>
+      </details>
+
+      <details class="kp-faq-item reveal d1">
+        <summary>
+          <span class="kp-faq-q">Jak je to s GDPR a zpracováním dat?</span>
+          <span class="kp-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="kp-faq-a">
+          Jsem zpracovatel vašich dat na základě smlouvy o zpracování osobních údajů, která je součástí každé spolupráce. Data uložena v EU, neprodávám je, neposkytuji třetím stranám, kromě případů, kdy mi to ukládá zákon (FÚ, ČSSZ při kontrole, ale to byste řešili stejně tak v Pohodě).
+        </div>
+      </details>
+
+    </div>
+
+    <p class="kp-faq-foot reveal">
+      <strong>Vaše otázka tady není?</strong> Napište mi na <a href="mailto:kliment.josef@email.cz">kliment.josef@email.cz</a> nebo si rovnou domluvte úvodní schůzku, projdeme to konkrétně k vaší situaci.
     </p>
   </div>
 </section>
