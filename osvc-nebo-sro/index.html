@@ -216,12 +216,12 @@ function submitOsvcLead(e) {
       status.style.color = '#4f7a5e';
       form.style.display = 'none';
     } else {
-      status.textContent = 'Něco se pokazilo. Napište na josef@kliments.cz.';
+      status.textContent = 'Něco se pokazilo. Napište na kliment.josef@email.cz.';
       status.style.color = 'var(--rose-deep)';
     }
   })
   .catch(() => {
-    status.textContent = 'Něco se pokazilo. Napište na josef@kliments.cz.';
+    status.textContent = 'Něco se pokazilo. Napište na kliment.josef@email.cz.';
     status.style.color = 'var(--rose-deep)';
   });
   return false;

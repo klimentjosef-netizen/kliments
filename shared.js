@@ -56,7 +56,7 @@
             <p class="footer-col-h">Kontakt</p>
             <ul>
               <li>Josef Kliment</li>
-              <li><a href="mailto:josef@kliments.cz">josef@kliments.cz</a></li>
+              <li><a href="mailto:kliment.josef@email.cz">kliment.josef@email.cz</a></li>
               <li>Ostrava, celá ČR</li>
               <li><a href="/portal">Klientský portál &rarr;</a></li>
             </ul>

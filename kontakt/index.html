@@ -41,7 +41,7 @@
         <div class="c-persons">
           <div>
             <p class="c-pname">Josef Kliment</p>
-            <div class="c-line"><span class="c-icon">&check;</span> josef@kliments.cz</div>
+            <div class="c-line"><span class="c-icon">&check;</span> kliment.josef@email.cz</div>
             <div class="c-line"><span class="c-icon">&loz;</span> Byznys architekt, Finanční ředitel</div>
           </div>
         </div>
@@ -122,9 +122,9 @@
     try {
       const r = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       const json = await r.json().catch(() => ({}));
-      if (!r.ok || !json.ok) { setStatus('err', json.error || 'Něco se pokazilo. Napište prosím přímo na josef@kliments.cz.'); }
+      if (!r.ok || !json.ok) { setStatus('err', json.error || 'Něco se pokazilo. Napište prosím přímo na kliment.josef@email.cz.'); }
       else { setStatus('ok', 'Děkuji. Ozvu se vám do 24 hodin.'); form.reset(); }
-    } catch (err) { setStatus('err', 'Nepodařilo se odeslat. Napište prosím přímo na josef@kliments.cz.'); }
+    } catch (err) { setStatus('err', 'Nepodařilo se odeslat. Napište prosím přímo na kliment.josef@email.cz.'); }
     finally { setLoading(false); }
   });
 })();
