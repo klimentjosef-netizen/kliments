@@ -48,7 +48,7 @@ export default async function handler(req, res) {
 
   if (RESEND_KEY) {
     try {
-      const subject = `Nový lead z kliments.cz: ${name}` + (interest ? ` — ${interest}` : '');
+      const subject = `Nový lead z kliments.cz: ${name}` + (interest ? ` · ${interest}` : '');
       const html = `
         <h2 style="font-family:Georgia,serif;color:#1f1a18">Nový lead z kliments.cz</h2>
         <table style="font-family:Arial,sans-serif;font-size:14px;border-collapse:collapse;margin-top:16px">

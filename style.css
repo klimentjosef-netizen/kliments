@@ -1239,7 +1239,7 @@ footer {
 }
 .audience-list strong { color: var(--ink); font-weight: 500; }
 
-/* audience solo removed — now uses two-column grid */
+/* audience solo removed · now uses two-column grid */
 
 /* ── WAVE 1: PORTAL CTA ROW ── */
 .portal-cta-row {
@@ -1286,7 +1286,7 @@ footer {
 }
 
 /* ── HERO PORTAL MOCKUP (block 1) ──
-   Hero telefony (portal-mockup + animovany phone) vyrazeny —
+   Hero telefony (portal-mockup + animovany phone) vyrazeny ·
    vrati se az s realnymi screenshoty (desktop + mobile). Styly
    ponechany zakomentovane pro pozdejsi navrat bez nutnosti
    prepisovat. */
@@ -2212,7 +2212,7 @@ footer {
   .blog-lead { font-size: 1rem; padding-left: 18px; }
 }
 /* ── HERO PHONE MOCKUP s animaci ──
-   Hero telefony (portal-mockup + animovany phone) vyrazeny —
+   Hero telefony (portal-mockup + animovany phone) vyrazeny ·
    vrati se az s realnymi screenshoty (desktop + mobile). Styly
    ponechany zakomentovane pro pozdejsi navrat bez nutnosti
    prepisovat. */
@@ -2318,7 +2318,7 @@ footer {
 }
 */
 
-/* ── PORTAL V2 — kompletni prepis sekce ── */
+/* ── PORTAL V2 · kompletni prepis sekce ── */
 .portal-v2 {
   padding: 120px 64px;
   background: var(--sand-light);
@@ -2661,7 +2661,7 @@ footer {
 }
 .kp-hero-trust strong { color: var(--ink); font-weight: 500; }
 
-/* Split hero layout — text vlevo + browser mockup vpravo */
+/* Split hero layout · text vlevo + browser mockup vpravo */
 .kp-hero-split {
   padding-top: 80px;
   padding-bottom: 80px;
@@ -2831,7 +2831,7 @@ footer {
   }
 }
 
-/* Sekce 2 — Tradiční vs Portál */
+/* Sekce 2 · Tradiční vs Portál */
 .kp-compare-section { background: var(--sand-light); }
 .kp-compare-grid {
   display: grid;
@@ -2965,7 +2965,7 @@ footer {
   }
 }
 
-/* KP Landing — Sekce 3: 8 hlubokych funkci */
+/* KP Landing · Sekce 3: 8 hlubokych funkci */
 .kp-features-section {
   background: white;
   padding-top: 100px;
@@ -3085,7 +3085,7 @@ footer {
   }
 }
 
-/* KP Landing — Sekce 4: Timeline realne spoluprace */
+/* KP Landing · Sekce 4: Timeline realne spoluprace */
 .kp-timeline-section {
   background: var(--sand-light);
   padding-top: 100px;
@@ -3243,7 +3243,7 @@ footer {
   }
 }
 
-/* KP Landing — Sekce 5: FAQ specificke */
+/* KP Landing · Sekce 5: FAQ specificke */
 .kp-faq-section {
   background: var(--sand-light);
   padding-top: 120px;
@@ -3410,7 +3410,7 @@ footer {
   }
 }
 
-/* PORTAL TEASER — hned pod hero na hlavni strance */
+/* PORTAL TEASER · hned pod hero na hlavni strance */
 .portal-teaser {
   position: relative;
   padding: 110px 48px 120px;
