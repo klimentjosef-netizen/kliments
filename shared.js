@@ -75,6 +75,7 @@
         <p class="footer-copy">&copy; 2026 Kliments &middot; Josef Kliment</p>
         <ul class="footer-links">
           <li><a href="https://instagram.com/kliments.cz" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="/obchodni-podminky/">Obchodní podmínky</a></li>
           <li><a href="/kontakt/">Kontakt</a></li>
         </ul>
       </div>

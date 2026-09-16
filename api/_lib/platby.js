@@ -106,6 +106,7 @@ export async function dorucOdemceni(session) {
         <p>Celý výsledek včetně ročního rozpisu, dopadu na důchod, nemocenské a postupu krok za krokem najdete tady:</p>
         <p><a href="${odkaz}" style="display:inline-block;background:#c97b84;color:#fff;padding:12px 22px;border-radius:30px;text-decoration:none">Otevřít kompletní výsledek</a></p>
         <p>Odkaz si uschovejte, funguje i později. Pokud budete chtít řešení na míru s konzultací, cenu ${CENA_KC} Kč vám odečtu z projektu.</p>
+        <p style="font-size:13px;color:#555">Potvrzení: zakoupili jste digitální obsah Kompletní výsledek kalkulačky HPP, nebo OSVČ za ${CENA_KC} Kč (prodávající není plátcem DPH). Před platbou jste souhlasili s <a href="${SITE}/obchodni-podminky/">obchodními podmínkami</a> a s tím, že obsah bude zpřístupněn ihned, a potvrdili jste, že tím ztrácíte právo od smlouvy odstoupit. Prodávající: Ing. Josef Kliment, IČO 05408091, Na Jízdárně 3024/14, Ostrava.</p>
         <p style="color:#999;font-size:12px;margin-top:28px">Josef Kliment · business architekt a finanční ředitel · kliments.cz<br>Orientační výpočet podle pravidel pro rok 2026, nejde o daňové ani právní poradenství.</p>
       </div>`,
     });
