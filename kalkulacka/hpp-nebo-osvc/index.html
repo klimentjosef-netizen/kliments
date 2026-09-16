@@ -218,6 +218,7 @@
             <option value="6">Pečuji o závislou osobu</option>
           </select>
         </div>
+        <label class="kx-check" id="kx-nova" style="margin:-4px 0 18px"><input type="checkbox" id="novaOsvc"> <span id="kx-lbl-nova">Posledních 20 let jsem nepodnikal(a)</span></label>
         <div class="kx-grid" id="kx-jina" hidden style="margin-bottom:18px">
           <div class="kx-f"><label for="jinaMzda">Hrubá mzda ve stávajícím zaměstnání</label><div class="kx-in"><input id="jinaMzda" inputmode="numeric" data-num><em>Kč</em></div></div>
         </div>
@@ -390,6 +391,7 @@
         <li>Děti a manžel(ka): slevy a daňový bonus se počítají na HPP, u výdajového paušálu i skutečných výdajů. Paušální daň a fakturace přes s.r.o. je neumožňují.</li>
         <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje, bez nemocenského pojištění.</li>
         <li>Vedlejší činnost (vedle zaměstnání, studia, důchodu, rodičovské nebo péče): sociální pojištění až od zisku 117 521 Kč ročně, zdravotní bez minima. Vedle zaměstnání se počítá, kolik přibude ke stávající mzdě, a nabídne se i dohoda o provedení práce.</li>
+        <li>Nová OSVČ, která 20 let nepodnikala, má v roce zahájení a dvou dalších nižší minimální základ sociálního pojištění (25 % průměrné mzdy místo 35 %). Paušální daň ani zdravotní pojištění se nesnižují.</li>
         <li>Když už podnikáte nebo začínáte a vybíráte daňový režim, porovnávají se jen režimy mezi sebou, bez HPP.</li>
         <li>Vlastní s.r.o.: počítá se s tím, že je plátcem DPH a vydělává dost na to, aby náklady unesla.</li>
       </ul>
@@ -426,6 +428,7 @@
   $('pausal').value = String(state.pausal);
   $('pausal').addEventListener('change', (e) => { state.pausal = +e.target.value; edited(); render(); });
   $('limitUroku').addEventListener('change', (e) => { state.limitUroku = +e.target.value; render(); });
+  $('novaOsvc').addEventListener('change', (e) => { state.novaOsvc = e.target.checked; edited(); render(); });
   $('situace').addEventListener('change', (e) => { state.situace = +e.target.value; edited(); render(); });
   $('invalidita3').addEventListener('change', (e) => { state.invalidita3 = e.target.value === '1'; edited(); render(); });
   $('deti').addEventListener('change', (e) => { state.deti = +e.target.value; edited(); render(); });
@@ -466,6 +469,10 @@
   }
   function syncSituace() {
     $('kx-jina').hidden = state.situace !== 1;
+    $('kx-nova').hidden = state.situace !== 0;
+    $('kx-lbl-nova').textContent = state.bezHpp && state.uzPodnikam
+      ? 'Podnikám nejvýš třetí rok a předtím jsem 20 let nepodnikal(a)'
+      : 'Posledních 20 let jsem nepodnikal(a)';
     $('kx-invalidita').hidden = state.situace !== 4;
     $('kx-lbl-hpp').textContent = state.situace === 0 ? 'Hrubá mzda na HPP měsíčně' : 'Hrubě měsíčně jako zaměstnanec';
   }
@@ -561,6 +568,13 @@
     }
     if (!r.bezHpp && !state.fakturaSazbou && r.vitez !== 'hpp') {
       hints.push(['warn', `<b>Zaplatí vám fakturu i za dovolenou a nemoc?</b> Výsledek počítá s ${kc(state.faktura)} každý měsíc. Když se platí jen odpracovaný čas, přepněte nahoře na sazbu, výsledek bude nižší.`]);
+    }
+    const minNova = kc(Math.ceil(E.P.osvc.minSocNovaMesic * E.P.osvc.socSazba));
+    const minBezna = kc(Math.ceil(E.P.osvc.minSocMesic * E.P.osvc.socSazba));
+    if (r.novaOsvc && r.naMinimu) {
+      hints.push(['', `<b>Jako nová OSVČ máte nižší minimální zálohu na sociální pojištění:</b> ${minNova} místo ${minBezna} měsíčně, v roce zahájení a dva roky poté. Paušální daň se nesnižuje, proto výdajový paušál vychází v prvních letech relativně lépe.`]);
+    } else if (!r.vedlejsi && !state.novaOsvc && r.naMinimu && !(state.bezHpp && state.uzPodnikam)) {
+      hints.push(['', `<b>Nepodnikal(a) jste posledních 20 let?</b> Pak máte první tři roky nižší minimální zálohu na sociální pojištění, ${minNova} místo ${minBezna}. Zaškrtněte to nahoře.`]);
     }
     if (r.slevyRodinaRok > 0 && by.pausalniDan.dostupna) {
       hints.push(['', ['pausalniDan', 'pausalniDanSro'].includes(r.vitez)
@@ -695,8 +709,8 @@
         : vedl
           ? `V prvním roce zálohy na pojištění platit nemusíte. Po roce podejte přiznání a přehledy, sociální pojištění doplatíte, jen když zisk přesáhne ${kc(E.P.osvc.rozhodnaVedlejsi)}. Odkládejte si na daň a pojištění zhruba pětinu zisku. `
           : B && state.uzPodnikam
-            ? `Plaťte zálohy na pojištění podle posledních přehledů, nejméně ${kc(Math.ceil(E.P.osvc.minSocMesic * E.P.osvc.socSazba))} sociální a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní. `
-            : `Plaťte zálohy na pojištění, v prvním roce minimální (${kc(Math.ceil(E.P.osvc.minSocMesic * E.P.osvc.socSazba))} sociální a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní), po roce podejte přiznání a přehledy. `)
+            ? `Plaťte zálohy na pojištění podle posledních přehledů, nejméně ${kc(Math.ceil((r.novaOsvc ? E.P.osvc.minSocNovaMesic : E.P.osvc.minSocMesic) * E.P.osvc.socSazba))} sociální a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní. `
+            : `Plaťte zálohy na pojištění, v prvním roce minimální (${kc(Math.ceil((r.novaOsvc ? E.P.osvc.minSocNovaMesic : E.P.osvc.minSocMesic) * E.P.osvc.socSazba))} sociální${r.novaOsvc ? ', nižší minimum pro novou OSVČ platí tři roky' : ''} a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní), po roce podejte přiznání a přehledy. `)
         + (r.duchodRelevantni && odlozit > 0 ? `Odkládejte si zhruba ${kcRound(odlozit)} na důchod. ` : '')
         + (vedl ? '' : 'Doplňujte rezervu na tři až šest měsíců výdajů.')]);
     }
@@ -787,6 +801,7 @@
     $('limitUroku').value = String(state.limitUroku);
     $('deti').value = String(Math.min(state.deti, 5));
     $('situace').value = String(state.situace);
+    $('novaOsvc').checked = state.novaOsvc;
     $('kx-auto').hidden = !state.maAuto;
     $('invalidita3').value = state.invalidita3 ? '1' : '0';
     $('slevaManzel').checked = state.slevaManzel;

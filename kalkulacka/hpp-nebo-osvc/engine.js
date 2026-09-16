@@ -23,6 +23,7 @@
       minSocMesic: 17139,          // 35 % průměrné mzdy
       minZdrMesic: 24484,          // 50 % průměrné mzdy
       maxSocRok: 2350416,          // 48násobek průměrné mzdy
+      minSocNovaMesic: 12242,      // 25 % průměrné mzdy: začínající OSVČ (20 let nepodnikala), rok zahájení a dva další
       minSocVedlejsiMesic: 5387,   // 11 % průměrné mzdy
       rozhodnaVedlejsi: 117521,    // do tohoto zisku se u vedlejší činnosti sociální neplatí
     },
@@ -84,11 +85,11 @@
 
   // Vedlejší činnost: sociální až nad rozhodnou částkou a s nižším minimem,
   // zdravotní bez minima (platí za ně zaměstnavatel nebo stát).
-  function pojistneOSVC(zisk, mesicu, vedlejsi) {
+  function pojistneOSVC(zisk, mesicu, vedlejsi, nova) {
     const o = P.osvc;
     zisk = Math.max(0, zisk);
     const platiSoc = !vedlejsi || zisk > o.rozhodnaVedlejsi * mesicu / 12;
-    const minSoc = (vedlejsi ? o.minSocVedlejsiMesic : o.minSocMesic) * mesicu;
+    const minSoc = (vedlejsi ? o.minSocVedlejsiMesic : nova ? o.minSocNovaMesic : o.minSocMesic) * mesicu;
     const socZaklad = platiSoc ? Math.min(Math.max(zisk * o.socPodil, minSoc), o.maxSocRok) : 0;
     const zdrZaklad = Math.max(zisk * o.zdrPodil, vedlejsi ? 0 : o.minZdrMesic * mesicu);
     return {
@@ -126,8 +127,9 @@
 
   // Popis zadání do e-mailů a objednávky.
   function popisZadani(v) {
-    if (v.bezHpp) return `${v.uzPodnikam ? 'podnikám' : 'začínám podnikat'}, ${popisFaktury(v)}`;
-    return `HPP za ${Math.round(v.hrubaMzda).toLocaleString('cs-CZ')} Kč hrubého, nebo ${popisFaktury(v)}`;
+    const nova = v.novaOsvc && !v.situace ? ', nová OSVČ s nižším minimem' : '';
+    if (v.bezHpp) return `${v.uzPodnikam ? 'podnikám' : 'začínám podnikat'}${nova}, ${popisFaktury(v)}`;
+    return `HPP za ${Math.round(v.hrubaMzda).toLocaleString('cs-CZ')} Kč hrubého, nebo ${popisFaktury(v)}${nova}`;
   }
 
   // Věta k vyrovnanému výsledku (r = výsledek spocitej).
@@ -197,6 +199,7 @@
     const jinaMzda = situace === 1 ? v.jinaMzda * m : 0;
     const danZJine = jinaMzda ? danFO(jinaMzda, odpocty, v, jinaMzda) : 0;
     const dan = (zaklad, prijmy) => danFO(jinaMzda + zaklad, odpocty, v, jinaMzda + prijmy) - danZJine;
+    const novaOsvc = !vedlejsi && !!v.novaOsvc; // nižší minimum jen u hlavní činnosti
     const pdPovolena = situace !== 1; // zaměstnanec se zálohovou daní do paušálního režimu nesmí
 
     // HPP
@@ -232,14 +235,14 @@
     // výdajový paušál
     const vydaje = Math.min(prijmyLimitCelkem * v.pausal / 100, P.vydajovePausaly[v.pausal]);
     const ziskP = prijmyLimitCelkem - vydaje;
-    const pojP = pojistneOSVC(ziskP, m, vedlejsi);
+    const pojP = pojistneOSVC(ziskP, m, vedlejsi, novaOsvc);
     const danP = dan(ziskP, prijmyLimitCelkem);
     out.pausal = { pojisteni: pojP.soc + pojP.zdr, dan: danP, naklady: nakladyOSVC * m, cisteRok: fakturaCelkem - pojP.soc - pojP.zdr - danP - nakladyOSVC * m, duchodZaklad: pojP.socZakladMesic };
     out.pausalSro = { pojisteni: pojP.soc + pojP.zdr, dan: danP, naklady: efektivneSro * m, cisteRok: fakturaCelkem - pojP.soc - pojP.zdr - danP - efektivneSro * m, duchodZaklad: pojP.socZakladMesic };
 
     // skutečné výdaje
     const ziskS = prijmyLimitCelkem - danoveOSVC * m;
-    const pojS = pojistneOSVC(ziskS, m, vedlejsi);
+    const pojS = pojistneOSVC(ziskS, m, vedlejsi, novaOsvc);
     const danS = dan(ziskS, prijmyLimitCelkem);
     out.skutecne = { pojisteni: pojS.soc + pojS.zdr, dan: danS, naklady: nakladyOSVC * m, cisteRok: fakturaCelkem - pojS.soc - pojS.zdr - danS - nakladyOSVC * m, duchodZaklad: pojS.socZakladMesic };
 
@@ -300,6 +303,9 @@
       pasmo,
       pausalniDanPovolena: pdPovolena,
       situace,
+      novaOsvc,
+      // platí minimum sociálního pojištění (u nové OSVČ nižší), aspoň u jednoho režimu
+      naMinimu: !vedlejsi && (ziskP * P.osvc.socPodil < P.osvc.minSocMesic * m || ziskS * P.osvc.socPodil < P.osvc.minSocMesic * m),
       vedlejsi,
       // u starobního důchodu se dopad na důchod nepočítá
       duchodRelevantni: situace !== 3,
@@ -314,7 +320,7 @@
     hrubaMzda: 80000, faktura: 120000, bonusHPP: 0, bonusOSVC: 0,
     fakturaSazbou: false, sazba: 0, sazbaZaHodinu: false, dovolenaDny: 25, nemocDny: 5,
     pausal: 60,
-    bezHpp: false, uzPodnikam: false,
+    bezHpp: false, uzPodnikam: false, novaOsvc: false,
     situace: 0, jinaMzda: 0, invalidita3: false,
     deti: 0, slevaManzel: false,
     maAuto: false, firmaNechaAuto: false, autoSplatka: 0, benzin: 0, soukromePct: 20,
