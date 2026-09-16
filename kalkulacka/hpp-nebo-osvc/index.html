@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulačka HPP, nebo OSVČ 2026 · co vám zůstane víc | Kliments.cz</title>
+<meta name="description" content="Spočítejte si, jestli se vám víc vyplatí HPP, nebo faktura. Paušální daň, výdajový paušál, skutečné výdaje i vlastní s.r.o. Pravidla pro rok 2026.">
+<link rel="canonical" href="https://www.kliments.cz/kalkulacka/hpp-nebo-osvc/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Kalkulačka HPP, nebo OSVČ 2026">
+<meta property="og:description" content="HPP, nebo faktura? Spočítejte si, co vám zůstane víc. Pravidla pro rok 2026.">
+<meta property="og:image" content="https://www.kliments.cz/og-image.png?v=2">
+<meta property="og:url" content="https://www.kliments.cz/kalkulacka/hpp-nebo-osvc/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Kalkulačka HPP, nebo OSVČ 2026",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://www.kliments.cz/kalkulacka/hpp-nebo-osvc/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CZK" },
+  "author": { "@type": "Person", "name": "Josef Kliment", "url": "https://www.kliments.cz/" }
+}
+</script>
+<style>
+.kx { background: var(--sand-light); padding: 0 64px 110px; }
+.kx-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 32px; align-items: start; }
+.kx-card { background: white; border: 1px solid var(--border-light); border-radius: 20px; padding: 32px; }
+.kx-step + .kx-step { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--border-light); }
+.kx-step-h { display: flex; align-items: baseline; gap: 12px; margin: 0 0 18px; font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.2rem; color: var(--ink); }
+.kx-step-h span { font-family: 'Outfit', sans-serif; font-size: 0.66rem; letter-spacing: 0.16em; color: var(--rose); }
+.kx-note { margin: -8px 0 16px; font-size: 0.8rem; color: var(--mid); opacity: 0.75; }
+.kx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+.kx-f { display: flex; flex-direction: column; gap: 6px; }
+.kx-f label, .kx-lbl { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.kx-in { position: relative; }
+.kx-in input, .kx-f select {
+  width: 100%; box-sizing: border-box; font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--sand-light); border: 1px solid var(--border); border-radius: 12px; padding: 12px 44px 12px 14px;
+  font-variant-numeric: tabular-nums; transition: border-color .2s, background .2s;
+}
+.kx-f select { padding-right: 14px; }
+.kx-in input:focus, .kx-f select:focus { outline: none; border-color: var(--rose); background: white; }
+.kx-in em { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-style: normal; font-size: 0.8rem; color: var(--mid); opacity: .6; pointer-events: none; }
+.kx-check { display: flex; gap: 12px; align-items: flex-start; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.45; cursor: pointer; }
+.kx-check input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--rose); flex-shrink: 0; }
+.kx-seg { display: inline-flex; background: var(--sand-light); border: 1px solid var(--border); border-radius: 100px; padding: 4px; gap: 4px; }
+.kx-seg button { border: 0; background: transparent; font: inherit; font-size: 0.82rem; padding: 8px 16px; border-radius: 100px; color: var(--mid); cursor: pointer; }
+.kx-seg button[aria-pressed="true"] { background: var(--ink); color: white; }
+.kx-sub { margin-top: 16px; }
+.kx-more { margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--border-light); }
+.kx-more summary { cursor: pointer; list-style: none; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose-deep); }
+.kx-more summary::-webkit-details-marker { display: none; }
+.kx-more summary::after { content: ' +'; }
+.kx-more[open] summary::after { content: ' −'; }
+.kx-more-body { margin-top: 20px; display: flex; flex-direction: column; gap: 22px; }
+.kx-more-h { font-size: 0.85rem; font-weight: 500; color: var(--ink); margin: 0 0 12px; }
+.kx-example { display: inline-block; margin-bottom: 18px; font-size: 0.72rem; letter-spacing: .06em; padding: 5px 12px; border-radius: 100px; background: var(--rose-blush); color: var(--rose-deep); }
+
+/* výsledek */
+.kx-res { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 16px; }
+.kx-win { background: linear-gradient(180deg, var(--ink) 0%, #2a2018 100%); color: var(--sand-light); border-radius: 20px; padding: 30px 32px; }
+.kx-win-l { font-size: 0.66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--rose-pale); margin: 0 0 10px; }
+.kx-win-name { font-family: 'Lora', Georgia, serif; font-size: 1.5rem; line-height: 1.2; margin: 0 0 16px; text-wrap: balance; }
+.kx-win-num { font-family: 'Lora', Georgia, serif; font-size: 2.6rem; line-height: 1; margin: 0; font-variant-numeric: tabular-nums; }
+.kx-win-num small { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(250,244,237,.6); margin-left: 6px; }
+.kx-win-diff { margin: 14px 0 0; font-size: 0.95rem; color: var(--rose-pale); }
+.kx-win-row { display: flex; justify-content: space-between; gap: 16px; margin-top: 22px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.1); font-size: 0.88rem; color: rgba(250,244,237,.7); }
+.kx-win-row b { font-weight: 400; color: white; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kx-hints { display: flex; flex-direction: column; gap: 10px; }
+.kx-hint { background: white; border: 1px solid var(--border-light); border-left: 3px solid var(--rose); border-radius: 12px; padding: 14px 16px; font-size: 0.88rem; line-height: 1.5; color: var(--ink-soft); }
+.kx-hint.warn { border-left-color: #c0842f; background: #fdf6ea; }
+.kx-hint b { color: var(--ink); font-weight: 500; }
+.kx-lock { background: white; border: 1px solid var(--border-light); border-radius: 20px; padding: 26px 28px; }
+.kx-lock-h { font-family: 'Lora', Georgia, serif; font-size: 1.2rem; color: var(--ink); margin: 0 0 6px; }
+.kx-lock-lead { font-size: 0.86rem; color: var(--mid); opacity: .8; margin: 0 0 18px; }
+.kx-bars { position: relative; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.kx-bars-inner { filter: blur(5px); display: flex; flex-direction: column; gap: 8px; user-select: none; }
+.kx-bar { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: center; font-size: .78rem; color: var(--mid); }
+.kx-bar i { display: block; height: 10px; border-radius: 6px; background: var(--rose-pale); }
+.kx-bar.win i { background: var(--rose); }
+.kx-bars-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.kx-bars-badge span { display: inline-flex; gap: 8px; align-items: center; background: var(--ink); color: white; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; padding: 8px 14px; border-radius: 100px; }
+.kx-locks { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.kx-locks li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; font-size: .88rem; line-height: 1.5; color: var(--ink-soft); }
+.kx-locks svg { margin-top: 2px; }
+.kx-locks b { display: block; color: var(--ink); font-weight: 500; }
+.kx-cta { display: flex; flex-direction: column; gap: 8px; }
+.kx-cta .btn-rose { justify-content: center; }
+.kx-cta p { margin: 0; text-align: center; font-size: .78rem; color: var(--mid); opacity: .75; }
+.kx-mail { background: var(--rose-blush); border-radius: 20px; padding: 22px 24px; }
+.kx-mail p { margin: 0 0 12px; font-size: .9rem; color: var(--ink-soft); }
+.kx-mail form { display: flex; gap: 8px; }
+.kx-mail input[type=email] { flex: 1; min-width: 0; font: inherit; font-size: .95rem; padding: 12px 14px; border-radius: 100px; border: 1px solid var(--border); background: white; }
+.kx-mail input[type=email]:focus { outline: none; border-color: var(--rose); }
+.kx-mail button { font: inherit; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; border: 0; border-radius: 100px; padding: 0 18px; background: var(--ink); color: white; cursor: pointer; white-space: nowrap; }
+.kx-mail button:disabled { opacity: .6; cursor: wait; }
+.kx-mail small { display: block; margin-top: 10px; font-size: .7rem; color: var(--mid); opacity: .7; }
+.kx-mail-status { margin-top: 10px; font-size: .85rem; }
+.kx-mail-status.ok { color: #2f7a4f; } .kx-mail-status.err { color: var(--rose-deep); }
+.kx-hp { position: absolute; left: -9999px; }
+.kx-about { max-width: 1180px; margin: 56px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; font-size: .88rem; line-height: 1.7; color: var(--ink-soft); }
+.kx-about h2 { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.2rem; color: var(--ink); margin: 0 0 10px; }
+.kx-about ul { margin: 0; padding-left: 18px; }
+@media (max-width: 1024px) {
+  .kx { padding: 0 32px 80px; }
+  .kx-inner { grid-template-columns: 1fr; }
+  .kx-res { position: static; }
+  .kx-about { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .kx { padding: 0 16px 64px; }
+  .kx-card { padding: 22px 18px; }
+  .kx-grid { grid-template-columns: 1fr; }
+  .kx-win { padding: 24px 22px; }
+  .kx-win-num { font-size: 2.1rem; }
+  .kx-mail form { flex-direction: column; }
+  .kx-mail button { padding: 12px 18px; }
+}
+</style>
+</head>
+<body>
+
+<div id="shared-nav"></div>
+
+<section class="subpage-hero">
+  <div class="subpage-hero-inner">
+    <p class="s-eyebrow">Kalkulačka · pravidla 2026</p>
+    <h1 class="subpage-hero-h1">
+      HPP, nebo faktura?<br>
+      <em>Spočítejte si, co vám zůstane.</em>
+    </h1>
+    <p class="subpage-hero-lead">
+      Zadejte nabídku, kterou máte na stole. Kalkulačka porovná zaměstnání s fakturací v několika daňových režimech a ukáže, kde vám zůstane nejvíc.
+    </p>
+  </div>
+</section>
+
+<section class="kx" aria-label="Kalkulačka">
+  <div class="kx-inner">
+
+    <form class="kx-card" id="kx-form" novalidate onsubmit="return false">
+      <span class="kx-example" id="kx-example">Předvyplněno příkladem, přepište svými čísly</span>
+
+      <div class="kx-step">
+        <h2 class="kx-step-h"><span>01</span>Nabídka</h2>
+        <div class="kx-grid">
+          <div class="kx-f"><label for="hrubaMzda">Hrubá mzda na HPP měsíčně</label><div class="kx-in"><input id="hrubaMzda" inputmode="numeric" data-num><em>Kč</em></div></div>
+          <div class="kx-f"><label for="faktura">Faktura měsíčně</label><div class="kx-in"><input id="faktura" inputmode="numeric" data-num><em>Kč</em></div></div>
+        </div>
+        <div class="kx-f kx-sub">
+          <label for="pausal">Čím se budete živit na faktuře</label>
+          <select id="pausal">
+            <option value="60">Většina živností a služeb, obchod, IT, poradenství</option>
+            <option value="80">Řemeslné živnosti a zemědělství</option>
+            <option value="40">Svobodná povolání (lékař, advokát, autor)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kx-step">
+        <h2 class="kx-step-h"><span>02</span>Služební auto</h2>
+        <label class="kx-check"><input type="checkbox" id="maAuto"> Na HPP bych měl(a) služební auto, které můžu používat i soukromě</label>
+        <div id="kx-auto" hidden>
+          <div class="kx-sub">
+            <span class="kx-lbl">Nechá vám firma auto i při fakturaci?</span>
+            <div class="kx-seg" role="group" aria-label="Nechá vám firma auto i při fakturaci" style="margin-top:8px">
+              <button type="button" data-seg="firmaNechaAuto" data-val="1">Ano</button>
+              <button type="button" data-seg="firmaNechaAuto" data-val="0" aria-pressed="true">Ne, platím si sám</button>
+            </div>
+          </div>
+          <div class="kx-grid kx-sub">
+            <div class="kx-f"><label for="autoSplatka">Leasing bez DPH měsíčně</label><div class="kx-in"><input id="autoSplatka" inputmode="numeric" data-num><em>Kč</em></div></div>
+            <div class="kx-f"><label for="benzin">Benzín měsíčně</label><div class="kx-in"><input id="benzin" inputmode="numeric" data-num><em>Kč</em></div></div>
+            <div class="kx-f"><label for="cenaAuta">Cena auta s DPH</label><div class="kx-in"><input id="cenaAuta" inputmode="numeric" data-num><em>Kč</em></div></div>
+            <div class="kx-f"><label for="soukromePct">Soukromé jízdy</label><div class="kx-in"><input id="soukromePct" inputmode="numeric" data-num><em>%</em></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kx-step">
+        <h2 class="kx-step-h"><span>03</span>Vlastní firma</h2>
+        <label class="kx-check"><input type="checkbox" id="maSro"> Mám vlastní s.r.o., která je plátcem DPH a má vlastní zakázky</label>
+      </div>
+
+      <details class="kx-more">
+        <summary>Upřesnit náklady, bonusy a odpočty</summary>
+        <div class="kx-more-body">
+          <div>
+            <p class="kx-more-h">Náklady, které si na faktuře platíte sami</p>
+            <div class="kx-grid">
+              <div class="kx-f"><label for="telefon">Telefon a internet měsíčně</label><div class="kx-in"><input id="telefon" inputmode="numeric" data-num><em>Kč</em></div></div>
+              <div class="kx-f"><label for="cestovani">Cestování měsíčně</label><div class="kx-in"><input id="cestovani" inputmode="numeric" data-num><em>Kč</em></div></div>
+              <div class="kx-f"><label for="obedy">Pracovní obědy měsíčně</label><div class="kx-in"><input id="obedy" inputmode="numeric" data-num><em>Kč</em></div></div>
+              <div class="kx-f"><label for="technikaRok">Technika a software ročně</label><div class="kx-in"><input id="technikaRok" inputmode="numeric" data-num><em>Kč</em></div></div>
+            </div>
+          </div>
+          <div>
+            <p class="kx-more-h">Bonusy</p>
+            <div class="kx-grid">
+              <div class="kx-f"><label for="bonusHPP">Bonus na HPP ročně</label><div class="kx-in"><input id="bonusHPP" inputmode="numeric" data-num><em>Kč</em></div></div>
+              <div class="kx-f"><label for="bonusOSVC">Bonus na faktuře ročně</label><div class="kx-in"><input id="bonusOSVC" inputmode="numeric" data-num><em>Kč</em></div></div>
+            </div>
+          </div>
+          <div>
+            <p class="kx-more-h">Odpočty z daně</p>
+            <div class="kx-grid">
+              <div class="kx-f"><label for="uroky">Úroky z hypotéky ročně</label><div class="kx-in"><input id="uroky" inputmode="numeric" data-num><em>Kč</em></div></div>
+              <div class="kx-f"><label for="limitUroku">Hypotéka sjednaná</label>
+                <select id="limitUroku"><option value="80000">od roku 2021 (limit 80 000 Kč)</option><option value="150000">před rokem 2021 (limit 150 000 Kč)</option></select></div>
+              <div class="kx-f"><label for="zivotni">Životní pojištění ročně</label><div class="kx-in"><input id="zivotni" inputmode="numeric" data-num><em>Kč</em></div></div>
+              <div class="kx-f"><label for="penzijni">Penzijko nebo DIP ročně</label><div class="kx-in"><input id="penzijni" inputmode="numeric" data-num><em>Kč</em></div></div>
+            </div>
+          </div>
+          <div id="kx-sro-more" hidden>
+            <p class="kx-more-h">Vaše s.r.o.</p>
+            <div class="kx-grid">
+              <div class="kx-f"><label for="ucetnictviSro">Účetnictví s.r.o. měsíčně</label><div class="kx-in"><input id="ucetnictviSro" inputmode="numeric" data-num><em>Kč</em></div></div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </form>
+
+    <div class="kx-res" aria-live="polite">
+      <div class="kx-win">
+        <p class="kx-win-l" id="r-label">Nejvíc vám zůstane</p>
+        <p class="kx-win-name" id="r-name"></p>
+        <p class="kx-win-num"><span id="r-net"></span><small>čistě měsíčně</small></p>
+        <p class="kx-win-diff" id="r-diff"></p>
+        <div class="kx-win-row"><span>Na HPP vám zůstane</span><b id="r-hpp"></b></div>
+      </div>
+
+      <div class="kx-hints" id="r-hints"></div>
+
+      <div class="kx-lock">
+        <p class="kx-lock-h">Tohle kalkulačka neřekne</p>
+        <p class="kx-lock-lead">Přesné řešení pro vaši situaci připravím v projektu.</p>
+        <div class="kx-bars" aria-hidden="true">
+          <div class="kx-bars-inner" id="r-bars"></div>
+          <div class="kx-bars-badge"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Srovnání všech variant</span></div>
+        </div>
+        <ul class="kx-locks" id="r-locks"></ul>
+        <div class="kx-cta">
+          <a class="btn-rose" id="r-cta" href="/sluzby/projekt/#objednat">Chci přesné řešení za 4 990 Kč →</a>
+          <p>Dokument, kalkulačka na míru a hodinová konzultace</p>
+        </div>
+      </div>
+
+      <div class="kx-mail">
+        <p>Pošlu vám souhrn výsledku do e-mailu, ať se k němu můžete vrátit.</p>
+        <form id="kx-mailform" novalidate>
+          <input type="email" id="kx-email" placeholder="vas@email.cz" autocomplete="email" aria-label="E-mail">
+          <input type="text" name="website" class="kx-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" id="kx-mailbtn">Poslat souhrn</button>
+        </form>
+        <small>Odesláním souhlasíte se zpracováním e-mailu pro zaslání souhrnu a případné navazující nabídky.</small>
+        <p class="kx-mail-status" id="kx-mailstatus" role="status"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="kx-about">
+    <div>
+      <h2>Jak kalkulačka počítá</h2>
+      <ul>
+        <li>Čistě znamená, co vám zůstane po daních, pojištění a nákladech, které si na faktuře platíte sami.</li>
+        <li>HPP: pojištění 7,1 % a 4,5 %, daň 15 % po slevě na poplatníka. Služební auto se do mzdy přičítá podle ceny a soukromého benzínu.</li>
+        <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje. Počítá se s hlavní činností po celý rok a bez nemocenského pojištění.</li>
+        <li>Vlastní s.r.o.: počítá se s tím, že je plátcem DPH a vydělává dost na to, aby náklady unesla.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Co kalkulačka nezohledňuje</h2>
+      <ul>
+        <li>Děti, manžela nebo manželku, studium a další slevy na dani.</li>
+        <li>Dopad na důchod a nemocenskou v korunách.</li>
+        <li>Nastavení smlouvy, aby nevypadala jako skrytý pracovní poměr.</li>
+        <li>Jiné příjmy a vedlejší činnost.</li>
+      </ul>
+      <p style="margin-top:14px;font-size:.78rem;opacity:.75">Parametry platné pro rok 2026. Výpočet je orientační a nejde o daňové ani právní poradenství.</p>
+    </div>
+  </div>
+</section>
+
+<div id="shared-footer"></div>
+<script src="/shared.js"></script>
+<script src="/kalkulacka/hpp-nebo-osvc/engine.js"></script>
+<script>
+(function () {
+  const E = window.KalkHppOsvc;
+  const $ = (id) => document.getElementById(id);
+  const kc = (n) => Math.round(n).toLocaleString('cs-CZ') + ' Kč';
+  const kcRound = (n) => (Math.round(n / 100) * 100).toLocaleString('cs-CZ') + ' Kč';
+  const num = (s) => { const x = parseFloat(String(s).replace(/\s| /g, '').replace(',', '.')); return isNaN(x) ? 0 : x; };
+  const fmtInput = (el) => { if (el.value.trim() === '') return; el.value = Math.round(num(el.value)).toLocaleString('cs-CZ'); };
+
+  const state = Object.assign({}, E.DEFAULTS, { autoSplatka: 12000, benzin: 4000, cenaAuta: 900000 });
+  const NUMS = ['hrubaMzda','faktura','autoSplatka','benzin','cenaAuta','soukromePct','telefon','cestovani','obedy','technikaRok','bonusHPP','bonusOSVC','uroky','zivotni','penzijni','ucetnictviSro'];
+
+  NUMS.forEach((k) => { const el = $(k); el.value = state[k] ? Math.round(state[k]).toLocaleString('cs-CZ') : ''; el.addEventListener('input', () => { state[k] = num(el.value); edited(); render(); }); el.addEventListener('blur', () => fmtInput(el)); });
+  $('pausal').value = String(state.pausal);
+  $('pausal').addEventListener('change', (e) => { state.pausal = +e.target.value; edited(); render(); });
+  $('limitUroku').addEventListener('change', (e) => { state.limitUroku = +e.target.value; render(); });
+  $('maAuto').addEventListener('change', (e) => { state.maAuto = e.target.checked; $('kx-auto').hidden = !state.maAuto; edited(); render(); });
+  $('maSro').addEventListener('change', (e) => { state.maSro = e.target.checked; $('kx-sro-more').hidden = !state.maSro; edited(); render(); });
+  document.querySelectorAll('[data-seg]').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.seg;
+    document.querySelectorAll(`[data-seg="${k}"]`).forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    state[k] = b.dataset.val === '1'; edited(); render();
+  }));
+  let touched = false;
+  function edited() { if (!touched) { touched = true; $('kx-example').hidden = true; } }
+
+  const LOCK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c97b84" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+  let last = null;
+
+  function render() {
+    const r = E.spocitej(state);
+    last = r;
+    const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
+    const win = by[r.vitez];
+    const hpp = by.hpp;
+
+    if (r.vitez === 'hpp') {
+      const best = r.varianty.filter((v) => v.dostupna && v.id !== 'hpp').sort((a, b) => b.cisteRok - a.cisteRok)[0];
+      $('r-label').textContent = 'Při těchto číslech vychází nejlépe';
+      $('r-name').textContent = 'Zůstat na HPP';
+      $('r-diff').textContent = best ? `Nejlepší varianta na fakturu by vám dala o ${kcRound(hpp.cisteMesic - best.cisteMesic)} měsíčně méně.` : '';
+    } else {
+      $('r-label').textContent = 'Nejvíc vám zůstane';
+      $('r-name').textContent = win.nazev;
+      $('r-diff').textContent = `O ${kcRound(r.rozdilProtiHpp)} měsíčně víc než na HPP`;
+    }
+    $('r-net').textContent = kc(win.cisteMesic);
+    $('r-hpp').textContent = kc(hpp.cisteMesic);
+
+    // nápovědy spočítané z vašich čísel
+    const hints = [];
+    if (r.rezervaLimit < 0) {
+      hints.push(['warn', `<b>Jste nad limitem 2 mil. Kč ročně.</b> Paušální daň pro vás nejde, a to mění celé srovnání.`]);
+    } else if (r.rezervaLimit < 200000) {
+      hints.push(['warn', `<b>Do limitu paušální daně vám zbývá jen ${kcRound(r.rezervaLimit)} ročně.</b> Bonus nebo vyšší faktura ho může přetáhnout.`]);
+    }
+    if (state.maAuto) {
+      const alt = E.spocitej(Object.assign({}, state, { firmaNechaAuto: !state.firmaNechaAuto }));
+      const altBest = alt.varianty.find((v) => v.id === alt.vitez).cisteMesic;
+      const d = state.firmaNechaAuto ? win.cisteMesic - altBest : altBest - win.cisteMesic;
+      if (d > 1000) hints.push(['', state.firmaNechaAuto
+        ? `<b>Auto je u vás velké téma.</b> Kdyby vám ho firma na fakturu nenechala, přišli byste zhruba o ${kcRound(d)} měsíčně.`
+        : `<b>Vyjednejte si auto.</b> Kdyby vám ho firma nechala i na fakturu, zůstalo by vám zhruba o ${kcRound(d)} měsíčně víc.`]);
+    }
+    if (!state.maSro) {
+      const alt = E.spocitej(Object.assign({}, state, { maSro: true }));
+      const altWin = alt.varianty.find((v) => v.id === alt.vitez);
+      const d = altWin.cisteMesic - win.cisteMesic;
+      if (['pausalniDanSro','pausalSro','sroFakturuje'].includes(alt.vitez) && d > 1000) {
+        hints.push(['', `<b>Vlastní s.r.o. by mohla hodně změnit.</b> Kdyby náklady platila vaše firma, mohlo by vám zůstat až o ${kcRound(d)} měsíčně víc. Záleží na tom, jestli firma sama vydělává.`]);
+      }
+    }
+    hints.push(['', `<b>Na HPP vás firma stojí ${kcRound(hpp.nakladFirmy / 12)} měsíčně.</b> To je dobrý argument, když se vyjednává o výši faktury.`]);
+    $('r-hints').innerHTML = hints.map(([c, t]) => `<div class="kx-hint ${c}">${t}</div>`).join('');
+
+    // rozmazané srovnání (skutečná data)
+    const avail = r.varianty.filter((v) => v.dostupna);
+    const max = Math.max(...avail.map((v) => v.cisteMesic), 1);
+    $('r-bars').innerHTML = avail.map((v) => `<div class="kx-bar ${v.id === r.vitez ? 'win' : ''}"><span>varianta</span><i style="width:${Math.max(6, v.cisteMesic / max * 100)}%"></i></div>`).join('');
+
+    const locks = [];
+    locks.push([`Srovnání všech ${avail.length} variant v korunách`, 'Vedle sebe, měsíčně i ročně, včetně rozpisu daní a pojištění.']);
+    if (r.vitez !== 'hpp') {
+      locks.push(['Kolik to udělá s důchodem', `Ve variantě ${win.kratce.toLowerCase()} se vám do důchodu počítá méně než na HPP. Spočítám, o kolik a kolik si odkládat.`]);
+      locks.push(['Co když onemocníte', 'Na faktuře bez nemocenského pojištění nedostanete při nemoci nic. Ukážu, jak se zajistit.']);
+    }
+    locks.push(['Postup krok za krokem', 'Registrace, smlouva se zaměstnavatelem, termíny a na co si dát pozor.']);
+    $('r-locks').innerHTML = locks.map(([h, t]) => `<li>${LOCK}<span><b>${h}</b>${t}</span></li>`).join('');
+
+    // předvyplnění objednávky projektu
+    const kontext = [
+      `Nabídka HPP ${kc(state.hrubaMzda)} hrubého, faktura ${kc(state.faktura)} měsíčně.`,
+      state.maAuto ? `Služební auto: leasing ${kc(state.autoSplatka)} bez DPH, benzín ${kc(state.benzin)}, firma ho na fakturu ${state.firmaNechaAuto ? 'nechá' : 'nenechá'}.` : '',
+      state.maSro ? 'Mám vlastní s.r.o. (plátce DPH).' : '',
+      `Kalkulačka: nejlépe ${r.vitez === 'hpp' ? 'HPP' : win.nazev}.`,
+    ].filter(Boolean).join(' ');
+    const q = new URLSearchParams({ oblast: 'HPP, nebo OSVČ, živnost, nebo s.r.o.', otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?', kontext });
+    $('r-cta').href = '/sluzby/projekt/?' + q.toString() + '#objednat';
+  }
+
+  // souhrn e-mailem
+  $('kx-mailform').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const st = $('kx-mailstatus'); const btn = $('kx-mailbtn');
+    const email = $('kx-email').value.trim();
+    st.className = 'kx-mail-status'; st.textContent = '';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { st.className = 'kx-mail-status err'; st.textContent = 'Zkontrolujte prosím e-mail.'; return; }
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/kalkulacka', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, website: e.target.website.value, kalkulacka: 'hpp-nebo-osvc', vstup: state }) });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok || !j.ok) throw new Error(j.error || 'chyba');
+      st.className = 'kx-mail-status ok';
+      st.textContent = j.userEmailed ? 'Hotovo, souhrn je na cestě do vaší schránky.' : 'Děkuji, výsledek mám a souhrn vám pošlu osobně.';
+    } catch (err) {
+      st.className = 'kx-mail-status err'; st.textContent = 'Nepodařilo se odeslat. Napište prosím na kliment.josef@email.cz.';
+    } finally { btn.disabled = false; }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

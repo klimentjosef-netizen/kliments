@@ -125,6 +125,9 @@
     <p style="font-size:0.92rem;color:var(--ink-soft);line-height:1.8;margin-top:24px">
       Pokud je otázek víc nebo jde o uspořádání celé firmy, domluvíme se na návrhu struktury na míru.
     </p>
+    <p style="font-size:0.92rem;color:var(--ink-soft);line-height:1.8;margin-top:12px">
+      Řešíte HPP, nebo fakturu? První odhad si udělejte v <a href="/kalkulacka/hpp-nebo-osvc/" style="color:var(--rose-deep)">kalkulačce zdarma</a>.
+    </p>
   </div>
 </section>
 
@@ -298,6 +301,11 @@
 (function initProjectForm() {
   const form = document.getElementById('project-form');
   if (!form) return;
+  // předvyplnění z kalkulačky (?oblast=&otazka=&kontext=)
+  const qp = new URLSearchParams(location.search);
+  if (qp.get('oblast')) { const o = [...form.elements.area.options].find((x) => x.text === qp.get('oblast')); if (o) form.elements.area.value = o.value || o.text; }
+  if (qp.get('otazka')) form.elements.question.value = qp.get('otazka').slice(0, 500);
+  if (qp.get('kontext')) form.elements.context.value = qp.get('kontext').slice(0, 1000);
   const out = document.getElementById('pf-result');
   const btn = document.getElementById('pf-submit');
   function setStatus(kind, text) { out.className = 'lf-status' + (kind ? ' lf-status-' + kind : ''); out.textContent = text; }

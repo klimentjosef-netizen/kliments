@@ -41,6 +41,7 @@
             <ul>
               <li><a href="/sluzby/projekt/">Projekt za 4 990 Kč</a></li>
               <li><a href="/#business-architektura">Struktury firem</a></li>
+              <li><a href="/kalkulacka/hpp-nebo-osvc/">Kalkulačka HPP, nebo OSVČ</a></li>
               <li><a href="/sluzby/cfo-na-volne-noze/">CFO na volné noze</a></li>
               <li><a href="/sluzby/valuace/">Valuace</a></li>
               <li><a href="/sluzby/firemni-audit/">Firemní audit</a></li>

@@ -3776,3 +3776,28 @@ footer {
   .portal-strip-inner { padding: 26px 22px; }
   .role-title { font-size: 1.35rem; }
 }
+
+/* ── Úvodní stránka: pozvánka do kalkulačky ── */
+.calc-teaser { padding: 100px 64px; background: var(--sand-light); }
+.calc-teaser-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: center;
+}
+.calc-teaser-text p:not(.s-eyebrow) { max-width: 56ch; margin: 18px 0 28px; font-size: 1rem; line-height: 1.7; color: var(--ink-soft); }
+.calc-teaser-demo {
+  background: white; border: 1px solid var(--border-light); border-radius: 20px;
+  padding: 28px 30px; box-shadow: 0 20px 50px rgba(31,26,24,0.06);
+}
+.calc-demo-l { margin: 0 0 18px; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose-deep); }
+.calc-demo-row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: 0.92rem; color: var(--ink-soft);
+}
+.calc-demo-row b { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.25rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.calc-demo-row.win b { color: var(--rose-deep); }
+.calc-demo-diff { margin: 14px 0 0; font-size: 0.85rem; color: var(--rose-deep); }
+@media (max-width: 1024px) {
+  .calc-teaser { padding: 80px 32px; }
+  .calc-teaser-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 640px) { .calc-teaser { padding: 64px 22px; } }
