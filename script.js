@@ -373,3 +373,10 @@ function closeProjLb() {
     banner.classList.remove('visible');
   };
 })();
+
+// odkazy s data-interest předvyplní službu v kontaktním formuláři
+document.addEventListener('click', (e) => {
+  const a = e.target.closest && e.target.closest('[data-interest]');
+  const sel = document.getElementById('lf-interest');
+  if (a && sel) sel.value = a.dataset.interest;
+});

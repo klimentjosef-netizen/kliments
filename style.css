@@ -3749,6 +3749,16 @@ footer {
 }
 .role-price strong { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.15rem; color: white; }
 .role-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.role-block { display: flex; flex-direction: column; align-items: flex-start; }
+.role-block .role-list { margin-bottom: 16px; align-self: stretch; }
+.role-block-last { margin-top: auto; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.08); }
+.role-block + .role-block-last { margin-top: 26px; }
+.role-block-h {
+  margin: 0 0 14px;
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sand-light);
+}
+.role-block-h span { display: inline-block; margin-left: 10px; letter-spacing: 0.04em; text-transform: none; font-size: 0.85rem; color: var(--rose-pale); }
+.role-note { margin: 0 0 14px; font-size: 0.85rem; line-height: 1.55; color: rgba(250,244,237,0.6); }
 .role-link {
   font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--rose-pale); text-decoration: none; border-bottom: 1px solid transparent;
