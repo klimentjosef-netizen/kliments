@@ -166,13 +166,13 @@ const PROJ_DATA = [
   },
   {
     id: 5, title: 'Kliments', role: 'Zakladatel',
-    badge: 'FINANČNÍ ŘÍZENÍ', url: 'kliments.cz',
+    badge: 'STRUKTURY A FINANČNÍ ŘÍZENÍ', url: 'kliments.cz',
     link: 'https://www.kliments.cz',
-    desc: 'Externí finanční ředitel pro české firmy. CFO na volné noze, valuace, firemní audit, startup kit. Zlepšuji fungování firem od první faktury po případný prodej.',
-    metrics: [['4','Hlavní služby'],['14 900 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
+    desc: 'Business architekt a finanční ředitel pro české firmy. Navrhuji struktury firem, řeším projekty na míru a vedu firmy v číslech. Od jednoho rozhodnutí po případný prodej.',
+    metrics: [['2','Role'],['4 990 Kč','Vstupní cena'],['CZ','Celá republika'],['Online','i osobně']],
     bars: [50,60,70,80,90,100],
-    tags: ['CFO','Valuace','Mentoring'],
-    chips: ['CFO','Valuace','M&A'],
+    tags: ['Struktury','CFO','Valuace'],
+    chips: ['Struktury','CFO','Projekty'],
   },
   {
     id: 6, title: 'Chlumecký dvůr', role: 'Spolumajitel',

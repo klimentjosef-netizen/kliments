@@ -32,12 +32,14 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="footer-logo">Kliments<span class="footer-logo-dot">.</span></div>
-          <p class="footer-tagline">Externí finanční ředitel. Zlepšuji fungování firem.<br>Ostrava, celá ČR.</p>
+          <p class="footer-tagline">Business architekt a finanční ředitel.<br>Ostrava, celá ČR.</p>
         </div>
         <div class="footer-cols">
           <div class="footer-col">
             <p class="footer-col-h">Služby</p>
             <ul>
+              <li><a href="/sluzby/projekt/">Projekt za 4 990 Kč</a></li>
+              <li><a href="/#business-architektura">Struktury firem</a></li>
               <li><a href="/sluzby/cfo-na-volne-noze/">CFO na volné noze</a></li>
               <li><a href="/sluzby/valuace/">Valuace</a></li>
               <li><a href="/sluzby/firemni-audit/">Firemní audit</a></li>

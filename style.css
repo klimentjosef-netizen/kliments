@@ -1446,6 +1446,10 @@ footer {
   position: relative; z-index: 2;
   max-width: 1180px; margin: 0 auto;
 }
+/* dva pilíře za sebou: jemná dělicí linka, ať nesplynou v jednu plochu */
+.flagship-section + .flagship-section {
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
 .flagship-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 0.7rem; letter-spacing: 0.22em;
@@ -1853,6 +1857,10 @@ footer {
 
 /* pricing reuse */
 .sp-pricing { max-width: 600px; }
+/* cenová tabulka na světlých podstránkách: tmavý text místo bílého */
+.sp-pricing .flagship-table td { color: var(--ink-soft); border-bottom-color: rgba(0,0,0,0.08); }
+.sp-pricing .ft-price { color: var(--ink); }
+.sp-pricing .ft-price span { color: var(--mid); }
 
 /* CTA band */
 .sp-cta-band {
