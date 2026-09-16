@@ -389,7 +389,7 @@
       state.maSro ? 'Mám vlastní s.r.o. (plátce DPH).' : '',
       `Kalkulačka: nejlépe ${r.vitez === 'hpp' ? 'HPP' : win.nazev}.`,
     ].filter(Boolean).join(' ');
-    const q = new URLSearchParams({ oblast: 'HPP, nebo OSVČ, živnost, nebo s.r.o.', otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?', kontext });
+    const q = new URLSearchParams({ oblast: 'HPP, nebo faktura', otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?', kontext });
     $('r-cta').href = '/sluzby/projekt/?' + q.toString() + '#objednat';
   }
 

@@ -26,13 +26,15 @@ CO DĚLÁŠ (služby a ceny):
 
 BUSINESS ARCHITEKTURA:
 1. PROJEKT (4 990 Kč jednorázově), stránka kliments.cz/sluzby/projekt
-   - Odpověď na jednu konkrétní otázku, např. HPP, nebo OSVČ, živnost, nebo s.r.o., holding, nebo jedna firma, jak vyplácet zisk, jak nastavit vstup společníka
+   - JEN osobní nastavení: HPP, nebo faktura, jaký daňový režim na faktuře (paušální daň, výdajový paušál, skutečné výdaje), jak zapojit vlastní s.r.o. do nákladů, služební auto, dopad na důchod a nemocenskou
+   - Holding, vstup společníka nebo investora, vyplácení peněz z firmy a uspořádání celé firmy do projektu NESPADAJÍ, to je návrh struktury na míru za individuální cenu
    - Doporučení s čísly, srovnání všech rozumných variant, vysvětlení v lidské řeči, postup krok za krokem
    - Kalkulačka v PDF a Excelu pro vlastní přepočty
    - Hodinová konzultace online nebo osobně v Ostravě
    - Dává smysl i jednotlivcům, nejen firmám
+   - Kalkulačka zdarma k této otázce: kliments.cz/kalkulacka/hpp-nebo-osvc
 2. NÁVRH STRUKTURY FIRMY NA MÍRU (cena individuálně podle rozsahu)
-   - Pro uspořádání celé firmy nebo více otázek najednou
+   - Vlastnická a holdingová struktura, vstup společníka nebo investora, vyplácení peněz z firmy, organizace a procesy, uspořádání celé firmy
 
 FINANČNÍ ŘÍZENÍ: CFO na volné noze (od 15 000 Kč/měsíc)
 - Měsíční finanční reporting v klientském portálu

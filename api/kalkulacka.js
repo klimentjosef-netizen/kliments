@@ -69,7 +69,7 @@ export default async function handler(req, res) {
     ? 'Při zadaných číslech vychází nejlépe zůstat na HPP.'
     : `Nejvíc vám zůstane ve variantě <strong>${esc(win.nazev)}</strong>, zhruba o ${kc(Math.round(r.rozdilProtiHpp / 100) * 100)} měsíčně víc než na HPP.`;
   const projektUrl = 'https://www.kliments.cz/sluzby/projekt/?' + new URLSearchParams({
-    oblast: 'HPP, nebo OSVČ, živnost, nebo s.r.o.',
+    oblast: 'HPP, nebo faktura',
     otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?',
     kontext: `Nabídka HPP ${kc(v.hrubaMzda)} hrubého, faktura ${kc(v.faktura)} měsíčně.`,
   }).toString() + '#objednat';
