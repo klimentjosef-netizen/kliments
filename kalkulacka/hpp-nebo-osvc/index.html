@@ -105,6 +105,7 @@
 .kx-mail-status { margin-top: 10px; font-size: .85rem; }
 .kx-mail-status.ok { color: #2f7a4f; } .kx-mail-status.err { color: var(--rose-deep); }
 .kx-hp { position: absolute; left: -9999px; }
+#kx-form [hidden] { display: none !important; }
 .kx-buy { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border-light); }
 .kx-terms { font-size: .8rem; }
 .kx-terms a { color: var(--rose-deep); }
@@ -189,9 +190,30 @@
 
       <div class="kx-step">
         <h2 class="kx-step-h"><span>01</span>Nabídka</h2>
+        <div class="kx-sub" style="margin-top:0;margin-bottom:18px">
+          <span class="kx-lbl" style="display:block">Jak budete fakturovat</span>
+          <div class="kx-seg" role="group" aria-label="Jak budete fakturovat" style="margin-top:8px">
+            <button type="button" data-seg="fakturaSazbou" data-val="0" aria-pressed="true">Pevnou částku měsíčně</button>
+            <button type="button" data-seg="fakturaSazbou" data-val="1">Sazbu za odpracovaný čas</button>
+          </div>
+        </div>
         <div class="kx-grid">
           <div class="kx-f"><label for="hrubaMzda">Hrubá mzda na HPP měsíčně</label><div class="kx-in"><input id="hrubaMzda" inputmode="numeric" data-num><em>Kč</em></div></div>
-          <div class="kx-f"><label for="faktura">Faktura měsíčně</label><div class="kx-in"><input id="faktura" inputmode="numeric" data-num><em>Kč</em></div></div>
+          <div class="kx-f" id="kx-f-faktura"><label for="faktura">Faktura měsíčně</label><div class="kx-in"><input id="faktura" inputmode="numeric" data-num><em>Kč</em></div></div>
+          <div class="kx-f" id="kx-f-sazba" hidden><label for="sazba">Vaše sazba</label><div class="kx-in"><input id="sazba" inputmode="numeric" data-num style="padding-right:78px"><em id="kx-sazba-jed">Kč/den</em></div></div>
+        </div>
+        <div id="kx-sazba" hidden>
+          <div class="kx-sub">
+            <div class="kx-seg" role="group" aria-label="Sazba za den, nebo za hodinu">
+              <button type="button" data-seg="sazbaZaHodinu" data-val="0" aria-pressed="true">Za den</button>
+              <button type="button" data-seg="sazbaZaHodinu" data-val="1">Za hodinu</button>
+            </div>
+          </div>
+          <div class="kx-grid kx-sub">
+            <div class="kx-f"><label for="dovolenaDny">Dovolená ročně</label><div class="kx-in"><input id="dovolenaDny" inputmode="numeric" data-num style="padding-right:64px"><em>dní</em></div></div>
+            <div class="kx-f"><label for="nemocDny">Nemoc a jiné volno ročně</label><div class="kx-in"><input id="nemocDny" inputmode="numeric" data-num style="padding-right:64px"><em>dní</em></div></div>
+          </div>
+          <p class="kx-note" id="kx-sazba-note" style="margin:12px 0 0"></p>
         </div>
         <div class="kx-f kx-sub">
           <label for="pausal">Čím se budete živit na faktuře</label>
@@ -329,6 +351,7 @@
       <ul>
         <li>Čistě znamená, co vám zůstane po daních, pojištění a nákladech, které si na faktuře platíte sami.</li>
         <li>HPP: pojištění 7,1 % a 4,5 %, daň 15 % po slevě na poplatníka. Služební auto se do mzdy přičítá podle ceny a soukromého benzínu.</li>
+        <li>Pevná faktura se počítá za všech 12 měsíců. Při fakturaci sazbou se platí jen odpracované dny z 250 pracovních dní roku 2026, dovolená a nemoc jsou bez příjmu.</li>
         <li>Děti a manžel(ka): slevy a daňový bonus se počítají na HPP, u výdajového paušálu i skutečných výdajů. Paušální daň a fakturace přes s.r.o. je neumožňují.</li>
         <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje. Počítá se s hlavní činností po celý rok a bez nemocenského pojištění.</li>
         <li>Vlastní s.r.o.: počítá se s tím, že je plátcem DPH a vydělává dost na to, aby náklady unesla.</li>
@@ -360,7 +383,7 @@
   const fmtInput = (el) => { if (el.value.trim() === '') return; el.value = Math.round(num(el.value)).toLocaleString('cs-CZ'); };
 
   const state = Object.assign({}, E.DEFAULTS, { autoSplatka: 12000, benzin: 4000, cenaAuta: 900000 });
-  const NUMS = ['hrubaMzda','faktura','autoSplatka','benzin','cenaAuta','soukromePct','telefon','cestovani','obedy','technikaRok','bonusHPP','bonusOSVC','uroky','zivotni','penzijni','ucetnictviSro'];
+  const NUMS = ['hrubaMzda','faktura','sazba','dovolenaDny','nemocDny','autoSplatka','benzin','cenaAuta','soukromePct','telefon','cestovani','obedy','technikaRok','bonusHPP','bonusOSVC','uroky','zivotni','penzijni','ucetnictviSro'];
 
   NUMS.forEach((k) => { const el = $(k); el.value = state[k] ? Math.round(state[k]).toLocaleString('cs-CZ') : ''; el.addEventListener('input', () => { state[k] = num(el.value); edited(); render(); }); el.addEventListener('blur', () => fmtInput(el)); });
   $('pausal').value = String(state.pausal);
@@ -373,8 +396,30 @@
   document.querySelectorAll('[data-seg]').forEach((b) => b.addEventListener('click', () => {
     const k = b.dataset.seg;
     document.querySelectorAll(`[data-seg="${k}"]`).forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
-    state[k] = b.dataset.val === '1'; edited(); render();
+    const val = b.dataset.val === '1';
+    const bylo = state[k];
+    state[k] = val;
+    // předvyplnění sazby z měsíční faktury a přepočet mezi dnem a hodinou
+    const r100 = (x) => Math.round(x / 100) * 100;
+    if (k === 'fakturaSazbou' && val && !state.sazba) {
+      const den = r100(state.faktura * 12 / 220);
+      state.sazba = state.sazbaZaHodinu ? Math.round(den / E.P.hodinDenne / 10) * 10 : den;
+    }
+    if (k === 'sazbaZaHodinu' && val !== bylo && state.sazba) {
+      state.sazba = val ? Math.round(state.sazba / E.P.hodinDenne / 10) * 10 : r100(state.sazba * E.P.hodinDenne);
+    }
+    $('sazba').value = state.sazba ? Math.round(state.sazba).toLocaleString('cs-CZ') : '';
+    edited(); render();
   }));
+  function syncFaktura(r) {
+    $('kx-f-faktura').hidden = state.fakturaSazbou;
+    $('kx-f-sazba').hidden = !state.fakturaSazbou;
+    $('kx-sazba').hidden = !state.fakturaSazbou;
+    $('kx-sazba-jed').textContent = state.sazbaZaHodinu ? 'Kč/hod' : 'Kč/den';
+    if (state.fakturaSazbou) {
+      $('kx-sazba-note').textContent = `Z ${E.P.pracovniDny} pracovních dní v roce odpracujete ${r.odpracovaneDny}${state.sazbaZaHodinu ? ` po ${E.P.hodinDenne} hodinách` : ''}. Průměrně tak vyfakturujete ${kc(r.fakturaMesicne)} měsíčně.`;
+    }
+  }
   let touched = false;
   function edited() { if (!touched) { touched = true; $('kx-example').hidden = true; } }
 
@@ -384,6 +429,7 @@
   function render() {
     const r = E.spocitej(state);
     last = r;
+    syncFaktura(r);
     const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
     const win = by[r.vitez];
     const hpp = by.hpp;
@@ -407,6 +453,9 @@
       hints.push(['warn', `<b>Jste nad limitem 2 mil. Kč ročně.</b> Paušální daň pro vás nejde, a to mění celé srovnání.`]);
     } else if (r.rezervaLimit < 200000) {
       hints.push(['warn', `<b>Do limitu paušální daně vám zbývá jen ${kcRound(r.rezervaLimit)} ročně.</b> Bonus nebo vyšší faktura ho může přetáhnout.`]);
+    }
+    if (!state.fakturaSazbou && r.vitez !== 'hpp') {
+      hints.push(['warn', `<b>Zaplatí vám fakturu i za dovolenou a nemoc?</b> Výsledek počítá s ${kc(state.faktura)} každý měsíc. Když se platí jen odpracovaný čas, přepněte nahoře na sazbu, výsledek bude nižší.`]);
     }
     if (r.slevyRodinaRok > 0 && r.pasmo) {
       hints.push(['', ['pausalniDan', 'pausalniDanSro'].includes(r.vitez)
@@ -448,7 +497,7 @@
 
     // předvyplnění objednávky projektu
     const kontext = [
-      `Nabídka HPP ${kc(state.hrubaMzda)} hrubého, faktura ${kc(state.faktura)} měsíčně.`,
+      `Nabídka HPP ${kc(state.hrubaMzda)} hrubého, ${E.popisFaktury(state)}.`,
       state.deti || state.slevaManzel ? `Děti se slevou: ${state.deti}${state.slevaManzel ? ', sleva na manžela/manželku' : ''}.` : '',
       state.maAuto ? `Služební auto: leasing ${kc(state.autoSplatka)} bez DPH, benzín ${kc(state.benzin)}, firma ho na fakturu ${state.firmaNechaAuto ? 'nechá' : 'nenechá'}.` : '',
       state.maSro ? 'Mám vlastní s.r.o. (plátce DPH).' : '',
@@ -544,7 +593,7 @@
         <div><span class="kx-badge">Odemčeno</span><h2 style="margin-top:12px">Kompletní výsledek</h2></div>
         <button type="button" class="kx-print" id="kx-print">Vytisknout nebo uložit PDF</button>
       </div>
-      <p>HPP za ${kc(state.hrubaMzda)} hrubého, nebo faktura ${kc(state.faktura)} měsíčně. ${r.vitez === 'hpp' ? 'Nejlépe vychází zůstat na HPP.' : `Nejlépe vychází <b>${win.nazev}</b>, o ${kc(r.rozdilProtiHpp)} měsíčně víc než HPP.`} Když změníte zadání nahoře, výsledek se přepočítá.</p>
+      <p>HPP za ${kc(state.hrubaMzda)} hrubého, nebo ${E.popisFaktury(state)}. ${r.vitez === 'hpp' ? 'Nejlépe vychází zůstat na HPP.' : `Nejlépe vychází <b>${win.nazev}</b>, o ${kc(r.rozdilProtiHpp)} měsíčně víc než HPP.`} Když změníte zadání nahoře, výsledek se přepočítá.</p>
 
       <h3>Srovnání všech variant</h3>
       <div class="kx-tw"><table class="kx-t">
@@ -585,7 +634,7 @@
     $('slevaManzel').checked = state.slevaManzel;
     $('maAuto').checked = state.maAuto; $('kx-auto').hidden = !state.maAuto;
     $('maSro').checked = state.maSro; $('kx-sro-more').hidden = !state.maSro;
-    document.querySelectorAll('[data-seg="firmaNechaAuto"]').forEach((x) => x.setAttribute('aria-pressed', (x.dataset.val === '1') === state.firmaNechaAuto ? 'true' : 'false'));
+    document.querySelectorAll('[data-seg]').forEach((x) => x.setAttribute('aria-pressed', (x.dataset.val === '1') === !!state[x.dataset.seg] ? 'true' : 'false'));
     edited();
   }
 

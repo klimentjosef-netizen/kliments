@@ -24,6 +24,8 @@ export function cleanVstup(vstup) {
   if (![80000, 150000].includes(out.limitUroku)) out.limitUroku = 80000;
   out.soukromePct = Math.min(out.soukromePct, 100);
   out.deti = Math.min(Math.round(out.deti), 10);
+  out.dovolenaDny = Math.min(Math.round(out.dovolenaDny), 250);
+  out.nemocDny = Math.min(Math.round(out.nemocDny), 250 - out.dovolenaDny);
   if (![1, 0.5, 0.25].includes(out.pridaneniPct)) out.pridaneniPct = 1;
   return out;
 }
@@ -102,7 +104,7 @@ export async function dorucOdemceni(session) {
       subject: 'Váš kompletní výsledek: HPP, nebo faktura',
       html: `<div style="font-family:Arial,sans-serif;color:#1f1a18;max-width:560px">
         <h2 style="font-family:Georgia,serif;font-weight:400">Děkuji, kompletní výsledek je odemčený</h2>
-        <p>Zadání: HPP za ${kc(v.hrubaMzda)} hrubého, nebo faktura ${kc(v.faktura)} měsíčně.</p>
+        <p>Zadání: HPP za ${kc(v.hrubaMzda)} hrubého, nebo ${engine.popisFaktury(v)}.</p>
         <p>Čistě měsíčně v jednotlivých variantách:</p>${tabulka}
         <p>Celý výsledek včetně ročního rozpisu, dopadu na důchod, nemocenské a postupu krok za krokem najdete tady:</p>
         <p><a href="${odkaz}" style="display:inline-block;background:#c97b84;color:#fff;padding:12px 22px;border-radius:30px;text-decoration:none">Otevřít kompletní výsledek</a></p>
@@ -118,7 +120,7 @@ export async function dorucOdemceni(session) {
     html: `<div style="font-family:Arial,sans-serif;font-size:14px">
       <h2 style="font-family:Georgia,serif">Zaplacený kompletní výsledek</h2>
       <p><strong>Zákazník:</strong> ${esc(email || 'neuveden')} · platba ${esc(session.id)}</p>
-      <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)}, faktura ${kc(v.faktura)}, činnost ${v.pausal} %, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto ${v.maAuto ? 'ano' : 'ne'}, vlastní s.r.o. ${v.maSro ? 'ano' : 'ne'}</p>
+      <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)}, ${engine.popisFaktury(v)}, činnost ${v.pausal} %, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto ${v.maAuto ? 'ano' : 'ne'}, vlastní s.r.o. ${v.maSro ? 'ano' : 'ne'}</p>
       ${tabulka}
       <p><a href="${odkaz}">Odkaz, který dostal zákazník</a></p>
     </div>`,

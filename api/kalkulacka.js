@@ -22,6 +22,8 @@ function clean(vstup) {
   out.soukromePct = Math.min(out.soukromePct, 100);
   if (![1, 0.5, 0.25].includes(out.pridaneniPct)) out.pridaneniPct = 1;
   out.deti = Math.min(Math.round(out.deti), 10);
+  out.dovolenaDny = Math.min(Math.round(out.dovolenaDny), 250);
+  out.nemocDny = Math.min(Math.round(out.nemocDny), 250 - out.dovolenaDny);
   return out;
 }
 
@@ -72,13 +74,13 @@ export default async function handler(req, res) {
   const projektUrl = 'https://www.kliments.cz/sluzby/projekt/?' + new URLSearchParams({
     oblast: 'HPP, nebo faktura',
     otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?',
-    kontext: `Nabídka HPP ${kc(v.hrubaMzda)} hrubého, faktura ${kc(v.faktura)} měsíčně.`,
+    kontext: `Nabídka HPP ${kc(v.hrubaMzda)} hrubého, ${engine.popisFaktury(v)}.`,
   }).toString() + '#objednat';
 
   const userHtml = `
   <div style="font-family:Arial,sans-serif;color:#1f1a18;max-width:560px">
     <h2 style="font-family:Georgia,serif;font-weight:400">Váš výsledek: HPP, nebo faktura</h2>
-    <p>Zadali jste HPP za ${kc(v.hrubaMzda)} hrubého a fakturu ${kc(v.faktura)} měsíčně.</p>
+    <p>Zadali jste HPP za ${kc(v.hrubaMzda)} hrubého, nebo ${engine.popisFaktury(v)}.</p>
     <p style="font-size:16px">${vitezText}</p>
     <table style="border-collapse:collapse;margin:16px 0;font-size:14px">
       <tr><td style="padding:6px 18px 6px 0;color:#777">Čistě na HPP</td><td><strong>${kc(hpp.cisteMesic)}</strong> měsíčně</td></tr>
@@ -94,7 +96,7 @@ export default async function handler(req, res) {
   <div style="font-family:Arial,sans-serif;font-size:14px">
     <h2 style="font-family:Georgia,serif">Nový lead z kalkulačky HPP, nebo OSVČ</h2>
     <p><strong>E-mail:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
-    <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)} hrubého, faktura ${kc(v.faktura)}, činnost ${v.pausal} %, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
+    <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)} hrubého, ${engine.popisFaktury(v)}, činnost ${v.pausal} %, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
     <table style="border-collapse:collapse">${rows}</table>
     <p style="color:#999;font-size:12px">Příjmy pro limit ${kc(r.prijmyLimit)}, pásmo paušální daně ${r.pasmo || 'nelze'}.</p>
   </div>`;

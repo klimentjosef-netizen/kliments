@@ -8,6 +8,8 @@
     rok: 2026,
     prumernaMzda: 48967,
     minimalniMzda: 22400,
+    pracovniDny: 250,             // pracovní dny 2026 bez svátků
+    hodinDenne: 8,
     slevaPoplatnik: 30840,
     slevaManzel: 24840,           // jen když manžel/ka pečuje o dítě do 3 let a má příjmy do 68 000 Kč
     zvyhodneniDeti: [15204, 22320, 27840], // 1. dítě, 2. dítě, 3. a každé další
@@ -84,10 +86,24 @@
     return Math.min(z, d.hranice1) + Math.max(0, Math.min(z, d.hranice2) - d.hranice1) * d.redukce2;
   }
 
+  // Fakturace sazbou: platí se jen odpracované dny, dovolená a nemoc jsou bez příjmu.
+  function odpracovaneDny(v) {
+    return Math.max(0, P.pracovniDny - v.dovolenaDny - v.nemocDny);
+  }
+  function fakturaRok(v) {
+    if (!v.fakturaSazbou) return v.faktura * 12;
+    return v.sazba * (v.sazbaZaHodinu ? P.hodinDenne : 1) * odpracovaneDny(v);
+  }
+  function popisFaktury(v) {
+    const kc = (n) => Math.round(n).toLocaleString('cs-CZ') + ' Kč';
+    if (!v.fakturaSazbou) return `faktura ${kc(v.faktura)} měsíčně`;
+    return `sazba ${kc(v.sazba)} za ${v.sazbaZaHodinu ? 'hodinu' : 'den'}, ${odpracovaneDny(v)} odpracovaných dní ročně (průměrně ${kc(fakturaRok(v) / 12)} měsíčně)`;
+  }
+
   /* vstup: viz DEFAULTS níže */
   function spocitej(v) {
     const m = 12;
-    const faktura = v.faktura * m;
+    const faktura = fakturaRok(v);
     const odpocty = Math.min(v.uroky, v.limitUroku) + Math.min(v.zivotni + v.penzijni, P.limitOdpocetSporeni);
 
     // náklady (měsíčně)
@@ -171,6 +187,8 @@
       varianty: VARIANTY.map((x) => Object.assign({ id: x.id, nazev: x.nazev, kratce: x.kratce, dostupna: dostupne.includes(x) }, out[x.id])),
       vitez: vitez.id,
       rozdilProtiHpp: (out[vitez.id].cisteRok - out.hpp.cisteRok) / m,
+      fakturaMesicne: faktura / m,
+      odpracovaneDny: v.fakturaSazbou ? odpracovaneDny(v) : null,
       prijmyLimit: prijmyLimitCelkem,
       rezervaLimit: P.limitPausal - prijmyLimitCelkem,
       pasmo,
@@ -183,6 +201,7 @@
 
   const DEFAULTS = {
     hrubaMzda: 80000, faktura: 120000, bonusHPP: 0, bonusOSVC: 0,
+    fakturaSazbou: false, sazba: 0, sazbaZaHodinu: false, dovolenaDny: 25, nemocDny: 5,
     pausal: 60,
     deti: 0, slevaManzel: false,
     maAuto: false, firmaNechaAuto: false, autoSplatka: 0, benzin: 0, soukromePct: 20,
@@ -192,7 +211,7 @@
     maSro: false, ucetnictviSro: 5000,
   };
 
-  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti };
+  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KalkHppOsvc = api;
 })(typeof window !== 'undefined' ? window : this);
