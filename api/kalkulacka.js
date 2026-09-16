@@ -110,7 +110,7 @@ export default async function handler(req, res) {
     <p><strong>E-mail:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
     <p><strong>Vstup:</strong> ${v.bezHpp ? 'VÝBĚR REŽIMU' : 'NABÍDKA'}: ${engine.popisZadani(v)}, činnost ${v.pausal} %, situace: ${engine.SITUACE[v.situace]}${v.situace === 1 ? ` (mzda ${kc(v.jinaMzda)})` : ''}, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
     <table style="border-collapse:collapse">${rows}</table>
-    <p style="color:#999;font-size:12px">Příjmy pro limit ${kc(r.prijmyLimit)}, pásmo paušální daně ${r.pasmo || 'nelze'}.</p>
+    <p style="color:#999;font-size:12px">Příjmy pro limit ${kc(r.prijmyLimit)}, pásmo paušální daně ${r.pasmo || 'nelze'}, DPH: ${r.platceDph ? `plátce, odběratelé ${v.odberatelPlatce ? 'plátci' : 'neplátci'}` : 'neplátce'}.</p>
   </div>`;
 
   let userEmailed = false;

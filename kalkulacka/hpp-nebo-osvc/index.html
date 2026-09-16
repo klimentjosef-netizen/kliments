@@ -259,6 +259,7 @@
             <option value="40">Svobodná povolání (lékař, advokát, autor)</option>
           </select>
         </div>
+        <label class="kx-check kx-sub" id="kx-odb" hidden><input type="checkbox" id="odberatelPlatce" checked> Odběratelé jsou plátci DPH (firmy, ne lidé)</label>
       </div>
 
       <div class="kx-step">
@@ -391,6 +392,7 @@
         <li>Děti a manžel(ka): slevy a daňový bonus se počítají na HPP, u výdajového paušálu i skutečných výdajů. Paušální daň a fakturace přes s.r.o. je neumožňují.</li>
         <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje, bez nemocenského pojištění.</li>
         <li>Vedlejší činnost (vedle zaměstnání, studia, důchodu, rodičovské nebo péče): sociální pojištění až od zisku 117 521 Kč ročně, zdravotní bez minima. Vedle zaměstnání se počítá, kolik přibude ke stávající mzdě, a nabídne se i dohoda o provedení práce.</li>
+        <li>DPH: s obratem nad 2 mil. Kč ročně je OSVČ plátcem DPH a nemůže mít paušální daň. Výsledek počítá s tím, že plátcem je celý rok. Náklady jsou pak bez DPH, a když jsou odběratelé neplátci, odvádí se DPH z ceny.</li>
         <li>Nová OSVČ, která 20 let nepodnikala, má v roce zahájení a dvou dalších nižší minimální základ sociálního pojištění (25 % průměrné mzdy místo 35 %). Paušální daň ani zdravotní pojištění se nesnižují.</li>
         <li>Když už podnikáte nebo začínáte a vybíráte daňový režim, porovnávají se jen režimy mezi sebou, bez HPP.</li>
         <li>Vlastní s.r.o.: počítá se s tím, že je plátcem DPH a vydělává dost na to, aby náklady unesla.</li>
@@ -428,6 +430,7 @@
   $('pausal').value = String(state.pausal);
   $('pausal').addEventListener('change', (e) => { state.pausal = +e.target.value; edited(); render(); });
   $('limitUroku').addEventListener('change', (e) => { state.limitUroku = +e.target.value; render(); });
+  $('odberatelPlatce').addEventListener('change', (e) => { state.odberatelPlatce = e.target.checked; edited(); render(); });
   $('novaOsvc').addEventListener('change', (e) => { state.novaOsvc = e.target.checked; edited(); render(); });
   $('situace').addEventListener('change', (e) => { state.situace = +e.target.value; edited(); render(); });
   $('invalidita3').addEventListener('change', (e) => { state.invalidita3 = e.target.value === '1'; edited(); render(); });
@@ -470,6 +473,7 @@
   function syncSituace() {
     $('kx-jina').hidden = state.situace !== 1;
     $('kx-nova').hidden = state.situace !== 0;
+    $('kx-odb').hidden = !(last && last.dphRezerva < 300000);
     $('kx-lbl-nova').textContent = state.bezHpp && state.uzPodnikam
       ? 'Podnikám nejvýš třetí rok a předtím jsem 20 let nepodnikal(a)'
       : 'Posledních 20 let jsem nepodnikal(a)';
@@ -561,10 +565,14 @@
     if (!r.bezHpp && r.vedlejsi && state.hrubaMzda >= E.P.dppLimit && state.hrubaMzda < 20000) {
       hints.push(['', `<b>Zvažte dohodu o provedení práce.</b> Při odměně do ${kc(E.P.dppLimit - 1)} měsíčně u jednoho zaměstnavatele se neplatí žádné pojištění. Snižte částku zaměstnání pod limit a porovnání se objeví.`]);
     }
-    if (r.pausalniDanPovolena && r.rezervaLimit < 0) {
-      hints.push(['warn', `<b>Jste nad limitem 2 mil. Kč ročně.</b> Paušální daň pro vás nejde, a to mění celé srovnání.`]);
-    } else if (r.pausalniDanPovolena && r.rezervaLimit < 200000) {
-      hints.push(['warn', `<b>Do limitu paušální daně vám zbývá jen ${kcRound(r.rezervaLimit)} ročně.</b> Bonus nebo vyšší faktura ho může přetáhnout.`]);
+    if (r.platceDph) {
+      hints.push(['warn', `<b>S obratem ${kcRound(r.obrat)} ročně budete plátcem DPH.</b> ${r.dphHned
+        ? `Nad ${kc(E.P.dph.limitHned)} jste plátcem hned od následujícího dne po překročení.`
+        : 'Plátcem budete od 1. ledna roku, který následuje po překročení 2 mil. Kč.'} ${state.odberatelPlatce
+        ? 'Faktury navýšíte o 21 % DPH, odběratel si ji odečte, takže ho to nestojí nic navíc. Vy si odečtete DPH z nákladů. Přibude přiznání k DPH a kontrolní hlášení.'
+        : 'Když odběratelům neplátcům cenu nezvednete, odvedete z ní 21 % DPH. Ve výsledku je to započítané.'}${r.pausalniDanPovolena ? ' Paušální daň plátce DPH mít nemůže.' : ''}`]);
+    } else if (r.dphRezerva < 200000) {
+      hints.push(['warn', `<b>Do limitu 2 mil. Kč vám zbývá jen ${kcRound(r.dphRezerva)} ročně.</b> Nad ním se stanete plátcem DPH${r.pausalniDanPovolena ? ' a skončí paušální daň' : ''}. Bonus nebo vyšší faktura limit snadno přetáhne.`]);
     }
     if (!r.bezHpp && !state.fakturaSazbou && r.vitez !== 'hpp') {
       hints.push(['warn', `<b>Zaplatí vám fakturu i za dovolenou a nemoc?</b> Výsledek počítá s ${kc(state.faktura)} každý měsíc. Když se platí jen odpracovaný čas, přepněte nahoře na sazbu, výsledek bude nižší.`]);
@@ -702,6 +710,8 @@
       } else {
         kroky.push(['Nejpozději v den zahájení.', 'Ohlaste živnost přes Jednotný registrační formulář (poplatek 1 000 Kč)' + (pd ? ` a podejte oznámení o vstupu do paušálního režimu, ${r.pasmo}. pásmo.` : '.')]);
       }
+      if (r.platceDph) kroky.push(['DPH.', `Jakmile obrat za kalendářní rok přesáhne 2 mil. Kč, podejte přihlášku k registraci k DPH. Plátcem budete od 1. ledna, nad ${kc(E.P.dph.limitHned)} už od následujícího dne. Pak podáváte přiznání k DPH a kontrolní hlášení, termíny si ohlídejte s účetní.`]);
+      else if (r.dphRezerva < 200000) kroky.push(['Hlídejte obrat.', 'Jste blízko limitu 2 mil. Kč pro DPH. Sledujte fakturaci průběžně, ať vás registrace nepřekvapí.']);
       if (sroNaklady) kroky.push(['Vaše s.r.o.', 'Ověřte, že je plátcem DPH, a převeďte na ni leasing, telefony a techniku. Náklady musí souviset s jejím podnikáním a firma musí vydělávat dost, aby je unesla.']);
       const odlozit = B ? 0 : win.nizsiDuchodZaRok * 20;
       kroky.push(['Každý měsíc.', (pd
@@ -740,6 +750,8 @@
 
     const odpocty = Math.min(state.uroky, state.limitUroku) + Math.min(state.zivotni + state.penzijni, E.P.limitOdpocetSporeni);
     const pozor = [];
+    if (r.platceDph) pozor.push(`<b>DPH.</b> S obratem ${kc(r.obrat)} ročně budete plátcem DPH, ${r.dphHned ? `nad ${kc(E.P.dph.limitHned)} hned od následujícího dne po překročení` : 'od 1. ledna následujícího roku'}. Výsledek počítá s tím, že plátcem jste celý rok${state.odberatelPlatce ? ', odběratelé jsou plátci a DPH si odečtou' : ' a odběratelům neplátcům cenu nezvýšíte'}. Náklady jsou bez DPH, protože si ji odečtete.`);
+    pozor.push('<b>Služby ze zahraničí.</b> Když nakupujete reklamu nebo software od zahraničních firem, můžete se i jako neplátce stát identifikovanou osobou k DPH. Ohlídejte si to od první faktury.');
     if (r.pausalniDanPovolena) pozor.push(r.rezervaLimit < 0
       ? `<b>Limit 2 milionů.</b> Příjmy ${kc(r.prijmyLimit)} ročně limit přesahují, paušální daň pro vás nejde.`
       : `<b>Limit 2 milionů.</b> Příjmy pro limit paušální daně jsou ${kc(r.prijmyLimit)} ročně, rezerva ${kc(r.rezervaLimit)}.${state.maAuto && state.firmaNechaAuto && !r.bezHpp ? ' Do limitu se počítá i soukromé užívání auta od firmy.' : ''} ${r.bezHpp ? 'Hlídejte si ho průběžně během roku.' : 'Bonusy nastavte tak, aby limit nepřekročily.'}`);
@@ -802,6 +814,7 @@
     $('deti').value = String(Math.min(state.deti, 5));
     $('situace').value = String(state.situace);
     $('novaOsvc').checked = state.novaOsvc;
+    $('odberatelPlatce').checked = state.odberatelPlatce;
     $('kx-auto').hidden = !state.maAuto;
     $('invalidita3').value = state.invalidita3 ? '1' : '0';
     $('slevaManzel').checked = state.slevaManzel;

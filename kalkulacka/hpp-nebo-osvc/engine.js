@@ -31,6 +31,7 @@
     slevaInvalidita: { 1: 2520, 3: 5040 },
     pausalniDan: { 1: 9162, 2: 16745, 3: 27139 },
     limitPausal: 2000000,
+    dph: { limit: 2000000, limitHned: 2536500, sazba: 0.21 }, // plátce od 1. 1. dalšího roku, nad limitHned hned
     vydajovePausaly: { 80: 1600000, 60: 1200000, 40: 800000 },
     sro: { dan: 0.21, dividenda: 0.15, dph: 0.21, zdrOSVBP: 3024 },
     limitOdpocetSporeni: 48000,   // penzijní spoření, DIP a životní pojištění dohromady
@@ -173,6 +174,14 @@
     const faktura = fakturaRok(v);
     const odpocty = Math.min(v.uroky, v.limitUroku) + Math.min(v.zivotni + v.penzijni, P.limitOdpocetSporeni);
 
+    // DPH: nad limitem je OSVČ plátce (počítá se ustálený stav, kdy je plátcem celý rok).
+    // Odběratel plátce: faktura + DPH, pro OSVČ beze změny, odečte si DPH z nákladů.
+    // Odběratel neplátce: cena zůstává, OSVČ z ní odvede DPH.
+    const obrat = fakturaRok(v) + v.bonusOSVC;
+    const platceDph = obrat > P.dph.limit;
+    const kPrijem = platceDph && !v.odberatelPlatce ? 1 / (1 + P.dph.sazba) : 1;
+    const kNaklad = platceDph ? 1 / (1 + P.dph.sazba) : 1;
+
     // náklady (měsíčně)
     const autoSDph = v.maAuto ? v.autoSplatka * (1 + P.sro.dph) : 0;
     const benzin = v.maAuto ? v.benzin : 0;
@@ -182,8 +191,8 @@
     const soukromeAuto = firmaPlatiAuto ? v.soukromePct / 100 * autoCelkem * m : 0; // nepeněžní příjem OSVČ
     const tech = v.technikaRok / m;
     const ostatniDanove = v.telefon + v.cestovani + tech;             // s DPH
-    const nakladyOSVC = (firmaPlatiAuto ? 0 : autoCelkem) + ostatniDanove + v.obedy; // co platí sám
-    const danoveOSVC = (firmaPlatiAuto ? 0 : autoCelkem * (1 - v.soukromePct / 100)) + ostatniDanove;
+    const nakladyOSVC = ((firmaPlatiAuto ? 0 : autoCelkem) + ostatniDanove) * kNaklad + v.obedy; // co platí sám
+    const danoveOSVC = ((firmaPlatiAuto ? 0 : autoCelkem * (1 - v.soukromePct / 100)) + ostatniDanove) * kNaklad;
 
     // efektivní náklad přes s.r.o. (plátce DPH, odečte DPH i daň, majitele stojí nižší dividenda)
     const koef = (1 - P.sro.dan) * (1 - P.sro.dividenda);
@@ -222,14 +231,15 @@
       out.dpp = { nedostupne: `Bez odvodů jen při odměně do ${(P.dppLimit - 1).toLocaleString('cs-CZ')} Kč měsíčně, nad ní se DPP počítá jako HPP.` };
     }
 
-    const fakturaCelkem = faktura + v.bonusOSVC;
-    const prijmyLimitCelkem = prijmyLimit + v.bonusOSVC;
+    const fakturaCelkem = (faktura + v.bonusOSVC) * kPrijem;
+    const prijmyLimitCelkem = fakturaCelkem + soukromeAuto;
+    const prijmyProLimit = prijmyLimit + v.bonusOSVC; // limit paušální daně se počítá z obratu
 
     // paušální daň
-    const pasmo = pdPovolena ? pasmoPausalniDane(prijmyLimitCelkem, v.pausal) : null;
+    const pasmo = pdPovolena && !platceDph ? pasmoPausalniDane(prijmyProLimit, v.pausal) : null;
     const pdRok = pasmo ? P.pausalniDan[pasmo] * m : null;
     const pdSocMesic = pasmo ? { 1: 5756, 2: 8191, 3: 12527 }[pasmo] / P.osvc.socSazba : 0;
-    out.pausalniDan = pasmo ? { pojisteni: pdRok, dan: 0, naklady: nakladyOSVC * m, cisteRok: fakturaCelkem - pdRok - nakladyOSVC * m, pasmo, duchodZaklad: Math.round(pdSocMesic / 50) * 50 } : { nedostupne: pdPovolena ? 'Příjmy přesahují 2 mil. Kč, paušální daň nejde použít.' : 'Vedle zaměstnání se zálohovou daní paušální daň použít nejde.' };
+    out.pausalniDan = pasmo ? { pojisteni: pdRok, dan: 0, naklady: nakladyOSVC * m, cisteRok: fakturaCelkem - pdRok - nakladyOSVC * m, pasmo, duchodZaklad: Math.round(pdSocMesic / 50) * 50 } : { nedostupne: !pdPovolena ? 'Vedle zaměstnání se zálohovou daní paušální daň použít nejde.' : platceDph ? 'Příjmy přesahují 2 mil. Kč, jako plátce DPH paušální daň použít nejde.' : 'Příjmy přesahují 2 mil. Kč, paušální daň nejde použít.' };
     out.pausalniDanSro = pasmo ? { pojisteni: pdRok, dan: 0, naklady: efektivneSro * m, cisteRok: fakturaCelkem - pdRok - efektivneSro * m, pasmo, duchodZaklad: out.pausalniDan.duchodZaklad } : { nedostupne: out.pausalniDan.nedostupne };
 
     // výdajový paušál
@@ -298,8 +308,12 @@
       rozdilProtiHpp,
       fakturaMesicne: faktura / m,
       odpracovaneDny: v.fakturaSazbou ? odpracovaneDny(v) : null,
-      prijmyLimit: prijmyLimitCelkem,
-      rezervaLimit: P.limitPausal - prijmyLimitCelkem,
+      prijmyLimit: prijmyProLimit,
+      rezervaLimit: P.limitPausal - prijmyProLimit,
+      obrat,
+      platceDph,
+      dphHned: obrat > P.dph.limitHned,
+      dphRezerva: P.dph.limit - obrat,
       pasmo,
       pausalniDanPovolena: pdPovolena,
       situace,
@@ -320,7 +334,7 @@
     hrubaMzda: 80000, faktura: 120000, bonusHPP: 0, bonusOSVC: 0,
     fakturaSazbou: false, sazba: 0, sazbaZaHodinu: false, dovolenaDny: 25, nemocDny: 5,
     pausal: 60,
-    bezHpp: false, uzPodnikam: false, novaOsvc: false,
+    bezHpp: false, uzPodnikam: false, novaOsvc: false, odberatelPlatce: true,
     situace: 0, jinaMzda: 0, invalidita3: false,
     deti: 0, slevaManzel: false,
     maAuto: false, firmaNechaAuto: false, autoSplatka: 0, benzin: 0, soukromePct: 20,
