@@ -19,8 +19,12 @@ export default async function handler(req, res) {
   list.push(now); hits.set(ip, list);
 
   const email = String(body.email || '').trim().toLowerCase().slice(0, 200);
+  // testovací cena jen pro tajný odkaz (env CENA_TEST_TOKEN), jinak vždy plná cena
+  const TOKEN = process.env.CENA_TEST_TOKEN;
+  const testCena = !!TOKEN && TOKEN.length >= 16 && body.testToken === TOKEN;
+  const castka = testCena ? 15 : CENA_KC;
   const v = cleanVstup(body.vstup);
-  const meta = Object.assign(vstupDoMetadat(v), { produkt: PRODUKT, souhlas: new Date().toISOString() });
+  const meta = Object.assign(vstupDoMetadat(v), { produkt: PRODUKT, souhlas: new Date().toISOString() }, testCena ? { testovaci_cena: '1' } : {});
 
   try {
     const s = await stripe('checkout/sessions', {
@@ -34,7 +38,7 @@ export default async function handler(req, res) {
           quantity: 1,
           price_data: {
             currency: 'czk',
-            unit_amount: CENA_KC * 100,
+            unit_amount: castka * 100,
             product_data: {
               name: 'Kompletní výsledek · kalkulačka HPP, nebo OSVČ',
               description: 'Srovnání všech variant, roční rozpis, dopad na důchod a nemocenskou, postup krok za krokem. Zpřístupněno ihned po zaplacení.',

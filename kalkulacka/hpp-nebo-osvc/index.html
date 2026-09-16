@@ -589,7 +589,7 @@
     if (!$('kx-souhlas').checked) { st.textContent = 'Pro pokračování potvrďte souhlas s obchodními podmínkami.'; return; }
     const btn = $('kx-buy-btn'); btn.disabled = true;
     try {
-      const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ souhlas: true, vstup: state }) });
+      const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ souhlas: true, vstup: state, testToken: new URLSearchParams(location.search).get('testcena') || undefined }) });
       const j = await res.json().catch(() => ({}));
       if (!res.ok || !j.url) throw new Error(j.error || 'Platbu se nepodařilo založit.');
       location.href = j.url;
