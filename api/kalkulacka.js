@@ -69,35 +69,42 @@ export default async function handler(req, res) {
     return rr.ok;
   };
 
-  const vitezText = r.vitez === 'hpp'
+  const druha = r.druha ? by[r.druha] : null;
+  const vitezText = r.bezHpp
+    ? `Nejvýhodnější režim je <strong>${esc(win.nazev)}</strong>${druha ? `, zhruba o ${kc(Math.round(r.rozdilProtiDruhe / 100) * 100)} měsíčně víc než ${esc(druha.nazev)}` : ''}.`
+    : r.vitez === 'hpp'
     ? 'Při zadaných číslech vychází nejlépe zůstat na HPP.'
     : `Nejvíc vám zůstane ve variantě <strong>${esc(win.nazev)}</strong>, zhruba o ${kc(Math.round(r.rozdilProtiHpp / 100) * 100)} měsíčně víc než na HPP.`;
   const projektUrl = 'https://www.kliments.cz/sluzby/projekt/?' + new URLSearchParams({
-    oblast: 'HPP, nebo faktura',
-    otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?',
-    kontext: `Nabídka HPP ${kc(v.hrubaMzda)} hrubého, ${engine.popisFaktury(v)}.`,
+    oblast: v.bezHpp ? 'Daňový režim na faktuře' : 'HPP, nebo faktura',
+    otazka: v.bezHpp ? 'Podnikám nebo začínám. Jaký daňový režim je pro mě nejlepší?' : 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?',
+    kontext: `Zadání: ${engine.popisZadani(v)}.`,
   }).toString() + '#objednat';
 
   const userHtml = `
   <div style="font-family:Arial,sans-serif;color:#1f1a18;max-width:560px">
-    <h2 style="font-family:Georgia,serif;font-weight:400">Váš výsledek: HPP, nebo faktura</h2>
-    <p>Zadali jste HPP za ${kc(v.hrubaMzda)} hrubého, nebo ${engine.popisFaktury(v)}.</p>
+    <h2 style="font-family:Georgia,serif;font-weight:400">${v.bezHpp ? 'Váš výsledek: daňový režim' : 'Váš výsledek: HPP, nebo faktura'}</h2>
+    <p>Zadání: ${engine.popisZadani(v)}.</p>
     <p style="font-size:16px">${vitezText}</p>
     <table style="border-collapse:collapse;margin:16px 0;font-size:14px">
-      <tr><td style="padding:6px 18px 6px 0;color:#777">Čistě na HPP</td><td><strong>${kc(hpp.cisteMesic)}</strong> měsíčně</td></tr>
+      ${v.bezHpp
+        ? (druha ? `<tr><td style="padding:6px 18px 6px 0;color:#777">Čistě v druhé nejlepší variantě</td><td><strong>${kc(druha.cisteMesic)}</strong> měsíčně</td></tr>` : '')
+        : `<tr><td style="padding:6px 18px 6px 0;color:#777">Čistě na HPP</td><td><strong>${kc(hpp.cisteMesic)}</strong> měsíčně</td></tr>`}
       <tr><td style="padding:6px 18px 6px 0;color:#777">Čistě v nejlepší variantě</td><td><strong>${kc(win.cisteMesic)}</strong> měsíčně</td></tr>
     </table>
-    <p>Kalkulačka nepočítá dopad na důchod a nemocenskou ani to, jak nastavit smlouvu, aby nevypadala jako skrytý pracovní poměr. To všechno spočítám a sepíšu v projektu za 4 990 Kč, včetně postupu krok za krokem a hodinové konzultace.</p>
+    <p>${v.bezHpp
+      ? 'Kalkulačka neřeší dopad na důchod a nemocenskou, termíny přihlášek ani to, kdy se vyplatí přejít do s.r.o.'
+      : 'Kalkulačka nepočítá dopad na důchod a nemocenskou ani to, jak nastavit smlouvu, aby nevypadala jako skrytý pracovní poměr.'} To všechno spočítám a sepíšu v projektu za 4 990 Kč, včetně postupu krok za krokem a hodinové konzultace.</p>
     <p><a href="${projektUrl}" style="display:inline-block;background:#c97b84;color:#fff;padding:12px 22px;border-radius:30px;text-decoration:none">Chci přesné řešení</a></p>
     <p style="color:#999;font-size:12px;margin-top:28px">Josef Kliment · business architekt a finanční ředitel · kliments.cz<br>Orientační výpočet podle pravidel pro rok 2026, nejde o daňové ani právní poradenství.</p>
   </div>`;
 
-  const rows = r.varianty.map((x) => `<tr><td style="padding:4px 14px 4px 0">${esc(x.nazev)}${x.id === r.vitez ? ' ★' : ''}</td><td style="text-align:right">${x.dostupna ? kc(x.cisteMesic) : 'nedostupné'}</td></tr>`).join('');
+  const rows = r.varianty.map((x) => `<tr><td style="padding:4px 14px 4px 0">${esc(x.nazev)}${x.id === r.vitez ? ' ★' : ''}</td><td style="text-align:right">${x.dostupna ? kc(x.cisteMesic) : 'nedostupné'}</td></tr>`).filter((_, i) => !r.varianty[i].skryta).join('');
   const leadHtml = `
   <div style="font-family:Arial,sans-serif;font-size:14px">
     <h2 style="font-family:Georgia,serif">Nový lead z kalkulačky HPP, nebo OSVČ</h2>
     <p><strong>E-mail:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
-    <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)} hrubého, ${engine.popisFaktury(v)}, činnost ${v.pausal} %, situace: ${engine.SITUACE[v.situace]}${v.situace === 1 ? ` (mzda ${kc(v.jinaMzda)})` : ''}, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
+    <p><strong>Vstup:</strong> ${v.bezHpp ? 'VÝBĚR REŽIMU' : 'NABÍDKA'}: ${engine.popisZadani(v)}, činnost ${v.pausal} %, situace: ${engine.SITUACE[v.situace]}${v.situace === 1 ? ` (mzda ${kc(v.jinaMzda)})` : ''}, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
     <table style="border-collapse:collapse">${rows}</table>
     <p style="color:#999;font-size:12px">Příjmy pro limit ${kc(r.prijmyLimit)}, pásmo paušální daně ${r.pasmo || 'nelze'}.</p>
   </div>`;

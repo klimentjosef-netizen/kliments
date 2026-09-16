@@ -95,17 +95,17 @@ export async function dorucOdemceni(session) {
   const odkaz = `${KALK_URL}?platba=${encodeURIComponent(session.id)}`;
   const TO = process.env.LEAD_EMAIL_TO || 'kliment.josef@email.cz';
 
-  const rows = r.varianty.map((x) => `<tr${x.id === r.vitez ? ' style="background:#f5e6e8"' : ''}><td style="padding:6px 16px 6px 0">${esc(x.nazev)}</td><td style="text-align:right;padding:6px 0">${x.dostupna ? kc(x.cisteMesic) : 'nelze'}</td></tr>`).join('');
+  const rows = r.varianty.filter((x) => !x.skryta).map((x) => `<tr${x.id === r.vitez ? ' style="background:#f5e6e8"' : ''}><td style="padding:6px 16px 6px 0">${esc(x.nazev)}</td><td style="text-align:right;padding:6px 0">${x.dostupna ? kc(x.cisteMesic) : 'nelze'}</td></tr>`).join('');
   const tabulka = `<table style="border-collapse:collapse;font-size:14px;margin:12px 0">${rows}</table>`;
 
   let zakaznik = false;
   if (email) {
     zakaznik = await posliEmail({
       to: [email], reply_to: TO,
-      subject: 'Váš kompletní výsledek: HPP, nebo faktura',
+      subject: v.bezHpp ? 'Váš kompletní výsledek: daňový režim' : 'Váš kompletní výsledek: HPP, nebo faktura',
       html: `<div style="font-family:Arial,sans-serif;color:#1f1a18;max-width:560px">
         <h2 style="font-family:Georgia,serif;font-weight:400">Děkuji, kompletní výsledek je odemčený</h2>
-        <p>Zadání: HPP za ${kc(v.hrubaMzda)} hrubého, nebo ${engine.popisFaktury(v)}.</p>
+        <p>Zadání: ${engine.popisZadani(v)}.</p>
         <p>Čistě měsíčně v jednotlivých variantách:</p>${tabulka}
         <p>Celý výsledek včetně ročního rozpisu, dopadu na důchod, nemocenské a postupu krok za krokem najdete tady:</p>
         <p><a href="${odkaz}" style="display:inline-block;background:#c97b84;color:#fff;padding:12px 22px;border-radius:30px;text-decoration:none">Otevřít kompletní výsledek</a></p>
@@ -121,7 +121,7 @@ export async function dorucOdemceni(session) {
     html: `<div style="font-family:Arial,sans-serif;font-size:14px">
       <h2 style="font-family:Georgia,serif">Zaplacený kompletní výsledek</h2>
       <p><strong>Zákazník:</strong> ${esc(email || 'neuveden')} · platba ${esc(session.id)}</p>
-      <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)}, ${engine.popisFaktury(v)}, činnost ${v.pausal} %, situace: ${engine.SITUACE[v.situace]}${v.situace === 1 ? ` (mzda ${kc(v.jinaMzda)})` : ''}, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto ${v.maAuto ? 'ano' : 'ne'}, vlastní s.r.o. ${v.maSro ? 'ano' : 'ne'}</p>
+      <p><strong>Vstup:</strong> ${v.bezHpp ? 'VÝBĚR REŽIMU' : 'NABÍDKA'}: ${engine.popisZadani(v)}, činnost ${v.pausal} %, situace: ${engine.SITUACE[v.situace]}${v.situace === 1 ? ` (mzda ${kc(v.jinaMzda)})` : ''}, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto ${v.maAuto ? 'ano' : 'ne'}, vlastní s.r.o. ${v.maSro ? 'ano' : 'ne'}</p>
       ${tabulka}
       <p><a href="${odkaz}">Odkaz, který dostal zákazník</a></p>
     </div>`,

@@ -123,6 +123,12 @@
     return `sazba ${kc(v.sazba)} za ${v.sazbaZaHodinu ? 'hodinu' : 'den'}, ${odpracovaneDny(v)} odpracovaných dní ročně (průměrně ${kc(fakturaRok(v) / 12)} měsíčně)`;
   }
 
+  // Popis zadání do e-mailů a objednávky.
+  function popisZadani(v) {
+    if (v.bezHpp) return `${v.uzPodnikam ? 'podnikám' : 'začínám podnikat'}, ${popisFaktury(v)}`;
+    return `HPP za ${Math.round(v.hrubaMzda).toLocaleString('cs-CZ')} Kč hrubého, nebo ${popisFaktury(v)}`;
+  }
+
   /* vstup: viz DEFAULTS níže */
   function spocitej(v) {
     const m = 12;
@@ -133,7 +139,8 @@
     const autoSDph = v.maAuto ? v.autoSplatka * (1 + P.sro.dph) : 0;
     const benzin = v.maAuto ? v.benzin : 0;
     const autoCelkem = autoSDph + benzin;
-    const firmaPlatiAuto = v.maAuto && v.firmaNechaAuto;
+    const bezHpp = !!v.bezHpp;      // jen výběr daňového režimu, bez nabídky HPP
+    const firmaPlatiAuto = v.maAuto && v.firmaNechaAuto && !bezHpp;
     const soukromeAuto = firmaPlatiAuto ? v.soukromePct / 100 * autoCelkem * m : 0; // nepeněžní příjem OSVČ
     const tech = v.technikaRok / m;
     const ostatniDanove = v.telefon + v.cestovani + tech;             // s DPH
@@ -212,10 +219,12 @@
     }
 
     // vyhodnocení
-    const skryta = (x) => (x.sro && !v.maSro) || (x.vedlejsi && !vedlejsi);
-    const dostupne = VARIANTY.filter((x) => !skryta(x) && !out[x.id].nedostupne);
+    // skrytá = v tomto zadání nedává smysl vůbec; s.r.o. bez firmy se jen označí jako nedostupná
+    const skryta = (x) => (x.vedlejsi && !vedlejsi) || (bezHpp && (x.id === 'hpp' || x.vedlejsi));
+    const dostupne = VARIANTY.filter((x) => !skryta(x) && !(x.sro && !v.maSro) && !out[x.id].nedostupne);
     let vitez = dostupne[0];
     dostupne.forEach((x) => { if (out[x.id].cisteRok > out[vitez.id].cisteRok) vitez = x; });
+    const druha = dostupne.filter((x) => x !== vitez).sort((a, b) => out[b.id].cisteRok - out[a.id].cisteRok)[0] || null;
 
     // důchod: redukční hranice platí na součet se stávající mzdou
     const jinaMes = jinaMzda / m;
@@ -226,10 +235,14 @@
       if (r.nedostupne) return;
       r.cisteMesic = r.cisteRok / m;
       r.nizsiDuchodZaRok = x.id === 'hpp' ? 0 : Math.max(0, (zHpp - prirustek(r.duchodZaklad)) * P.duchod.procentoRok);
+      r.duchodZaRok = prirustek(r.duchodZaklad) * P.duchod.procentoRok; // o kolik měsíčně vzroste důchod za rok
     });
 
     return {
-      varianty: VARIANTY.map((x) => Object.assign({ id: x.id, nazev: x.nazev, kratce: x.kratce, dostupna: dostupne.includes(x), skryta: skryta(x) && !(x.sro && v.maSro) }, out[x.id])),
+      varianty: VARIANTY.map((x) => Object.assign({ id: x.id, nazev: x.nazev, kratce: x.kratce, dostupna: dostupne.includes(x), skryta: skryta(x) }, out[x.id])),
+      bezHpp,
+      druha: druha ? druha.id : null,
+      rozdilProtiDruhe: druha ? (out[vitez.id].cisteRok - out[druha.id].cisteRok) / m : 0,
       vitez: vitez.id,
       rozdilProtiHpp: (out[vitez.id].cisteRok - out.hpp.cisteRok) / m,
       fakturaMesicne: faktura / m,
@@ -253,6 +266,7 @@
     hrubaMzda: 80000, faktura: 120000, bonusHPP: 0, bonusOSVC: 0,
     fakturaSazbou: false, sazba: 0, sazbaZaHodinu: false, dovolenaDny: 25, nemocDny: 5,
     pausal: 60,
+    bezHpp: false, uzPodnikam: false,
     situace: 0, jinaMzda: 0, invalidita3: false,
     deti: 0, slevaManzel: false,
     maAuto: false, firmaNechaAuto: false, autoSplatka: 0, benzin: 0, soukromePct: 20,
@@ -262,7 +276,7 @@
     maSro: false, ucetnictviSro: 5000,
   };
 
-  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury, SITUACE };
+  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury, popisZadani, SITUACE };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KalkHppOsvc = api;
 })(typeof window !== 'undefined' ? window : this);
