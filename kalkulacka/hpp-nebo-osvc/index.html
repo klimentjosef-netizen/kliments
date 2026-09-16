@@ -148,10 +148,26 @@
   .kx-full { border: 0; margin: 0; padding: 0; }
   .kx-t { min-width: 0; font-size: 10pt; }
 }
+@media (prefers-reduced-motion: reduce) { #kx-mob { transition: none; } }
 .kx-about { max-width: 1180px; margin: 56px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; font-size: .88rem; line-height: 1.7; color: var(--ink-soft); }
 .kx-about h2 { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.2rem; color: var(--ink); margin: 0 0 10px; }
 .kx-about ul { margin: 0; padding-left: 18px; }
+.kx-mob { display: none; }
 @media (max-width: 1024px) {
+  .kx-mob {
+    display: flex; align-items: center; gap: 12px;
+    position: fixed; left: 12px; right: 84px; bottom: 16px; z-index: 998;
+    min-height: 56px; padding: 8px 16px; box-sizing: border-box;
+    border: 0; border-radius: 16px; background: var(--ink); color: var(--sand-light);
+    box-shadow: 0 10px 30px rgba(31,26,24,.28); font: inherit; text-align: left; cursor: pointer;
+    transition: transform .25s, opacity .25s;
+  }
+  .kx-mob[hidden] { display: flex !important; transform: translateY(140%); opacity: 0; pointer-events: none; }
+  .kx-mob-txt { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .kx-mob-l { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose-pale); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .kx-mob-n { font-family: 'Lora', Georgia, serif; font-size: 1.15rem; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+  .kx-mob-n small { font-family: 'Outfit', sans-serif; font-size: .75rem; color: rgba(250,244,237,.65); }
+  .kx-mob-go { flex-shrink: 0; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose-pale); }
   .kx { padding: 0 32px 80px; }
   .kx-inner { grid-template-columns: 1fr; }
   .kx-res { position: static; }
@@ -209,8 +225,8 @@
         <div class="kx-f" style="margin-bottom:18px">
           <label for="situace" id="kx-lbl-situace">Co děláte kromě této práce</label>
           <select id="situace">
-            <option value="0">Nic dalšího, bude to můj hlavní příjem</option>
-            <option value="1">Mám ještě jiné zaměstnání a chci si přivydělat</option>
+            <option value="0">Nic, bude to můj hlavní příjem</option>
+            <option value="1">Mám jiné zaměstnání, jde o přivýdělek</option>
             <option value="2">Studuji (do 26 let)</option>
             <option value="3">Pobírám starobní důchod</option>
             <option value="4">Pobírám invalidní důchod</option>
@@ -335,7 +351,7 @@
       </details>
     </form>
 
-    <div class="kx-res" aria-live="polite">
+    <div class="kx-res" id="kx-res" aria-live="polite">
       <div class="kx-win">
         <p class="kx-win-l" id="r-label">Nejvíc vám zůstane</p>
         <p class="kx-win-name" id="r-name"></p>
@@ -381,6 +397,11 @@
   </div>
 
   <div class="kx-full" id="kx-full" hidden aria-live="polite"></div>
+
+  <button type="button" class="kx-mob" id="kx-mob" hidden aria-controls="kx-res">
+    <span class="kx-mob-txt"><span class="kx-mob-l" id="m-l"></span><span class="kx-mob-n" id="m-n"></span></span>
+    <span class="kx-mob-go">Výsledek ↓</span>
+  </button>
 
   <div class="kx-about">
     <div>
@@ -514,6 +535,8 @@
       $('r-diff').textContent = kontrola.chyby[0].text;
       $('r-hpp-row').hidden = true;
       $('r-hints').innerHTML = kontrola.chyby.slice(1).map((c) => `<div class="kx-hint warn">${c.text}</div>`).join('');
+      $('m-l').textContent = 'Chybí údaj';
+      $('m-n').textContent = 'Doplňte zadání';
       afterRender(r);
       return;
     }
@@ -544,6 +567,8 @@
       $('r-diff').textContent = E.textVyrovnane(r);
     }
     $('r-net').textContent = kc(win.cisteMesic);
+    $('m-l').textContent = r.vyrovnane ? 'Vychází to nastejno' : (r.vitez === 'hpp' && !r.bezHpp ? 'Nejlépe: zůstat na HPP' : `Nejlépe: ${win.kratce.toLowerCase()}`);
+    $('m-n').textContent = kc(win.cisteMesic);
     $('r-hpp-l').textContent = r.bezHpp ? (druha ? `Druhá nejlepší: ${druha.kratce.toLowerCase()}` : '') : 'Na HPP vám zůstane';
     $('r-hpp').textContent = r.bezHpp ? (druha ? kc(druha.cisteMesic) : '') : kc(hpp.cisteMesic);
 
@@ -874,6 +899,25 @@
   });
 
   render();
+
+  // mobil: lišta s výsledkem, když je vidět formulář, ale ne výsledek
+  {
+    const mob = $('kx-mob');
+    let ceka = false;
+    const sync = () => {
+      ceka = false;
+      const vh = window.innerHeight;
+      const form = $('kx-form').getBoundingClientRect();
+      const res = $('kx-res').getBoundingClientRect();
+      // formulář už je na obrazovce a výsledek ještě není v horních dvou třetinách
+      mob.hidden = !(form.top < vh - 120 && res.top > vh * 0.65);
+    };
+    const naplanuj = () => { if (!ceka) { ceka = true; requestAnimationFrame(sync); } };
+    window.addEventListener('scroll', naplanuj, { passive: true });
+    window.addEventListener('resize', naplanuj);
+    naplanuj();
+    mob.addEventListener('click', () => $('kx-res').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }));
+  }
 
   fetch('/api/checkout').then((x) => x.json()).then((j) => { buyEnabled = !!j.enabled; $('kx-buy').hidden = !buyEnabled; render(); }).catch(() => {});
   const qp = new URLSearchParams(location.search);
