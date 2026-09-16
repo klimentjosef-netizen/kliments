@@ -105,6 +105,45 @@
 .kx-mail-status { margin-top: 10px; font-size: .85rem; }
 .kx-mail-status.ok { color: #2f7a4f; } .kx-mail-status.err { color: var(--rose-deep); }
 .kx-hp { position: absolute; left: -9999px; }
+.kx-buy { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border-light); }
+.kx-terms { font-size: .8rem; }
+.kx-terms a { color: var(--rose-deep); }
+.kx-buy .btn-rose { justify-content: center; border: 0; cursor: pointer; font: inherit; }
+.kx-buy .btn-rose:disabled { opacity: .6; cursor: wait; }
+.kx-buy-note { margin: 0; font-size: .76rem; color: var(--mid); opacity: .8; text-align: center; }
+.kx-buy-status { margin: 0; font-size: .85rem; color: var(--rose-deep); text-align: center; }
+.kx-buy-status:empty { display: none; }
+.kx-cta .btn-rose.is-secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--border); box-shadow: none; }
+.kx-full { max-width: 1180px; margin: 32px auto 0; background: white; border: 1px solid var(--border-light); border-radius: 20px; padding: 40px; scroll-margin-top: 90px; }
+.kx-full-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+.kx-full h2 { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.7rem; color: var(--ink); margin: 0; }
+.kx-full h3 { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.25rem; color: var(--ink); margin: 36px 0 12px; }
+.kx-full p, .kx-full li { font-size: .92rem; line-height: 1.65; color: var(--ink-soft); }
+.kx-full .kx-badge { display: inline-block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; background: #e7f2ea; color: #2f7a4f; }
+.kx-tw { overflow-x: auto; }
+.kx-t { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 640px; }
+.kx-t th { text-align: right; font-weight: 500; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.kx-t th:first-child, .kx-t td:first-child { text-align: left; }
+.kx-t td { text-align: right; padding: 11px 12px; border-bottom: 1px solid var(--border-light); font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
+.kx-t td:first-child { white-space: normal; color: var(--ink); }
+.kx-t tr.win td { background: var(--rose-blush); }
+.kx-t tr.na td { color: var(--mid); opacity: .6; }
+.kx-t .neg { color: var(--rose-deep); }
+.kx-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; counter-reset: st; }
+.kx-steps li { position: relative; padding-left: 40px; }
+.kx-steps li::before { counter-increment: st; content: counter(st); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: white; font-size: .78rem; display: flex; align-items: center; justify-content: center; }
+.kx-steps b { color: var(--ink); font-weight: 500; }
+.kx-full-cta { margin-top: 36px; padding: 24px 26px; border-radius: 16px; background: var(--sand-light); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.kx-full-cta p { margin: 0; max-width: 60ch; }
+.kx-print { font: inherit; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; border: 1.5px solid var(--border); background: white; color: var(--ink); border-radius: 100px; padding: 10px 18px; cursor: pointer; }
+.kx-restore { max-width: 1180px; margin: 0 auto 20px; padding: 14px 18px; border-radius: 12px; background: #e7f2ea; color: #2f7a4f; font-size: .9rem; }
+@media (max-width: 640px) { .kx-full { padding: 24px 18px; } }
+@media print {
+  #shared-nav, nav, .subpage-hero, #kx-form, .kx-res, .kx-about, footer, .footer, .kx-print, .kx-full-cta, #chat-bubble, #chat-panel { display: none !important; }
+  .kx { padding: 0; background: white; }
+  .kx-full { border: 0; margin: 0; padding: 0; }
+  .kx-t { min-width: 0; font-size: 10pt; }
+}
 .kx-about { max-width: 1180px; margin: 56px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; font-size: .88rem; line-height: 1.7; color: var(--ink-soft); }
 .kx-about h2 { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.2rem; color: var(--ink); margin: 0 0 10px; }
 .kx-about ul { margin: 0; padding-left: 18px; }
@@ -241,15 +280,21 @@
 
       <div class="kx-lock">
         <p class="kx-lock-h">Tohle kalkulačka neřekne</p>
-        <p class="kx-lock-lead">Přesné řešení pro vaši situaci připravím v projektu.</p>
+        <p class="kx-lock-lead" id="r-lock-lead">Přesné řešení pro vaši situaci připravím v projektu.</p>
         <div class="kx-bars" aria-hidden="true">
           <div class="kx-bars-inner" id="r-bars"></div>
           <div class="kx-bars-badge"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Srovnání všech variant</span></div>
         </div>
         <ul class="kx-locks" id="r-locks"></ul>
         <div class="kx-cta">
+          <div class="kx-buy" id="kx-buy" hidden>
+            <label class="kx-check kx-terms"><input type="checkbox" id="kx-souhlas"><span>Souhlasím s <a href="/obchodni-podminky/" target="_blank" rel="noopener">obchodními podmínkami</a> a chci výsledek zpřístupnit hned po zaplacení. Beru na vědomí, že tím ztrácím právo od smlouvy odstoupit.</span></label>
+            <button class="btn-rose" id="kx-buy-btn" type="button">Odemknout kompletní výsledek · 990 Kč</button>
+            <p class="kx-buy-note">Platba kartou přes Stripe. Výsledek uvidíte hned a přijde vám i e-mailem. Když si pak objednáte projekt, 990 Kč odečtu.</p>
+            <p class="kx-buy-status" id="kx-buy-status" role="status"></p>
+          </div>
           <a class="btn-rose" id="r-cta" href="/sluzby/projekt/#objednat">Chci přesné řešení za 4 990 Kč →</a>
-          <p>Dokument, kalkulačka na míru a hodinová konzultace</p>
+          <p id="r-cta-note">Dokument, kalkulačka na míru a hodinová konzultace</p>
         </div>
       </div>
 
@@ -266,6 +311,8 @@
     </div>
 
   </div>
+
+  <div class="kx-full" id="kx-full" hidden aria-live="polite"></div>
 
   <div class="kx-about">
     <div>
@@ -388,10 +435,166 @@
       state.maAuto ? `Služební auto: leasing ${kc(state.autoSplatka)} bez DPH, benzín ${kc(state.benzin)}, firma ho na fakturu ${state.firmaNechaAuto ? 'nechá' : 'nenechá'}.` : '',
       state.maSro ? 'Mám vlastní s.r.o. (plátce DPH).' : '',
       `Kalkulačka: nejlépe ${r.vitez === 'hpp' ? 'HPP' : win.nazev}.`,
+      paidSession ? `Mám zaplacený kompletní výsledek (${CENA} Kč k odečtu), platba ${paidSession}.` : '',
     ].filter(Boolean).join(' ');
     const q = new URLSearchParams({ oblast: 'HPP, nebo faktura', otazka: 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?', kontext });
-    $('r-cta').href = '/sluzby/projekt/?' + q.toString() + '#objednat';
+    projektHref = '/sluzby/projekt/?' + q.toString() + '#objednat';
+    $('r-cta').href = projektHref;
+    afterRender(r);
   }
+
+  // ── placený kompletní výsledek ──
+  const CENA = 990;
+  const PLATBA_KEY = 'kx-hpp-osvc-platba';
+  let unlocked = false, paidSession = null, buyEnabled = false, projektHref = '/sluzby/projekt/#objednat';
+  const lockCard = document.querySelector('.kx-lock');
+  const minus = (n) => (n < 0 ? '−' : '+') + kc(Math.abs(n));
+
+  function afterRender(r) {
+    lockCard.hidden = unlocked;
+    $('kx-full').hidden = !unlocked;
+    if (unlocked) renderFull(r);
+    if (buyEnabled && !unlocked) {
+      $('r-cta').classList.add('is-secondary');
+      $('r-cta').textContent = 'Projekt na míru s konzultací · 4 990 Kč →';
+      $('r-cta-note').hidden = true;
+      $('r-lock-lead').textContent = 'Odemkněte kompletní výsledek hned, nebo si objednejte řešení na míru.';
+    }
+  }
+
+  function postup(r, win) {
+    const id = r.vitez;
+    const kroky = [];
+    if (id === 'hpp') {
+      kroky.push(['Zůstaňte na HPP.', 'Při zadaných číslech vám zaměstnání dá nejvíc a máte k tomu placenou dovolenou, nemocenskou a plný základ pro důchod.']);
+      kroky.push(['Vyjednávejte o mzdě.', `Firmu stojíte ${kcRound(r.varianty[0].nakladFirmy / 12)} měsíčně. Pokud vám nabízí fakturu, musí být výrazně vyšší, aby se vyplatila.`]);
+      kroky.push(['Přepočítejte si hranici.', 'Zkuste v kalkulačce zvyšovat částku faktury. Uvidíte, od jaké výše se faktura začne vyplácet.']);
+      return kroky;
+    }
+    const sroNaklady = ['pausalniDanSro', 'pausalSro'].includes(id);
+    if (state.maAuto && !state.firmaNechaAuto) kroky.push(['Hned: vyjednejte auto.', 'Zjistěte, jestli vám firma nechá auto i při fakturaci. U vás to dělá velký rozdíl.']);
+    kroky.push(['Hned: úvěry vyřešte ještě na HPP.', 'Refinancování nebo nový úvěr jako čerstvá OSVČ doložíte těžko. Refixace u stejné banky obvykle problém není, ale ověřte si to.']);
+    if (id === 'sroFakturuje') {
+      kroky.push(['Smlouva mezi firmami.', 'Zaměstnavatel uzavře smlouvu s vaší s.r.o., ne s vámi. Ošetřete odměnu, bonus a výpovědní lhůtu a nechte ji zkontrolovat advokátem.']);
+      kroky.push(['Peníze z firmy.', 'Zisk si vyplácíte jako dividendu po zdanění 21 % a 15 %. Důchodové pojištění si v této variantě neplatíte, zvažte dobrovolné.']);
+    } else {
+      kroky.push(['Smlouva se zaměstnavatelem.', 'Postavte ji na výsledcích a vaší samostatnosti, ať nevypadá jako skrytý pracovní poměr. Ošetřete odměnu i za dovolenou a nemoc, bonus pod limitem a výpovědní lhůtu. Nechte ji zkontrolovat advokátem.']);
+      kroky.push(['Výpověď.', 'Podejte výpověď na současném HPP. Výpovědní doba je nejméně dva měsíce.']);
+      const pd = ['pausalniDan', 'pausalniDanSro'].includes(id);
+      kroky.push(['Nejpozději v den zahájení.', 'Ohlaste živnost přes Jednotný registrační formulář (poplatek 1 000 Kč)' + (pd ? ` a podejte oznámení o vstupu do paušálního režimu, ${r.pasmo}. pásmo.` : '.')]);
+      if (sroNaklady) kroky.push(['Vaše s.r.o.', 'Ověřte, že je plátcem DPH, a převeďte na ni leasing, telefony a techniku. Náklady musí souviset s jejím podnikáním a firma musí vydělávat dost, aby je unesla.']);
+      const odlozit = win.nizsiDuchodZaRok * 20;
+      kroky.push(['Každý měsíc.', (pd
+        ? `Do 20. dne zaplaťte paušální daň ${kc(E.P.pausalniDan[r.pasmo])}. `
+        : `Plaťte zálohy na pojištění, v prvním roce minimální (${kc(Math.ceil(E.P.osvc.minSocMesic * E.P.osvc.socSazba))} sociální a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní), po roce podejte přiznání a přehledy. `)
+        + `Odkládejte si zhruba ${kcRound(odlozit)} na důchod a doplňujte rezervu na tři až šest měsíců výdajů.`]);
+    }
+    return kroky;
+  }
+
+  function renderFull(r) {
+    const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
+    const hpp = by.hpp, win = by[r.vitez];
+    const rows = r.varianty.map((v) => {
+      if (!v.dostupna) {
+        const why = v.nedostupne || 'jen s vlastní s.r.o.';
+        return `<tr class="na"><td>${v.nazev}</td><td colspan="5">nelze · ${why}</td></tr>`;
+      }
+      const d = v.cisteMesic - hpp.cisteMesic;
+      return `<tr class="${v.id === r.vitez ? 'win' : ''}"><td>${v.nazev}${v.id === r.vitez ? ' ★' : ''}</td><td><b>${kc(v.cisteMesic)}</b></td><td class="${d < 0 ? 'neg' : ''}">${v.id === 'hpp' ? '·' : minus(d)}</td><td>${kc(v.pojisteni)}</td><td>${kc(v.dan)}</td><td>${kc(v.naklady)}</td></tr>`;
+    }).join('');
+
+    const osvc = ['pausalniDan', 'pausal', 'skutecne', 'pausalniDanSro', 'pausalSro'].map((id) => by[id]).filter((v) => v.dostupna);
+    const dRows = osvc.map((v) => `<tr class="${v.id === r.vitez ? 'win' : ''}"><td>${v.nazev}</td><td>${kc(v.duchodZaklad)}</td><td>${kc(v.nizsiDuchodZaRok)}</td><td>${kc(v.nizsiDuchodZaRok * 10)}</td><td>${kc(v.nizsiDuchodZaRok * 20)}</td></tr>`).join('');
+
+    const odpocty = Math.min(state.uroky, state.limitUroku) + Math.min(state.zivotni + state.penzijni, E.P.limitOdpocetSporeni);
+    const pozor = [];
+    pozor.push(r.rezervaLimit < 0
+      ? `<b>Limit 2 milionů.</b> Příjmy ${kc(r.prijmyLimit)} ročně limit přesahují, paušální daň pro vás nejde.`
+      : `<b>Limit 2 milionů.</b> Příjmy pro limit paušální daně jsou ${kc(r.prijmyLimit)} ročně, rezerva ${kc(r.rezervaLimit)}.${state.maAuto && state.firmaNechaAuto ? ' Do limitu se počítá i soukromé užívání auta od firmy.' : ''} Bonusy nastavte tak, aby limit nepřekročily.`);
+    if (r.pasmo) pozor.push(`<b>Pásmo paušální daně.</b> U vás ${r.pasmo}. pásmo, ${kc(E.P.pausalniDan[r.pasmo])} měsíčně. Pásmo se mění vždy do 10. ledna.`);
+    if (odpocty > 0 && ['pausalniDan', 'pausalniDanSro'].includes(r.vitez)) pozor.push(`<b>Odpočty.</b> Při paušální dani nejde odečíst úroky z hypotéky ani spoření. Přijdete tak zhruba o ${kc(Math.floor(odpocty / 100) * 100 * 0.15)} ročně. Ve srovnání výše je to už započítané.`);
+    pozor.push('<b>Skrytý pracovní poměr.</b> Smlouva má stát na výsledcích a vaší samostatnosti, ne na docházce a podřízenosti.');
+    pozor.push('<b>Banka.</b> Jako čerstvá OSVČ budete příjmy dokládat těžko. Úvěry řešte dopředu.');
+
+    const kroky = postup(r, win);
+
+    $('kx-full').innerHTML = `
+      <div class="kx-full-top">
+        <div><span class="kx-badge">Odemčeno</span><h2 style="margin-top:12px">Kompletní výsledek</h2></div>
+        <button type="button" class="kx-print" id="kx-print">Vytisknout nebo uložit PDF</button>
+      </div>
+      <p>HPP za ${kc(state.hrubaMzda)} hrubého, nebo faktura ${kc(state.faktura)} měsíčně. ${r.vitez === 'hpp' ? 'Nejlépe vychází zůstat na HPP.' : `Nejlépe vychází <b>${win.nazev}</b>, o ${kc(r.rozdilProtiHpp)} měsíčně víc než HPP.`} Když změníte zadání nahoře, výsledek se přepočítá.</p>
+
+      <h3>Srovnání všech variant</h3>
+      <div class="kx-tw"><table class="kx-t">
+        <thead><tr><th>Varianta</th><th>Čistě měsíčně</th><th>Proti HPP</th><th>Pojištění ročně</th><th>Daně ročně</th><th>Vaše náklady ročně</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+      <p style="font-size:.8rem;opacity:.75">Čistě znamená po daních, pojištění a nákladech, které si platíte sami. U variant s s.r.o. je v nákladech částka, o kterou si vyberete méně na dividendách.</p>
+
+      <h3>Důchod</h3>
+      <p>Na HPP se vám do důchodu počítá ${kc(hpp.duchodZaklad)} měsíčně. Na faktuře se počítá jen základ, ze kterého platíte důchodové pojištění.</p>
+      ${dRows ? `<div class="kx-tw"><table class="kx-t"><thead><tr><th>Varianta</th><th>Počítá se do důchodu</th><th>Nižší důchod za 1 rok</th><th>Za 10 let</th><th>Odložit si měsíčně</th></tr></thead><tbody>${dRows}</tbody></table></div>` : ''}
+      <p style="font-size:.8rem;opacity:.75">Nižší důchod je měsíční částka ve dnešních penězích. Odložit si znamená, kolik měsíčně spořit, aby rozdíl za jeden rok pokryl dvacet let důchodu bez zhodnocení.${by.sroFakturuje.dostupna ? ' Při fakturaci přes s.r.o. se rok vůbec nezapočítává do doby pojištění, dopad je ze všech variant největší.' : ''}</p>
+
+      <h3>Když onemocníte</h3>
+      <p><b>Na HPP</b> vám první dva týdny platí firma 60 % průměrného výdělku a od 15. dne stát. U vyšších příjmů se procenta počítají jen ze snížené částky, dávka bývá výrazně nižší než čistá mzda.</p>
+      <p><b>Na faktuře</b> dostanete peníze jen tehdy, když si dobrovolně platíte nemocenské pojištění, a to až po třech měsících placení, až od 15. dne nemoci a jen pokud nepracujete. Jde to i při paušální dani, platí se zvlášť. Držte si rezervu na tři až šest měsíců výdajů, ve smlouvě si ošetřete odměnu i při krátké nemoci a zvažte soukromé pojištění pracovní neschopnosti.</p>
+
+      <h3>Na co si dát pozor</h3>
+      <ul>${pozor.map((x) => `<li>${x}</li>`).join('')}</ul>
+
+      <h3>Postup krok za krokem</h3>
+      <ol class="kx-steps">${kroky.map(([h, t]) => `<li><b>${h}</b> ${t}</li>`).join('')}</ol>
+
+      <div class="kx-full-cta">
+        <p><b>Chcete to mít nastavené na míru?</b> V projektu projdu vaši smlouvu, auto, s.r.o. i termíny a probereme to spolu na hodinové konzultaci. ${CENA} Kč, které jste zaplatili, odečtu.</p>
+        <a class="btn-rose" href="${projektHref}">Projekt s odečtem ${CENA} Kč →</a>
+      </div>
+      <p style="font-size:.76rem;opacity:.7;margin-top:18px">Parametry platné pro rok 2026. Výpočet je orientační, vychází ze zadaných údajů a nejde o daňové ani právní poradenství.</p>`;
+    $('kx-print').onclick = () => window.print();
+  }
+
+  function nastavVstup(v) {
+    Object.assign(state, v);
+    NUMS.forEach((k) => { $(k).value = state[k] ? Math.round(state[k]).toLocaleString('cs-CZ') : ''; });
+    $('pausal').value = String(state.pausal);
+    $('limitUroku').value = String(state.limitUroku);
+    $('maAuto').checked = state.maAuto; $('kx-auto').hidden = !state.maAuto;
+    $('maSro').checked = state.maSro; $('kx-sro-more').hidden = !state.maSro;
+    document.querySelectorAll('[data-seg="firmaNechaAuto"]').forEach((x) => x.setAttribute('aria-pressed', (x.dataset.val === '1') === state.firmaNechaAuto ? 'true' : 'false'));
+    edited();
+  }
+
+  async function overPlatbu(id, zOdkazu) {
+    try {
+      const res = await fetch('/api/vysledek?session=' + encodeURIComponent(id));
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok || !j.ok) {
+        if (zOdkazu) { $('kx-buy-status').textContent = j.error || 'Platbu se nepodařilo ověřit.'; }
+        else { try { localStorage.removeItem(PLATBA_KEY); } catch (e) {} }
+        return;
+      }
+      paidSession = id; unlocked = true;
+      try { localStorage.setItem(PLATBA_KEY, id); } catch (e) {}
+      nastavVstup(j.vstup);
+      render();
+      if (zOdkazu) { history.replaceState(null, '', location.pathname); $('kx-full').scrollIntoView({ behavior: 'smooth' }); }
+    } catch (e) { /* bez spojení zůstává zamčeno */ }
+  }
+
+  $('kx-buy-btn').addEventListener('click', async () => {
+    const st = $('kx-buy-status'); st.textContent = '';
+    if (!$('kx-souhlas').checked) { st.textContent = 'Pro pokračování potvrďte souhlas s obchodními podmínkami.'; return; }
+    const btn = $('kx-buy-btn'); btn.disabled = true;
+    try {
+      const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ souhlas: true, vstup: state }) });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok || !j.url) throw new Error(j.error || 'Platbu se nepodařilo založit.');
+      location.href = j.url;
+    } catch (e) { st.textContent = e.message; btn.disabled = false; }
+  });
 
   // souhrn e-mailem
   $('kx-mailform').addEventListener('submit', async (e) => {
@@ -414,6 +617,12 @@
   });
 
   render();
+
+  fetch('/api/checkout').then((x) => x.json()).then((j) => { buyEnabled = !!j.enabled; $('kx-buy').hidden = !buyEnabled; render(); }).catch(() => {});
+  const qp = new URLSearchParams(location.search);
+  if (qp.get('platba')) overPlatbu(qp.get('platba'), true);
+  else { let ulozeno = null; try { ulozeno = localStorage.getItem(PLATBA_KEY); } catch (e) {} if (ulozeno) overPlatbu(ulozeno, false); }
+  if (qp.get('zruseno')) { $('kx-buy-status').textContent = 'Platba byla zrušena. Můžete to zkusit znovu.'; history.replaceState(null, '', location.pathname); }
 })();
 </script>
 </body>
