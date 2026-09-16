@@ -65,6 +65,15 @@ nav {
 }
 .nav-logo-dot { color: var(--rose); font-size: 1.8rem; line-height: 0; margin-bottom: -4px; }
 .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+.nav-links a { white-space: nowrap; }
+@media (max-width: 1240px) { .nav-links { gap: 22px; } }
+@media (min-width: 641px) and (max-width: 940px) {
+  .nav-links { gap: 16px; }
+  .nav-links li:has(> a[href="/case-studies/"]),
+  .nav-links li:has(> a[href="#faq"]),
+  .nav-links li:has(> a[href$="#faq"]),
+  .nav-links li:has(> a[href$="#projects"]) { display: none; }
+}
 .nav-links a {
   font-size: 0.73rem; letter-spacing: 0.13em; text-transform: uppercase;
   color: var(--mid); text-decoration: none; transition: color 0.3s; font-weight: 400;
