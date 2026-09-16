@@ -190,6 +190,25 @@
 
       <div class="kx-step">
         <h2 class="kx-step-h"><span>01</span>Nabídka</h2>
+        <div class="kx-f" style="margin-bottom:18px">
+          <label for="situace">Co děláte kromě této práce</label>
+          <select id="situace">
+            <option value="0">Nic dalšího, bude to můj hlavní příjem</option>
+            <option value="1">Mám ještě jiné zaměstnání a chci si přivydělat</option>
+            <option value="2">Studuji (do 26 let)</option>
+            <option value="3">Pobírám starobní důchod</option>
+            <option value="4">Pobírám invalidní důchod</option>
+            <option value="5">Jsem na mateřské nebo rodičovské</option>
+            <option value="6">Pečuji o závislou osobu</option>
+          </select>
+        </div>
+        <div class="kx-grid" id="kx-jina" hidden style="margin-bottom:18px">
+          <div class="kx-f"><label for="jinaMzda">Hrubá mzda ve stávajícím zaměstnání</label><div class="kx-in"><input id="jinaMzda" inputmode="numeric" data-num><em>Kč</em></div></div>
+        </div>
+        <div class="kx-f" id="kx-invalidita" hidden style="margin-bottom:18px">
+          <label for="invalidita3">Stupeň invalidity</label>
+          <select id="invalidita3"><option value="0">1. nebo 2. stupeň</option><option value="1">3. stupeň</option></select>
+        </div>
         <div class="kx-sub" style="margin-top:0;margin-bottom:18px">
           <span class="kx-lbl" style="display:block">Jak budete fakturovat</span>
           <div class="kx-seg" role="group" aria-label="Jak budete fakturovat" style="margin-top:8px">
@@ -198,7 +217,7 @@
           </div>
         </div>
         <div class="kx-grid">
-          <div class="kx-f"><label for="hrubaMzda">Hrubá mzda na HPP měsíčně</label><div class="kx-in"><input id="hrubaMzda" inputmode="numeric" data-num><em>Kč</em></div></div>
+          <div class="kx-f"><label for="hrubaMzda" id="kx-lbl-hpp">Hrubá mzda na HPP měsíčně</label><div class="kx-in"><input id="hrubaMzda" inputmode="numeric" data-num><em>Kč</em></div></div>
           <div class="kx-f" id="kx-f-faktura"><label for="faktura">Faktura měsíčně</label><div class="kx-in"><input id="faktura" inputmode="numeric" data-num><em>Kč</em></div></div>
           <div class="kx-f" id="kx-f-sazba" hidden><label for="sazba">Vaše sazba</label><div class="kx-in"><input id="sazba" inputmode="numeric" data-num style="padding-right:78px"><em id="kx-sazba-jed">Kč/den</em></div></div>
         </div>
@@ -353,7 +372,8 @@
         <li>HPP: pojištění 7,1 % a 4,5 %, daň 15 % po slevě na poplatníka. Služební auto se do mzdy přičítá podle ceny a soukromého benzínu.</li>
         <li>Pevná faktura se počítá za všech 12 měsíců. Při fakturaci sazbou se platí jen odpracované dny z 250 pracovních dní roku 2026, dovolená a nemoc jsou bez příjmu.</li>
         <li>Děti a manžel(ka): slevy a daňový bonus se počítají na HPP, u výdajového paušálu i skutečných výdajů. Paušální daň a fakturace přes s.r.o. je neumožňují.</li>
-        <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje. Počítá se s hlavní činností po celý rok a bez nemocenského pojištění.</li>
+        <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje, bez nemocenského pojištění.</li>
+        <li>Vedlejší činnost (vedle zaměstnání, studia, důchodu, rodičovské nebo péče): sociální pojištění až od zisku 117 521 Kč ročně, zdravotní bez minima. Vedle zaměstnání se počítá, kolik přibude ke stávající mzdě, a nabídne se i dohoda o provedení práce.</li>
         <li>Vlastní s.r.o.: počítá se s tím, že je plátcem DPH a vydělává dost na to, aby náklady unesla.</li>
       </ul>
     </div>
@@ -363,7 +383,7 @@
         <li>Méně časté slevy na dani, například na invaliditu.</li>
         <li>Dopad na důchod a nemocenskou v korunách.</li>
         <li>Nastavení smlouvy, aby nevypadala jako skrytý pracovní poměr.</li>
-        <li>Jiné příjmy a vedlejší činnost.</li>
+        <li>Jiné příjmy, například z pronájmu nebo kapitálu, a podnikání jen část roku.</li>
       </ul>
       <p style="margin-top:14px;font-size:.78rem;opacity:.75">Parametry platné pro rok 2026. Výpočet je orientační a nejde o daňové ani právní poradenství.</p>
     </div>
@@ -383,12 +403,14 @@
   const fmtInput = (el) => { if (el.value.trim() === '') return; el.value = Math.round(num(el.value)).toLocaleString('cs-CZ'); };
 
   const state = Object.assign({}, E.DEFAULTS, { autoSplatka: 12000, benzin: 4000, cenaAuta: 900000 });
-  const NUMS = ['hrubaMzda','faktura','sazba','dovolenaDny','nemocDny','autoSplatka','benzin','cenaAuta','soukromePct','telefon','cestovani','obedy','technikaRok','bonusHPP','bonusOSVC','uroky','zivotni','penzijni','ucetnictviSro'];
+  const NUMS = ['hrubaMzda','jinaMzda','faktura','sazba','dovolenaDny','nemocDny','autoSplatka','benzin','cenaAuta','soukromePct','telefon','cestovani','obedy','technikaRok','bonusHPP','bonusOSVC','uroky','zivotni','penzijni','ucetnictviSro'];
 
   NUMS.forEach((k) => { const el = $(k); el.value = state[k] ? Math.round(state[k]).toLocaleString('cs-CZ') : ''; el.addEventListener('input', () => { state[k] = num(el.value); edited(); render(); }); el.addEventListener('blur', () => fmtInput(el)); });
   $('pausal').value = String(state.pausal);
   $('pausal').addEventListener('change', (e) => { state.pausal = +e.target.value; edited(); render(); });
   $('limitUroku').addEventListener('change', (e) => { state.limitUroku = +e.target.value; render(); });
+  $('situace').addEventListener('change', (e) => { state.situace = +e.target.value; edited(); render(); });
+  $('invalidita3').addEventListener('change', (e) => { state.invalidita3 = e.target.value === '1'; edited(); render(); });
   $('deti').addEventListener('change', (e) => { state.deti = +e.target.value; edited(); render(); });
   $('slevaManzel').addEventListener('change', (e) => { state.slevaManzel = e.target.checked; edited(); render(); });
   $('maAuto').addEventListener('change', (e) => { state.maAuto = e.target.checked; $('kx-auto').hidden = !state.maAuto; edited(); render(); });
@@ -411,6 +433,11 @@
     $('sazba').value = state.sazba ? Math.round(state.sazba).toLocaleString('cs-CZ') : '';
     edited(); render();
   }));
+  function syncSituace() {
+    $('kx-jina').hidden = state.situace !== 1;
+    $('kx-invalidita').hidden = state.situace !== 4;
+    $('kx-lbl-hpp').textContent = state.situace === 0 ? 'Hrubá mzda na HPP měsíčně' : 'Hrubě měsíčně jako zaměstnanec';
+  }
   function syncFaktura(r) {
     $('kx-f-faktura').hidden = state.fakturaSazbou;
     $('kx-f-sazba').hidden = !state.fakturaSazbou;
@@ -430,6 +457,7 @@
     const r = E.spocitej(state);
     last = r;
     syncFaktura(r);
+    syncSituace();
     const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
     const win = by[r.vitez];
     const hpp = by.hpp;
@@ -449,15 +477,27 @@
 
     // nápovědy spočítané z vašich čísel
     const hints = [];
-    if (r.rezervaLimit < 0) {
+    const SIT_HINT = {
+      1: `<b>Přivýdělek vedle zaměstnání je vedlejší činnost.</b> Sociální pojištění platíte, až když zisk za rok přesáhne ${kc(E.P.osvc.rozhodnaVedlejsi)}, zdravotní bez minima. Paušální daň vedle zaměstnání použít nejde. Čísla ukazují, kolik vám přibude navíc ke stávající mzdě.`,
+      2: `<b>Jako student podnikáte na vedlejší činnost.</b> Do zisku ${kc(E.P.osvc.rozhodnaVedlejsi)} ročně sociální pojištění neplatíte, zdravotní za vás platí stát a doplácí se jen ze zisku. Na DPP u jednoho zaměstnavatele podepište prohlášení, sleva na dani vám pak daň srazí na nulu.`,
+      3: `<b>Důchod se výdělkem nekrátí.</b> Podnikání je vedlejší činnost, zdravotní za vás platí stát. Pobíráte-li předčasný důchod, smíte si do řádného důchodového věku přivydělávat jen bez účasti na důchodovém pojištění: DPP do ${kc(E.P.dppLimit - 1)} měsíčně nebo živnost se ziskem do ${kc(E.P.osvc.rozhodnaVedlejsi)} ročně.`,
+      4: `<b>Podnikání je vedlejší činnost</b> a sleva na invaliditu je ve výpočtu. Invalidní důchod se výdělkem nekrátí, výdělek ale může hrát roli při kontrolní lékařské prohlídce.`,
+      5: `<b>Na rodičovské podnikáte na vedlejší činnost</b> a rodičovský příspěvek se výdělkem nekrátí. Pobíráte-li peněžitou pomoc v mateřství, nesmíte vykonávat stejnou práci jako před nástupem, ověřte si to.`,
+      6: `<b>Při péči o závislou osobu podnikáte na vedlejší činnost.</b> Do zisku ${kc(E.P.osvc.rozhodnaVedlejsi)} ročně sociální pojištění neplatíte, zdravotní za vás platí stát.`,
+    };
+    if (SIT_HINT[state.situace]) hints.push(['', SIT_HINT[state.situace]]);
+    if (r.vedlejsi && state.hrubaMzda >= E.P.dppLimit && state.hrubaMzda < 20000) {
+      hints.push(['', `<b>Zvažte dohodu o provedení práce.</b> Při odměně do ${kc(E.P.dppLimit - 1)} měsíčně u jednoho zaměstnavatele se neplatí žádné pojištění. Snižte částku zaměstnání pod limit a porovnání se objeví.`]);
+    }
+    if (r.pausalniDanPovolena && r.rezervaLimit < 0) {
       hints.push(['warn', `<b>Jste nad limitem 2 mil. Kč ročně.</b> Paušální daň pro vás nejde, a to mění celé srovnání.`]);
-    } else if (r.rezervaLimit < 200000) {
+    } else if (r.pausalniDanPovolena && r.rezervaLimit < 200000) {
       hints.push(['warn', `<b>Do limitu paušální daně vám zbývá jen ${kcRound(r.rezervaLimit)} ročně.</b> Bonus nebo vyšší faktura ho může přetáhnout.`]);
     }
     if (!state.fakturaSazbou && r.vitez !== 'hpp') {
       hints.push(['warn', `<b>Zaplatí vám fakturu i za dovolenou a nemoc?</b> Výsledek počítá s ${kc(state.faktura)} každý měsíc. Když se platí jen odpracovaný čas, přepněte nahoře na sazbu, výsledek bude nižší.`]);
     }
-    if (r.slevyRodinaRok > 0 && r.pasmo) {
+    if (r.slevyRodinaRok > 0 && by.pausalniDan.dostupna) {
       hints.push(['', ['pausalniDan', 'pausalniDanSro'].includes(r.vitez)
         ? `<b>Paušální daň vychází i bez slev na rodinu.</b> Přijdete v ní o ${kcRound(r.slevyRodinaRok)} ročně, ve výsledku je to započítané. Pokud má partner(ka) vlastní zdanitelný příjem, může slevu na děti uplatnit místo vás.`
         : `<b>V paušální dani slevy na rodinu nejdou.</b> Přišli byste o ${kcRound(r.slevyRodinaRok)} ročně, i proto u vás vychází jiná varianta.`]);
@@ -488,7 +528,7 @@
 
     const locks = [];
     locks.push([`Srovnání všech ${avail.length} variant v korunách`, 'Vedle sebe, měsíčně i ročně, včetně rozpisu daní a pojištění.']);
-    if (r.vitez !== 'hpp') {
+    if (r.vitez !== 'hpp' && r.duchodRelevantni) {
       locks.push(['Kolik to udělá s důchodem', `Ve variantě ${win.kratce.toLowerCase()} se vám do důchodu počítá méně než na HPP. Spočítám, o kolik a kolik si odkládat.`]);
       locks.push(['Co když onemocníte', 'Na faktuře bez nemocenského pojištění nedostanete při nemoci nic. Ukážu, jak se zajistit.']);
     }
@@ -498,6 +538,7 @@
     // předvyplnění objednávky projektu
     const kontext = [
       `Nabídka HPP ${kc(state.hrubaMzda)} hrubého, ${E.popisFaktury(state)}.`,
+      state.situace ? `Situace: ${E.SITUACE[state.situace]}${state.situace === 1 ? `, mzda ${kc(state.jinaMzda)}` : ''}.` : '',
       state.deti || state.slevaManzel ? `Děti se slevou: ${state.deti}${state.slevaManzel ? ', sleva na manžela/manželku' : ''}.` : '',
       state.maAuto ? `Služební auto: leasing ${kc(state.autoSplatka)} bez DPH, benzín ${kc(state.benzin)}, firma ho na fakturu ${state.firmaNechaAuto ? 'nechá' : 'nenechá'}.` : '',
       state.maSro ? 'Mám vlastní s.r.o. (plátce DPH).' : '',
@@ -539,23 +580,41 @@
       kroky.push(['Přepočítejte si hranici.', 'Zkuste v kalkulačce zvyšovat částku faktury. Uvidíte, od jaké výše se faktura začne vyplácet.']);
       return kroky;
     }
+    const vedl = r.vedlejsi;
+    if (id === 'dpp') {
+      kroky.push(['Domluvte dohodu o provedení práce.', `Odměna do ${kc(E.P.dppLimit - 1)} měsíčně u jednoho zaměstnavatele je bez pojištění. Za rok můžete u jednoho zaměstnavatele odpracovat nejvýš 300 hodin, u více zaměstnavatelů se limity nesčítají.`]);
+      kroky.push([state.situace === 1 ? 'Daň.' : 'Prohlášení poplatníka.', state.situace === 1
+        ? 'Prohlášení máte podepsané u hlavního zaměstnavatele, z DPP vám proto strhnou 15 % daň a tím je vyřízená.'
+        : 'Podepište u zaměstnavatele prohlášení k dani. Sleva na poplatníka pak daň z odměny srazí na nulu. Prohlášení smíte mít podepsané jen u jednoho zaměstnavatele.']);
+      kroky.push(['Hlídejte limit.', `Stačí jeden měsíc s odměnou ${kc(E.P.dppLimit)} a víc a za ten měsíc se platí pojištění jako u zaměstnání.`]);
+      return kroky;
+    }
     const sroNaklady = ['pausalniDanSro', 'pausalSro'].includes(id);
     if (state.maAuto && !state.firmaNechaAuto) kroky.push(['Hned: vyjednejte auto.', 'Zjistěte, jestli vám firma nechá auto i při fakturaci. U vás to dělá velký rozdíl.']);
-    kroky.push(['Hned: úvěry vyřešte ještě na HPP.', 'Refinancování nebo nový úvěr jako čerstvá OSVČ doložíte těžko. Refixace u stejné banky obvykle problém není, ale ověřte si to.']);
+    if (!vedl) kroky.push(['Hned: úvěry vyřešte ještě na HPP.', 'Refinancování nebo nový úvěr jako čerstvá OSVČ doložíte těžko. Refixace u stejné banky obvykle problém není, ale ověřte si to.']);
     if (id === 'sroFakturuje') {
       kroky.push(['Smlouva mezi firmami.', 'Zaměstnavatel uzavře smlouvu s vaší s.r.o., ne s vámi. Ošetřete odměnu, bonus a výpovědní lhůtu a nechte ji zkontrolovat advokátem.']);
       kroky.push(['Peníze z firmy.', 'Zisk si vyplácíte jako dividendu po zdanění 21 % a 15 %. Důchodové pojištění si v této variantě neplatíte, zvažte dobrovolné.']);
     } else {
-      kroky.push(['Smlouva se zaměstnavatelem.', 'Postavte ji na výsledcích a vaší samostatnosti, ať nevypadá jako skrytý pracovní poměr. Ošetřete odměnu i za dovolenou a nemoc, bonus pod limitem a výpovědní lhůtu. Nechte ji zkontrolovat advokátem.']);
-      kroky.push(['Výpověď.', 'Podejte výpověď na současném HPP. Výpovědní doba je nejméně dva měsíce.']);
+      if (vedl) {
+        kroky.push(['Smlouva s odběratelem.', state.situace === 1
+          ? 'Nepracujte na fakturu pro svého zaměstnavatele ve stejné práci, jakou děláte v zaměstnání. Taková spolupráce vypadá jako skrytý pracovní poměr.'
+          : 'Domluvte si rozsah, cenu a termíny písemně. Práce má stát na výsledcích, ne na docházce a podřízenosti.']);
+      } else {
+        kroky.push(['Smlouva se zaměstnavatelem.', 'Postavte ji na výsledcích a vaší samostatnosti, ať nevypadá jako skrytý pracovní poměr. Ošetřete odměnu i za dovolenou a nemoc, bonus pod limitem a výpovědní lhůtu. Nechte ji zkontrolovat advokátem.']);
+        kroky.push(['Výpověď.', 'Podejte výpověď na současném HPP. Výpovědní doba je nejméně dva měsíce.']);
+      }
       const pd = ['pausalniDan', 'pausalniDanSro'].includes(id);
       kroky.push(['Nejpozději v den zahájení.', 'Ohlaste živnost přes Jednotný registrační formulář (poplatek 1 000 Kč)' + (pd ? ` a podejte oznámení o vstupu do paušálního režimu, ${r.pasmo}. pásmo.` : '.')]);
       if (sroNaklady) kroky.push(['Vaše s.r.o.', 'Ověřte, že je plátcem DPH, a převeďte na ni leasing, telefony a techniku. Náklady musí souviset s jejím podnikáním a firma musí vydělávat dost, aby je unesla.']);
       const odlozit = win.nizsiDuchodZaRok * 20;
       kroky.push(['Každý měsíc.', (pd
         ? `Do 20. dne zaplaťte paušální daň ${kc(E.P.pausalniDan[r.pasmo])}. `
-        : `Plaťte zálohy na pojištění, v prvním roce minimální (${kc(Math.ceil(E.P.osvc.minSocMesic * E.P.osvc.socSazba))} sociální a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní), po roce podejte přiznání a přehledy. `)
-        + `Odkládejte si zhruba ${kcRound(odlozit)} na důchod a doplňujte rezervu na tři až šest měsíců výdajů.`]);
+        : vedl
+          ? `V prvním roce zálohy na pojištění platit nemusíte. Po roce podejte přiznání a přehledy, sociální pojištění doplatíte, jen když zisk přesáhne ${kc(E.P.osvc.rozhodnaVedlejsi)}. Odkládejte si na daň a pojištění zhruba pětinu zisku. `
+          : `Plaťte zálohy na pojištění, v prvním roce minimální (${kc(Math.ceil(E.P.osvc.minSocMesic * E.P.osvc.socSazba))} sociální a ${kc(Math.ceil(E.P.osvc.minZdrMesic * E.P.osvc.zdrSazba))} zdravotní), po roce podejte přiznání a přehledy. `)
+        + (r.duchodRelevantni && odlozit > 0 ? `Odkládejte si zhruba ${kcRound(odlozit)} na důchod. ` : '')
+        + (vedl ? '' : 'Doplňujte rezervu na tři až šest měsíců výdajů.')]);
     }
     return kroky;
   }
@@ -563,7 +622,7 @@
   function renderFull(r) {
     const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
     const hpp = by.hpp, win = by[r.vitez];
-    const rows = r.varianty.map((v) => {
+    const rows = r.varianty.filter((v) => !v.skryta).map((v) => {
       if (!v.dostupna) {
         const why = v.nedostupne || 'jen s vlastní s.r.o.';
         return `<tr class="na"><td>${v.nazev}</td><td colspan="5">nelze · ${why}</td></tr>`;
@@ -577,7 +636,7 @@
 
     const odpocty = Math.min(state.uroky, state.limitUroku) + Math.min(state.zivotni + state.penzijni, E.P.limitOdpocetSporeni);
     const pozor = [];
-    pozor.push(r.rezervaLimit < 0
+    if (r.pausalniDanPovolena) pozor.push(r.rezervaLimit < 0
       ? `<b>Limit 2 milionů.</b> Příjmy ${kc(r.prijmyLimit)} ročně limit přesahují, paušální daň pro vás nejde.`
       : `<b>Limit 2 milionů.</b> Příjmy pro limit paušální daně jsou ${kc(r.prijmyLimit)} ročně, rezerva ${kc(r.rezervaLimit)}.${state.maAuto && state.firmaNechaAuto ? ' Do limitu se počítá i soukromé užívání auta od firmy.' : ''} Bonusy nastavte tak, aby limit nepřekročily.`);
     if (r.pasmo) pozor.push(`<b>Pásmo paušální daně.</b> U vás ${r.pasmo}. pásmo, ${kc(E.P.pausalniDan[r.pasmo])} měsíčně. Pásmo se mění vždy do 10. ledna.`);
@@ -602,10 +661,10 @@
       </table></div>
       <p style="font-size:.8rem;opacity:.75">Čistě znamená po daních, pojištění a nákladech, které si platíte sami. U variant s s.r.o. je v nákladech částka, o kterou si vyberete méně na dividendách.</p>
 
-      <h3>Důchod</h3>
-      <p>Na HPP se vám do důchodu počítá ${kc(hpp.duchodZaklad)} měsíčně. Na faktuře se počítá jen základ, ze kterého platíte důchodové pojištění.</p>
+      ${r.duchodRelevantni ? `<h3>Důchod</h3>
+      <p>${r.situace === 1 ? 'Ze zaměstnání navíc' : 'Na HPP'} se vám do důchodu počítá ${kc(hpp.duchodZaklad)} měsíčně. Na faktuře se počítá jen základ, ze kterého platíte důchodové pojištění.</p>
       ${dRows ? `<div class="kx-tw"><table class="kx-t"><thead><tr><th>Varianta</th><th>Počítá se do důchodu</th><th>Nižší důchod za 1 rok</th><th>Za 10 let</th><th>Odložit si měsíčně</th></tr></thead><tbody>${dRows}</tbody></table></div>` : ''}
-      <p style="font-size:.8rem;opacity:.75">Nižší důchod je měsíční částka ve dnešních penězích. Odložit si znamená, kolik měsíčně spořit, aby rozdíl za jeden rok pokryl dvacet let důchodu bez zhodnocení.${by.sroFakturuje.dostupna ? ' Při fakturaci přes s.r.o. se rok vůbec nezapočítává do doby pojištění, dopad je ze všech variant největší.' : ''}</p>
+      <p style="font-size:.8rem;opacity:.75">Nižší důchod je měsíční částka ve dnešních penězích. Odložit si znamená, kolik měsíčně spořit, aby rozdíl za jeden rok pokryl dvacet let důchodu bez zhodnocení.${by.sroFakturuje.dostupna ? ' Při fakturaci přes s.r.o. se rok vůbec nezapočítává do doby pojištění, dopad je ze všech variant největší.' : ''}${r.vedlejsi ? ` U vedlejší činnosti se zisk do ${kc(E.P.osvc.rozhodnaVedlejsi)} ročně do důchodu nepočítá vůbec.` : ''}</p>` : ''}
 
       <h3>Když onemocníte</h3>
       <p><b>Na HPP</b> vám první dva týdny platí firma 60 % průměrného výdělku a od 15. dne stát. U vyšších příjmů se procenta počítají jen ze snížené částky, dávka bývá výrazně nižší než čistá mzda.</p>
@@ -631,6 +690,8 @@
     $('pausal').value = String(state.pausal);
     $('limitUroku').value = String(state.limitUroku);
     $('deti').value = String(Math.min(state.deti, 5));
+    $('situace').value = String(state.situace);
+    $('invalidita3').value = state.invalidita3 ? '1' : '0';
     $('slevaManzel').checked = state.slevaManzel;
     $('maAuto').checked = state.maAuto; $('kx-auto').hidden = !state.maAuto;
     $('maSro').checked = state.maSro; $('kx-sro-more').hidden = !state.maSro;

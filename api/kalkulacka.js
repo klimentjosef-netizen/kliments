@@ -22,6 +22,7 @@ function clean(vstup) {
   out.soukromePct = Math.min(out.soukromePct, 100);
   if (![1, 0.5, 0.25].includes(out.pridaneniPct)) out.pridaneniPct = 1;
   out.deti = Math.min(Math.round(out.deti), 10);
+  out.situace = Math.min(Math.round(out.situace), 6);
   out.dovolenaDny = Math.min(Math.round(out.dovolenaDny), 250);
   out.nemocDny = Math.min(Math.round(out.nemocDny), 250 - out.dovolenaDny);
   return out;
@@ -96,7 +97,7 @@ export default async function handler(req, res) {
   <div style="font-family:Arial,sans-serif;font-size:14px">
     <h2 style="font-family:Georgia,serif">Nový lead z kalkulačky HPP, nebo OSVČ</h2>
     <p><strong>E-mail:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
-    <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)} hrubého, ${engine.popisFaktury(v)}, činnost ${v.pausal} %, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
+    <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)} hrubého, ${engine.popisFaktury(v)}, činnost ${v.pausal} %, situace: ${engine.SITUACE[v.situace]}${v.situace === 1 ? ` (mzda ${kc(v.jinaMzda)})` : ''}, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto: ${v.maAuto ? `ano (leasing ${kc(v.autoSplatka)}, benzín ${kc(v.benzin)}, firma nechá: ${v.firmaNechaAuto ? 'ano' : 'ne'})` : 'ne'}, vlastní s.r.o.: ${v.maSro ? 'ano' : 'ne'}, bonus HPP ${kc(v.bonusHPP)}, bonus faktura ${kc(v.bonusOSVC)}, úroky ${kc(v.uroky)}</p>
     <table style="border-collapse:collapse">${rows}</table>
     <p style="color:#999;font-size:12px">Příjmy pro limit ${kc(r.prijmyLimit)}, pásmo paušální daně ${r.pasmo || 'nelze'}.</p>
   </div>`;
