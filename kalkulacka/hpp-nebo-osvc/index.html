@@ -510,6 +510,11 @@
       $('r-name').textContent = win.nazev;
       $('r-diff').textContent = `O ${kcRound(r.rozdilProtiHpp)} měsíčně víc než na HPP`;
     }
+    if (r.vyrovnane) {
+      $('r-label').textContent = 'Vychází to prakticky nastejno';
+      $('r-name').textContent = `${win.nazev} a ${by[r.souper].nazev}`;
+      $('r-diff').textContent = E.textVyrovnane(r);
+    }
     $('r-net').textContent = kc(win.cisteMesic);
     $('r-hpp-l').textContent = r.bezHpp ? (druha ? `Druhá nejlepší: ${druha.kratce.toLowerCase()}` : '') : 'Na HPP vám zůstane';
     $('r-hpp').textContent = r.bezHpp ? (druha ? kc(druha.cisteMesic) : '') : kc(hpp.cisteMesic);
@@ -628,6 +633,9 @@
       return kroky;
     }
     const vedl = r.vedlejsi;
+    if (r.vyrovnane && !r.bezHpp && r.souper === 'hpp') {
+      kroky.push(['Rozdíl je malý.', `${win.nazev} vám dá jen o ${kcRound(r.naskok)} měsíčně víc než HPP a přijdete o placenou dovolenou, nemocenskou a část důchodu. Zvažte, jestli to za to stojí, nebo si řekněte o vyšší fakturu.`]);
+    }
     if (id === 'dpp') {
       kroky.push(['Domluvte dohodu o provedení práce.', `Odměna do ${kc(E.P.dppLimit - 1)} měsíčně u jednoho zaměstnavatele je bez pojištění. Za rok můžete u jednoho zaměstnavatele odpracovat nejvýš 300 hodin, u více zaměstnavatelů se limity nesčítají.`]);
       kroky.push([state.situace === 1 ? 'Daň.' : 'Prohlášení poplatníka.', state.situace === 1
@@ -720,7 +728,7 @@
       </div>
       <p>${r.bezHpp
         ? `Zadání: ${E.popisZadani(state)}. Nejlépe vychází <b>${win.nazev}</b>${r.druha ? `, o ${kc(r.rozdilProtiDruhe)} měsíčně víc než ${by[r.druha].nazev}` : ''}.`
-        : `${E.popisZadani(state)}. ${r.vitez === 'hpp' ? 'Nejlépe vychází zůstat na HPP.' : `Nejlépe vychází <b>${win.nazev}</b>, o ${kc(r.rozdilProtiHpp)} měsíčně víc než HPP.`}`} Když změníte zadání nahoře, výsledek se přepočítá.</p>
+        : `${E.popisZadani(state)}. ${r.vitez === 'hpp' ? 'Nejlépe vychází zůstat na HPP.' : `Nejlépe vychází <b>${win.nazev}</b>, o ${kc(r.rozdilProtiHpp)} měsíčně víc než HPP.`}`}${r.vyrovnane ? ` <b>Vychází to ale prakticky nastejno.</b> ${E.textVyrovnane(r)}` : ''} Když změníte zadání nahoře, výsledek se přepočítá.</p>
 
       <h3>Srovnání všech variant</h3>
       <div class="kx-tw"><table class="kx-t">

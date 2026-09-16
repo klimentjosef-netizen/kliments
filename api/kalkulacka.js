@@ -75,6 +75,7 @@ export default async function handler(req, res) {
     : r.vitez === 'hpp'
     ? 'Při zadaných číslech vychází nejlépe zůstat na HPP.'
     : `Nejvíc vám zůstane ve variantě <strong>${esc(win.nazev)}</strong>, zhruba o ${kc(Math.round(r.rozdilProtiHpp / 100) * 100)} měsíčně víc než na HPP.`;
+  const vyrovnaneText = r.vyrovnane ? `<p style="font-size:15px"><strong>Vychází to prakticky nastejno.</strong> ${esc(engine.textVyrovnane(r))}</p>` : '';
   const projektUrl = 'https://www.kliments.cz/sluzby/projekt/?' + new URLSearchParams({
     oblast: v.bezHpp ? 'Daňový režim na faktuře' : 'HPP, nebo faktura',
     otazka: v.bezHpp ? 'Podnikám nebo začínám. Jaký daňový režim je pro mě nejlepší?' : 'Mám nabídku na HPP, nebo na fakturu. Co se mi vyplatí a jak to nastavit?',
@@ -86,6 +87,7 @@ export default async function handler(req, res) {
     <h2 style="font-family:Georgia,serif;font-weight:400">${v.bezHpp ? 'Váš výsledek: daňový režim' : 'Váš výsledek: HPP, nebo faktura'}</h2>
     <p>Zadání: ${engine.popisZadani(v)}.</p>
     <p style="font-size:16px">${vitezText}</p>
+    ${vyrovnaneText}
     <table style="border-collapse:collapse;margin:16px 0;font-size:14px">
       ${v.bezHpp
         ? (druha ? `<tr><td style="padding:6px 18px 6px 0;color:#777">Čistě v druhé nejlepší variantě</td><td><strong>${kc(druha.cisteMesic)}</strong> měsíčně</td></tr>` : '')

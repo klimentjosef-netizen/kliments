@@ -33,6 +33,7 @@
     vydajovePausaly: { 80: 1600000, 60: 1200000, 40: 800000 },
     sro: { dan: 0.21, dividenda: 0.15, dph: 0.21, zdrOSVBP: 3024 },
     limitOdpocetSporeni: 48000,   // penzijní spoření, DIP a životní pojištění dohromady
+    vyrovnane: { podil: 0.02, minKc: 500 }, // menší rozdíl měsíčně se hlásí jako vyrovnaný
     duchod: { zakladni: 4900, hranice1: 21546, hranice2: 195868, redukce2: 0.26, procentoRok: 0.01495 },
   };
 
@@ -127,6 +128,17 @@
   function popisZadani(v) {
     if (v.bezHpp) return `${v.uzPodnikam ? 'podnikám' : 'začínám podnikat'}, ${popisFaktury(v)}`;
     return `HPP za ${Math.round(v.hrubaMzda).toLocaleString('cs-CZ')} Kč hrubého, nebo ${popisFaktury(v)}`;
+  }
+
+  // Věta k vyrovnanému výsledku (r = výsledek spocitej).
+  function textVyrovnane(r) {
+    if (!r.vyrovnane) return '';
+    const kc = (n) => (Math.round(n / 100) * 100).toLocaleString('cs-CZ') + ' Kč';
+    const ids = [r.vitez, r.souper];
+    const rozdil = r.naskok < 50 ? 'Rozdíl je zanedbatelný.' : `Rozdíl je jen ${kc(r.naskok)} měsíčně.`;
+    if (ids.includes('hpp')) return `${rozdil} HPP k tomu dává placenou dovolenou, nemocenskou a vyšší důchod, takže při tak malém rozdílu vychází lépe zůstat zaměstnancem.`;
+    if (ids.some((id) => id === 'pausalniDan' || id === 'pausalniDanSro')) return `${rozdil} Paušální daň je nejjednodušší: jedna platba měsíčně, bez daňového přiznání a přehledů.`;
+    return `${rozdil} Rozhodněte podle administrativy a toho, kolik si chcete platit na důchod.`;
   }
 
   /* vstup: viz DEFAULTS níže */
@@ -238,13 +250,25 @@
       r.duchodZaRok = prirustek(r.duchodZaklad) * P.duchod.procentoRok; // o kolik měsíčně vzroste důchod za rok
     });
 
+    // Vyrovnaný výsledek: vítěz vede jen o drobné. Srovnává se s HPP, u vítězného HPP
+    // a při výběru režimu s druhou nejlepší variantou.
+    const rozdilProtiDruhe = druha ? (out[vitez.id].cisteRok - out[druha.id].cisteRok) / m : 0;
+    const rozdilProtiHpp = (out[vitez.id].cisteRok - out.hpp.cisteRok) / m;
+    const souper = bezHpp || vitez.id === 'hpp' ? druha : VARIANTY[0];
+    const naskok = bezHpp || vitez.id === 'hpp' ? rozdilProtiDruhe : rozdilProtiHpp;
+    const prah = Math.max(P.vyrovnane.minKc, P.vyrovnane.podil * out[vitez.id].cisteRok / m);
+    const vyrovnane = !!souper && naskok < prah;
+
     return {
+      vyrovnane,
+      souper: souper ? souper.id : null,
+      naskok,
       varianty: VARIANTY.map((x) => Object.assign({ id: x.id, nazev: x.nazev, kratce: x.kratce, dostupna: dostupne.includes(x), skryta: skryta(x) }, out[x.id])),
       bezHpp,
       druha: druha ? druha.id : null,
-      rozdilProtiDruhe: druha ? (out[vitez.id].cisteRok - out[druha.id].cisteRok) / m : 0,
+      rozdilProtiDruhe,
       vitez: vitez.id,
-      rozdilProtiHpp: (out[vitez.id].cisteRok - out.hpp.cisteRok) / m,
+      rozdilProtiHpp,
       fakturaMesicne: faktura / m,
       odpracovaneDny: v.fakturaSazbou ? odpracovaneDny(v) : null,
       prijmyLimit: prijmyLimitCelkem,
@@ -276,7 +300,7 @@
     maSro: false, ucetnictviSro: 5000,
   };
 
-  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury, popisZadani, SITUACE };
+  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury, popisZadani, textVyrovnane, SITUACE };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KalkHppOsvc = api;
 })(typeof window !== 'undefined' ? window : this);
