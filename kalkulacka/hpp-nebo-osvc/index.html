@@ -204,7 +204,16 @@
       </div>
 
       <div class="kx-step">
-        <h2 class="kx-step-h"><span>02</span>Služební auto</h2>
+        <h2 class="kx-step-h"><span>02</span>Rodina</h2>
+        <div class="kx-grid">
+          <div class="kx-f"><label for="deti">Děti, na které uplatníte slevu</label>
+            <select id="deti"><option value="0">Žádné</option><option value="1">1 dítě</option><option value="2">2 děti</option><option value="3">3 děti</option><option value="4">4 děti</option><option value="5">5 dětí</option></select></div>
+        </div>
+        <label class="kx-check kx-sub"><input type="checkbox" id="slevaManzel"> Manžel(ka) je doma s dítětem do 3 let a má příjmy do 68 000 Kč ročně</label>
+      </div>
+
+      <div class="kx-step">
+        <h2 class="kx-step-h"><span>03</span>Služební auto</h2>
         <label class="kx-check"><input type="checkbox" id="maAuto"> Na HPP bych měl(a) služební auto, které můžu používat i soukromě</label>
         <div id="kx-auto" hidden>
           <div class="kx-sub">
@@ -224,7 +233,7 @@
       </div>
 
       <div class="kx-step">
-        <h2 class="kx-step-h"><span>03</span>Vlastní firma</h2>
+        <h2 class="kx-step-h"><span>04</span>Vlastní firma</h2>
         <label class="kx-check"><input type="checkbox" id="maSro"> Mám vlastní s.r.o., která je plátcem DPH a má vlastní zakázky</label>
       </div>
 
@@ -320,6 +329,7 @@
       <ul>
         <li>Čistě znamená, co vám zůstane po daních, pojištění a nákladech, které si na faktuře platíte sami.</li>
         <li>HPP: pojištění 7,1 % a 4,5 %, daň 15 % po slevě na poplatníka. Služební auto se do mzdy přičítá podle ceny a soukromého benzínu.</li>
+        <li>Děti a manžel(ka): slevy a daňový bonus se počítají na HPP, u výdajového paušálu i skutečných výdajů. Paušální daň a fakturace přes s.r.o. je neumožňují.</li>
         <li>Faktura: paušální daň podle pásma, výdajový paušál nebo skutečné výdaje. Počítá se s hlavní činností po celý rok a bez nemocenského pojištění.</li>
         <li>Vlastní s.r.o.: počítá se s tím, že je plátcem DPH a vydělává dost na to, aby náklady unesla.</li>
       </ul>
@@ -327,7 +337,7 @@
     <div>
       <h2>Co kalkulačka nezohledňuje</h2>
       <ul>
-        <li>Děti, manžela nebo manželku, studium a další slevy na dani.</li>
+        <li>Méně časté slevy na dani, například na invaliditu.</li>
         <li>Dopad na důchod a nemocenskou v korunách.</li>
         <li>Nastavení smlouvy, aby nevypadala jako skrytý pracovní poměr.</li>
         <li>Jiné příjmy a vedlejší činnost.</li>
@@ -356,6 +366,8 @@
   $('pausal').value = String(state.pausal);
   $('pausal').addEventListener('change', (e) => { state.pausal = +e.target.value; edited(); render(); });
   $('limitUroku').addEventListener('change', (e) => { state.limitUroku = +e.target.value; render(); });
+  $('deti').addEventListener('change', (e) => { state.deti = +e.target.value; edited(); render(); });
+  $('slevaManzel').addEventListener('change', (e) => { state.slevaManzel = e.target.checked; edited(); render(); });
   $('maAuto').addEventListener('change', (e) => { state.maAuto = e.target.checked; $('kx-auto').hidden = !state.maAuto; edited(); render(); });
   $('maSro').addEventListener('change', (e) => { state.maSro = e.target.checked; $('kx-sro-more').hidden = !state.maSro; edited(); render(); });
   document.querySelectorAll('[data-seg]').forEach((b) => b.addEventListener('click', () => {
@@ -396,6 +408,11 @@
     } else if (r.rezervaLimit < 200000) {
       hints.push(['warn', `<b>Do limitu paušální daně vám zbývá jen ${kcRound(r.rezervaLimit)} ročně.</b> Bonus nebo vyšší faktura ho může přetáhnout.`]);
     }
+    if (r.slevyRodinaRok > 0 && r.pasmo) {
+      hints.push(['', ['pausalniDan', 'pausalniDanSro'].includes(r.vitez)
+        ? `<b>Paušální daň vychází i bez slev na rodinu.</b> Přijdete v ní o ${kcRound(r.slevyRodinaRok)} ročně, ve výsledku je to započítané. Pokud má partner(ka) vlastní zdanitelný příjem, může slevu na děti uplatnit místo vás.`
+        : `<b>V paušální dani slevy na rodinu nejdou.</b> Přišli byste o ${kcRound(r.slevyRodinaRok)} ročně, i proto u vás vychází jiná varianta.`]);
+    }
     if (state.maAuto) {
       const alt = E.spocitej(Object.assign({}, state, { firmaNechaAuto: !state.firmaNechaAuto }));
       const altBest = alt.varianty.find((v) => v.id === alt.vitez).cisteMesic;
@@ -432,6 +449,7 @@
     // předvyplnění objednávky projektu
     const kontext = [
       `Nabídka HPP ${kc(state.hrubaMzda)} hrubého, faktura ${kc(state.faktura)} měsíčně.`,
+      state.deti || state.slevaManzel ? `Děti se slevou: ${state.deti}${state.slevaManzel ? ', sleva na manžela/manželku' : ''}.` : '',
       state.maAuto ? `Služební auto: leasing ${kc(state.autoSplatka)} bez DPH, benzín ${kc(state.benzin)}, firma ho na fakturu ${state.firmaNechaAuto ? 'nechá' : 'nenechá'}.` : '',
       state.maSro ? 'Mám vlastní s.r.o. (plátce DPH).' : '',
       `Kalkulačka: nejlépe ${r.vitez === 'hpp' ? 'HPP' : win.nazev}.`,
@@ -449,6 +467,7 @@
   let unlocked = false, paidSession = null, buyEnabled = false, projektHref = '/sluzby/projekt/#objednat';
   const lockCard = document.querySelector('.kx-lock');
   const minus = (n) => (n < 0 ? '−' : '+') + kc(Math.abs(n));
+  const danTxt = (n) => (n < 0 ? 'bonus ' + kc(-n) : kc(n));
 
   function afterRender(r) {
     lockCard.hidden = unlocked;
@@ -501,7 +520,7 @@
         return `<tr class="na"><td>${v.nazev}</td><td colspan="5">nelze · ${why}</td></tr>`;
       }
       const d = v.cisteMesic - hpp.cisteMesic;
-      return `<tr class="${v.id === r.vitez ? 'win' : ''}"><td>${v.nazev}${v.id === r.vitez ? ' ★' : ''}</td><td><b>${kc(v.cisteMesic)}</b></td><td class="${d < 0 ? 'neg' : ''}">${v.id === 'hpp' ? '·' : minus(d)}</td><td>${kc(v.pojisteni)}</td><td>${kc(v.dan)}</td><td>${kc(v.naklady)}</td></tr>`;
+      return `<tr class="${v.id === r.vitez ? 'win' : ''}"><td>${v.nazev}${v.id === r.vitez ? ' ★' : ''}</td><td><b>${kc(v.cisteMesic)}</b></td><td class="${d < 0 ? 'neg' : ''}">${v.id === 'hpp' ? '·' : minus(d)}</td><td>${kc(v.pojisteni)}</td><td>${danTxt(v.dan)}</td><td>${kc(v.naklady)}</td></tr>`;
     }).join('');
 
     const osvc = ['pausalniDan', 'pausal', 'skutecne', 'pausalniDanSro', 'pausalSro'].map((id) => by[id]).filter((v) => v.dostupna);
@@ -514,6 +533,7 @@
       : `<b>Limit 2 milionů.</b> Příjmy pro limit paušální daně jsou ${kc(r.prijmyLimit)} ročně, rezerva ${kc(r.rezervaLimit)}.${state.maAuto && state.firmaNechaAuto ? ' Do limitu se počítá i soukromé užívání auta od firmy.' : ''} Bonusy nastavte tak, aby limit nepřekročily.`);
     if (r.pasmo) pozor.push(`<b>Pásmo paušální daně.</b> U vás ${r.pasmo}. pásmo, ${kc(E.P.pausalniDan[r.pasmo])} měsíčně. Pásmo se mění vždy do 10. ledna.`);
     if (odpocty > 0 && ['pausalniDan', 'pausalniDanSro'].includes(r.vitez)) pozor.push(`<b>Odpočty.</b> Při paušální dani nejde odečíst úroky z hypotéky ani spoření. Přijdete tak zhruba o ${kc(Math.floor(odpocty / 100) * 100 * 0.15)} ročně. Ve srovnání výše je to už započítané.`);
+    if (r.slevyRodinaRok > 0) pozor.push(`<b>Slevy na rodinu.</b> Na HPP a u výdajového paušálu nebo skutečných výdajů uplatníte slevy ${kc(r.slevyRodinaRok)} ročně, a když je daň nižší než sleva na děti, rozdíl dostanete jako daňový bonus. Při paušální dani ani při fakturaci přes s.r.o. je uplatnit nejde, slevu na děti ale může uplatnit druhý rodič.`);
     pozor.push('<b>Skrytý pracovní poměr.</b> Smlouva má stát na výsledcích a vaší samostatnosti, ne na docházce a podřízenosti.');
     pozor.push('<b>Banka.</b> Jako čerstvá OSVČ budete příjmy dokládat těžko. Úvěry řešte dopředu.');
 
@@ -561,6 +581,8 @@
     NUMS.forEach((k) => { $(k).value = state[k] ? Math.round(state[k]).toLocaleString('cs-CZ') : ''; });
     $('pausal').value = String(state.pausal);
     $('limitUroku').value = String(state.limitUroku);
+    $('deti').value = String(Math.min(state.deti, 5));
+    $('slevaManzel').checked = state.slevaManzel;
     $('maAuto').checked = state.maAuto; $('kx-auto').hidden = !state.maAuto;
     $('maSro').checked = state.maSro; $('kx-sro-more').hidden = !state.maSro;
     document.querySelectorAll('[data-seg="firmaNechaAuto"]').forEach((x) => x.setAttribute('aria-pressed', (x.dataset.val === '1') === state.firmaNechaAuto ? 'true' : 'false'));

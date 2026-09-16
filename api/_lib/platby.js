@@ -23,6 +23,7 @@ export function cleanVstup(vstup) {
   if (![40, 60, 80].includes(out.pausal)) out.pausal = 60;
   if (![80000, 150000].includes(out.limitUroku)) out.limitUroku = 80000;
   out.soukromePct = Math.min(out.soukromePct, 100);
+  out.deti = Math.min(Math.round(out.deti), 10);
   if (![1, 0.5, 0.25].includes(out.pridaneniPct)) out.pridaneniPct = 1;
   return out;
 }
@@ -117,7 +118,7 @@ export async function dorucOdemceni(session) {
     html: `<div style="font-family:Arial,sans-serif;font-size:14px">
       <h2 style="font-family:Georgia,serif">Zaplacený kompletní výsledek</h2>
       <p><strong>Zákazník:</strong> ${esc(email || 'neuveden')} · platba ${esc(session.id)}</p>
-      <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)}, faktura ${kc(v.faktura)}, činnost ${v.pausal} %, auto ${v.maAuto ? 'ano' : 'ne'}, vlastní s.r.o. ${v.maSro ? 'ano' : 'ne'}</p>
+      <p><strong>Vstup:</strong> HPP ${kc(v.hrubaMzda)}, faktura ${kc(v.faktura)}, činnost ${v.pausal} %, děti ${v.deti}, sleva na manžela/ku ${v.slevaManzel ? 'ano' : 'ne'}, auto ${v.maAuto ? 'ano' : 'ne'}, vlastní s.r.o. ${v.maSro ? 'ano' : 'ne'}</p>
       ${tabulka}
       <p><a href="${odkaz}">Odkaz, který dostal zákazník</a></p>
     </div>`,
