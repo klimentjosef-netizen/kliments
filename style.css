@@ -3723,3 +3723,56 @@ footer {
     font-size: 0.9rem;
   }
 }
+
+/* ── Úvodní stránka: dvě role vedle sebe ── */
+.roles-section .flagship-title { margin-bottom: 44px; }
+.roles-grid { margin-bottom: 0; align-items: stretch; }
+.role-card { display: flex; flex-direction: column; scroll-margin-top: 100px; }
+.role-title {
+  font-family: 'Lora', Georgia, serif; font-weight: 400;
+  font-size: 1.6rem; line-height: 1.25; color: var(--sand-light);
+  margin: 0 0 22px; text-wrap: balance;
+}
+.role-list { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 12px; }
+.role-list li {
+  position: relative; padding-left: 22px;
+  font-size: 0.93rem; line-height: 1.55; color: rgba(250,244,237,0.78);
+}
+.role-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.62em;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--rose);
+}
+.role-price {
+  margin: auto 0 22px; padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.85rem; color: rgba(250,244,237,0.6);
+}
+.role-price strong { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 1.15rem; color: white; }
+.role-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.role-link {
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--rose-pale); text-decoration: none; border-bottom: 1px solid transparent;
+  transition: border-color 0.25s;
+}
+.role-link:hover, .role-link:focus-visible { border-bottom-color: var(--rose-pale); }
+
+/* ── Úvodní stránka: krátký pruh s portálem ── */
+.portal-strip { padding: 72px 64px 0; background: var(--sand-light); }
+.portal-strip-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  padding: 32px 40px; border-radius: 20px;
+  background: white; border: 1px solid var(--border-light);
+}
+.portal-strip-inner .s-eyebrow { margin-bottom: 8px; }
+.portal-strip-text { max-width: 62ch; margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); }
+.portal-strip-inner .btn-ghost { flex-shrink: 0; }
+@media (max-width: 1024px) {
+  .portal-strip { padding: 56px 32px 0; }
+  .portal-strip-inner { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 640px) {
+  .portal-strip { padding: 44px 22px 0; }
+  .portal-strip-inner { padding: 26px 22px; }
+  .role-title { font-size: 1.35rem; }
+}
