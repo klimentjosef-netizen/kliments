@@ -53,7 +53,7 @@
       Stojíte před rozhodnutím, které ovlivní daně, odvody nebo to, komu co patří? Spočítám všechny rozumné varianty, doporučím tu nejlepší a dám vám přesný postup. Za 4 990 Kč.
     </p>
     <div class="subpage-hero-ctas">
-      <a href="/kontakt/" class="btn-rose">Objednat projekt &rarr;</a>
+      <a href="#objednat" class="btn-rose">Objednat projekt &rarr;</a>
     </div>
   </div>
 </section>
@@ -185,15 +185,151 @@
   </div>
 </section>
 
+<section class="sp-section" id="objednat">
+  <div class="sp-content reveal">
+    <h2 class="sp-h2">Objednat projekt</h2>
+    <p style="font-size:0.95rem;color:var(--ink-soft);line-height:1.8;margin-bottom:32px">
+      Vyplňte krátké zadání. Odesláním zatím nic neplatíte. Ozvu se do 24 hodin, potvrdím, že se na vaši otázku projekt hodí, a domluvíme další postup.
+    </p>
+    <form class="form" id="project-form" novalidate style="max-width:720px">
+      <div class="form-row">
+        <div class="fg">
+          <label class="fl" for="pf-name">Jméno a příjmení</label>
+          <input id="pf-name" name="name" class="fi" type="text" placeholder="Jan Novák" required autocomplete="name">
+        </div>
+        <div class="fg">
+          <label class="fl" for="pf-email">E-mail</label>
+          <input id="pf-email" name="email" class="fi" type="email" placeholder="jan@firma.cz" required autocomplete="email">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label class="fl" for="pf-phone">Telefon</label>
+          <input id="pf-phone" name="phone" class="fi" type="tel" placeholder="+420 xxx xxx xxx" autocomplete="tel">
+        </div>
+        <div class="fg">
+          <label class="fl" for="pf-area">Čeho se otázka týká</label>
+          <select id="pf-area" name="area" class="fs">
+            <option value="">Vyberte oblast...</option>
+            <option>HPP, nebo OSVČ, živnost, nebo s.r.o.</option>
+            <option>Jedna firma, nebo holding</option>
+            <option>Vstup společníka nebo investora</option>
+            <option>Vyplácení peněz z firmy</option>
+            <option>Auto, úvěr, leasing, financování</option>
+            <option>Něco jiného</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl" for="pf-question">Jakou otázku řešíte</label>
+        <textarea id="pf-question" name="question" class="ft" rows="3" required placeholder="Např. mám nabídku na HPP za 100 000 Kč hrubého, nebo fakturu 150 000 Kč. Co se mi vyplatí?"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label class="fl" for="pf-status">Jste teď</label>
+          <select id="pf-status" name="status" class="fs">
+            <option value="">Vyberte...</option>
+            <option>Zaměstnanec</option>
+            <option>OSVČ</option>
+            <option>Majitel s.r.o.</option>
+            <option>Zatím nepodnikám, plánuji</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl" for="pf-income">Roční příjem nebo obrat</label>
+          <select id="pf-income" name="income" class="fs">
+            <option value="">Vyberte...</option>
+            <option>Do 1 mil. Kč</option>
+            <option>1 až 2 mil. Kč</option>
+            <option>2 až 10 mil. Kč</option>
+            <option>10 až 50 mil. Kč</option>
+            <option>Nad 50 mil. Kč</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label class="fl" for="pf-deadline">Odpověď potřebuji</label>
+          <select id="pf-deadline" name="deadline" class="fs">
+            <option value="">Vyberte...</option>
+            <option>Co nejdřív</option>
+            <option>Do 2 týdnů</option>
+            <option>Do měsíce</option>
+            <option>Nespěchá</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl" for="pf-meeting">Konzultace</label>
+          <select id="pf-meeting" name="meeting" class="fs">
+            <option>Online</option>
+            <option>Osobně v Ostravě</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl" for="pf-context">Co je ještě dobré vědět</label>
+        <textarea id="pf-context" name="context" class="ft" rows="3" placeholder="Auto, hypotéka, děti, vlastní firma, termíny. Cokoli, co může výsledek ovlivnit."></textarea>
+      </div>
+      <div class="fg-honey" aria-hidden="true">
+        <label>Web</label>
+        <input name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit" class="fsub" id="pf-submit">
+        <span class="fsub-label">Odeslat zadání &rarr;</span>
+        <span class="fsub-spinner" aria-hidden="true"></span>
+      </button>
+      <p class="fgdpr">Odesláním souhlasíte se zpracováním osobních údajů pro účely vyřízení vaší objednávky.</p>
+      <p class="lf-status" id="pf-result" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
 <section class="sp-cta-band">
   <div class="sp-cta-inner reveal">
-    <h2>Máte otázku, na kterou potřebujete odpověď v číslech?</h2>
-    <p>Napište mi, co řešíte. Ozvu se a řeknu vám, jestli se na to projekt hodí, nebo jestli potřebujete něco jiného.</p>
-    <a href="/kontakt/" class="btn-rose">Objednat projekt &rarr;</a>
+    <h2>Nejste si jistí, jestli se na to projekt hodí?</h2>
+    <p>Napište mi, co řešíte. Řeknu vám, jestli stačí projekt, nebo jestli potřebujete něco jiného.</p>
+    <a href="/kontakt/" class="btn-rose">Napsat zprávu &rarr;</a>
   </div>
 </section>
 
 <div id="shared-footer"></div>
 <script src="/shared.js"></script>
+<script>
+(function initProjectForm() {
+  const form = document.getElementById('project-form');
+  if (!form) return;
+  const out = document.getElementById('pf-result');
+  const btn = document.getElementById('pf-submit');
+  function setStatus(kind, text) { out.className = 'lf-status' + (kind ? ' lf-status-' + kind : ''); out.textContent = text; }
+  function setLoading(on) { btn.disabled = on; btn.classList.toggle('is-loading', on); }
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    setStatus('', '');
+    const v = (n) => (form.elements[n].value || '').trim();
+    if (!v('name') || !v('email')) { setStatus('err', 'Vyplňte prosím jméno a e-mail.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) { setStatus('err', 'Zkontrolujte prosím tvar e-mailu.'); return; }
+    if (!v('question')) { setStatus('err', 'Napište prosím, jakou otázku řešíte.'); return; }
+    const message = [
+      'OBJEDNÁVKA PROJEKTU',
+      'Oblast: ' + (v('area') || 'neuvedeno'),
+      'Otázka: ' + v('question'),
+      'Jsem teď: ' + (v('status') || 'neuvedeno'),
+      'Příjem nebo obrat: ' + (v('income') || 'neuvedeno'),
+      'Odpověď potřebuji: ' + (v('deadline') || 'neuvedeno'),
+      'Konzultace: ' + v('meeting'),
+      'Další okolnosti: ' + (v('context') || 'nic'),
+    ].join('\n');
+    const data = { name: v('name'), email: v('email'), phone: v('phone'), interest: 'Projekt za 4 990 Kč', message: message, website: form.elements.website.value };
+    setLoading(true);
+    try {
+      const r = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const json = await r.json().catch(() => ({}));
+      if (!r.ok || !json.ok) { setStatus('err', json.error || 'Něco se pokazilo. Napište prosím přímo na kliment.josef@email.cz.'); }
+      else { setStatus('ok', 'Děkuji, zadání mám. Ozvu se do 24 hodin.'); form.reset(); }
+    } catch (err) { setStatus('err', 'Nepodařilo se odeslat. Napište prosím přímo na kliment.josef@email.cz.'); }
+    finally { setLoading(false); }
+  });
+})();
+</script>
 </body>
 </html>
