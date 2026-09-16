@@ -141,6 +141,30 @@
     return `${rozdil} Rozhodněte podle administrativy a toho, kolik si chcete platit na důchod.`;
   }
 
+  // Kontrola zadání. Chyby výpočet zastaví, varování se jen ukážou.
+  function zkontroluj(v) {
+    const chyby = [];
+    const varovani = [];
+    const kc = (n) => Math.round(n).toLocaleString('cs-CZ') + ' Kč';
+    if (!v.bezHpp && !(v.hrubaMzda > 0)) chyby.push({ pole: 'hrubaMzda', text: 'Zadejte hrubou mzdu, kterou vám nabízejí. Pokud nabídku na HPP nemáte, přepněte nahoře na Podnikám a vybírám daňový režim.' });
+    if (!v.fakturaSazbou && !(v.faktura > 0)) chyby.push({ pole: 'faktura', text: 'Zadejte, kolik budete měsíčně fakturovat.' });
+    if (v.fakturaSazbou && !(v.sazba > 0)) chyby.push({ pole: 'sazba', text: 'Zadejte svou sazbu za den nebo za hodinu.' });
+    if (v.fakturaSazbou && odpracovaneDny(v) <= 0) chyby.push({ pole: 'dovolenaDny', text: `Dovolená a volno dohromady nemohou pokrýt všech ${P.pracovniDny} pracovních dní v roce.` });
+    if (v.situace === 1 && !(v.jinaMzda > 0)) chyby.push({ pole: 'jinaMzda', text: 'Zadejte hrubou mzdu ve stávajícím zaměstnání, přivýdělek se k ní připočítává.' });
+    if (v.maAuto && v.soukromePct > 100) chyby.push({ pole: 'soukromePct', text: 'Soukromé jízdy mohou být nejvýš 100 %.' });
+    if (!chyby.length) {
+      if (!v.bezHpp && (v.situace || 0) === 0 && v.hrubaMzda < P.minimalniMzda) {
+        varovani.push(`Minimální mzda je ${kc(P.minimalniMzda)} měsíčně. Nižší mzda je možná jen na částečný úvazek.`);
+      }
+      const r = spocitej(v);
+      const osvc = r.varianty.filter((x) => x.dostupna && x.id !== 'hpp' && x.id !== 'dpp');
+      if (osvc.length && osvc.every((x) => x.cisteRok < 0)) {
+        varovani.push('Odvody a náklady jsou vyšší než příjmy z faktury, na faktuře byste prodělávali. Zkontrolujte částky.');
+      }
+    }
+    return { chyby, varovani };
+  }
+
   /* vstup: viz DEFAULTS níže */
   function spocitej(v) {
     const m = 12;
@@ -300,7 +324,7 @@
     maSro: false, ucetnictviSro: 5000,
   };
 
-  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury, popisZadani, textVyrovnane, SITUACE };
+  const api = { P, VARIANTY, DEFAULTS, spocitej, pasmoPausalniDane, zvyhodneniNaDeti, popisFaktury, popisZadani, textVyrovnane, zkontroluj, SITUACE };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.KalkHppOsvc = api;
 })(typeof window !== 'undefined' ? window : this);

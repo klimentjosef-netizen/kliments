@@ -1,5 +1,6 @@
 // Založí platbu Stripe Checkout za Kompletní výsledek kalkulačky.
 // GET vrací, jestli jsou platby zapnuté (tlačítko se jinak na webu neukáže).
+import engine from '../kalkulacka/hpp-nebo-osvc/engine.js';
 import { CENA_KC, PRODUKT, KALK_URL, cleanVstup, vstupDoMetadat, stripe } from './_lib/platby.js';
 
 const hits = new Map();
@@ -24,6 +25,8 @@ export default async function handler(req, res) {
   const testCena = !!TOKEN && TOKEN.length >= 16 && body.testToken === TOKEN;
   const castka = testCena ? 15 : CENA_KC;
   const v = cleanVstup(body.vstup);
+  const kontrola = engine.zkontroluj(v);
+  if (kontrola.chyby.length) return res.status(400).json({ error: kontrola.chyby[0].text });
   const meta = Object.assign(vstupDoMetadat(v), { produkt: PRODUKT, souhlas: new Date().toISOString() }, testCena ? { testovaci_cena: '1' } : {});
 
   try {

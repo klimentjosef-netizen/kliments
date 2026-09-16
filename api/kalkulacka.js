@@ -47,6 +47,8 @@ export default async function handler(req, res) {
   list.push(now); hits.set(ip, list);
 
   const v = clean(body.vstup);
+  const kontrola = engine.zkontroluj(v);
+  if (kontrola.chyby.length) return res.status(400).json({ error: kontrola.chyby[0].text });
   const r = engine.spocitej(v);
   const by = Object.fromEntries(r.varianty.map((x) => [x.id, x]));
   const win = by[r.vitez];

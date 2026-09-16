@@ -107,7 +107,8 @@
 .kx-mail-status { margin-top: 10px; font-size: .85rem; }
 .kx-mail-status.ok { color: #2f7a4f; } .kx-mail-status.err { color: var(--rose-deep); }
 .kx-hp { position: absolute; left: -9999px; }
-#kx-form [hidden] { display: none !important; }
+#kx-form [hidden], .kx-res [hidden] { display: none !important; }
+.kx-in.kx-err input { border-color: #b4533f; background: #fdf1ee; }
 .kx-buy { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border-light); }
 .kx-terms { font-size: .8rem; }
 .kx-terms a { color: var(--rose-deep); }
@@ -336,7 +337,7 @@
       <div class="kx-win">
         <p class="kx-win-l" id="r-label">Nejvíc vám zůstane</p>
         <p class="kx-win-name" id="r-name"></p>
-        <p class="kx-win-num"><span id="r-net"></span><small>čistě měsíčně</small></p>
+        <p class="kx-win-num" id="r-num"><span id="r-net"></span><small>čistě měsíčně</small></p>
         <p class="kx-win-diff" id="r-diff"></p>
         <div class="kx-win-row" id="r-hpp-row"><span id="r-hpp-l">Na HPP vám zůstane</span><b id="r-hpp"></b></div>
       </div>
@@ -363,7 +364,7 @@
         </div>
       </div>
 
-      <div class="kx-mail">
+      <div class="kx-mail" id="kx-mail">
         <p>Pošlu vám souhrn výsledku do e-mailu, ať se k němu můžete vrátit.</p>
         <form id="kx-mailform" novalidate>
           <input type="email" id="kx-email" placeholder="vas@email.cz" autocomplete="email" aria-label="E-mail">
@@ -415,7 +416,7 @@
   const $ = (id) => document.getElementById(id);
   const kc = (n) => Math.round(n).toLocaleString('cs-CZ') + ' Kč';
   const kcRound = (n) => (Math.round(n / 100) * 100).toLocaleString('cs-CZ') + ' Kč';
-  const num = (s) => { const x = parseFloat(String(s).replace(/\s| /g, '').replace(',', '.')); return isNaN(x) ? 0 : x; };
+  const num = (s) => { const x = parseFloat(String(s).replace(/\s| /g, '').replace(',', '.')); return isNaN(x) ? 0 : Math.min(Math.max(x, 0), 100000000); };
   const fmtInput = (el) => { if (el.value.trim() === '') return; el.value = Math.round(num(el.value)).toLocaleString('cs-CZ'); };
 
   const state = Object.assign({}, E.DEFAULTS, { autoSplatka: 12000, benzin: 4000, cenaAuta: 900000 });
@@ -489,6 +490,22 @@
     syncFaktura(r);
     syncSituace();
     syncRezim();
+    const kontrola = E.zkontroluj(state);
+    document.querySelectorAll('#kx-form .kx-err').forEach((x) => x.classList.remove('kx-err'));
+    document.querySelectorAll('#kx-form [aria-invalid]').forEach((x) => x.removeAttribute('aria-invalid'));
+    kontrola.chyby.forEach((c) => { const el = $(c.pole); if (el) { el.setAttribute('aria-invalid', 'true'); el.closest('.kx-in').classList.add('kx-err'); } });
+    neplatne = kontrola.chyby.length > 0;
+    $('r-num').hidden = neplatne;
+    $('kx-mail').hidden = neplatne;
+    if (neplatne) {
+      $('r-label').textContent = 'Chybí údaj';
+      $('r-name').textContent = 'Doplňte zadání';
+      $('r-diff').textContent = kontrola.chyby[0].text;
+      $('r-hpp-row').hidden = true;
+      $('r-hints').innerHTML = kontrola.chyby.slice(1).map((c) => `<div class="kx-hint warn">${c.text}</div>`).join('');
+      afterRender(r);
+      return;
+    }
     const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
     const win = by[r.vitez];
     const hpp = by.hpp;
@@ -520,7 +537,7 @@
     $('r-hpp').textContent = r.bezHpp ? (druha ? kc(druha.cisteMesic) : '') : kc(hpp.cisteMesic);
 
     // nápovědy spočítané z vašich čísel
-    const hints = [];
+    const hints = kontrola.varovani.map((t) => ['warn', `<b>Zkontrolujte zadání.</b> ${t}`]);
     const SIT_HINT = {
       1: `<b>Přivýdělek vedle zaměstnání je vedlejší činnost.</b> Sociální pojištění platíte, až když zisk za rok přesáhne ${kc(E.P.osvc.rozhodnaVedlejsi)}, zdravotní bez minima. Paušální daň vedle zaměstnání použít nejde. Čísla ukazují, kolik vám přibude navíc ke stávající mzdě.`,
       2: `<b>Jako student podnikáte na vedlejší činnost.</b> Do zisku ${kc(E.P.osvc.rozhodnaVedlejsi)} ročně sociální pojištění neplatíte, zdravotní za vás platí stát a doplácí se jen ze zisku. Na DPP u jednoho zaměstnavatele podepište prohlášení, sleva na dani vám pak daň srazí na nulu.`,
@@ -606,15 +623,16 @@
   // ── placený kompletní výsledek ──
   const CENA = 990;
   const PLATBA_KEY = 'kx-hpp-osvc-platba';
+  let neplatne = false;
   let unlocked = false, paidSession = null, buyEnabled = false, projektHref = '/sluzby/projekt/#objednat';
   const lockCard = document.querySelector('.kx-lock');
   const minus = (n) => (n < 0 ? '−' : '+') + kc(Math.abs(n));
   const danTxt = (n) => (n < 0 ? 'bonus ' + kc(-n) : kc(n));
 
   function afterRender(r) {
-    lockCard.hidden = unlocked;
-    $('kx-full').hidden = !unlocked;
-    if (unlocked) renderFull(r);
+    lockCard.hidden = unlocked || neplatne;
+    $('kx-full').hidden = !unlocked || neplatne;
+    if (unlocked && !neplatne) renderFull(r);
     if (buyEnabled && !unlocked) {
       $('r-cta').classList.add('is-secondary');
       $('r-cta').textContent = 'Projekt na míru s konzultací · 4 990 Kč →';
