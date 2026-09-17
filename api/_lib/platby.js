@@ -44,7 +44,7 @@ export function vstupZMetadat(meta) {
 }
 
 export async function stripe(path, { method = 'GET', params } = {}) {
-  const key = process.env.STRIPE_SECRET_KEY;
+  const key = (process.env.STRIPE_SECRET_KEY || "").trim();
   if (!key) throw Object.assign(new Error('Platby nejsou nastavené.'), { status: 503 });
   let url = `https://api.stripe.com/v1/${path}`;
   const opt = { method, headers: { Authorization: `Bearer ${key}` } };
@@ -70,7 +70,7 @@ export async function stripe(path, { method = 'GET', params } = {}) {
 }
 
 async function posliEmail(payload) {
-  const KEY = process.env.RESEND_API_KEY;
+  const KEY = (process.env.RESEND_API_KEY || "").trim();
   if (!KEY) return false;
   const FROM = process.env.LEAD_EMAIL_FROM || 'Kliments.cz <onboarding@resend.dev>';
   const r = await fetch('https://api.resend.com/emails', {

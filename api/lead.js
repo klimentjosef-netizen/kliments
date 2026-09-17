@@ -42,7 +42,7 @@ export default async function handler(req, res) {
   // Vzdy log - lead se neztrati ani bez Resend
   console.log('[lead]', JSON.stringify(lead));
 
-  const RESEND_KEY = process.env.RESEND_API_KEY;
+  const RESEND_KEY = (process.env.RESEND_API_KEY || "").trim();
   const TO = process.env.LEAD_EMAIL_TO || 'kliment.josef@email.cz';
   const FROM = process.env.LEAD_EMAIL_FROM || 'Kliments.cz <onboarding@resend.dev>';
 

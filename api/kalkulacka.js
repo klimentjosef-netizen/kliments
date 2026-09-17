@@ -56,7 +56,7 @@ export default async function handler(req, res) {
 
   console.log('[kalkulacka]', JSON.stringify({ t: new Date().toISOString(), email, vitez: r.vitez, vstup: v }));
 
-  const KEY = process.env.RESEND_API_KEY;
+  const KEY = (process.env.RESEND_API_KEY || "").trim();
   const TO = process.env.LEAD_EMAIL_TO || 'kliment.josef@email.cz';
   const FROM = process.env.LEAD_EMAIL_FROM || 'Kliments.cz <onboarding@resend.dev>';
   if (!KEY) return res.status(200).json({ ok: true, userEmailed: false, leadEmailed: false });
