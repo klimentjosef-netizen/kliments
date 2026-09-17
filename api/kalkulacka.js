@@ -59,7 +59,7 @@ export default async function handler(req, res) {
   const KEY = process.env.RESEND_API_KEY;
   const TO = process.env.LEAD_EMAIL_TO || 'kliment.josef@email.cz';
   const FROM = process.env.LEAD_EMAIL_FROM || 'Kliments.cz <onboarding@resend.dev>';
-  if (!KEY) return res.status(200).json({ ok: true, userEmailed: false });
+  if (!KEY) return res.status(200).json({ ok: true, userEmailed: false, leadEmailed: false });
 
   const send = async (payload) => {
     const rr = await fetch('https://api.resend.com/emails', {
@@ -113,12 +113,12 @@ export default async function handler(req, res) {
     <p style="color:#999;font-size:12px">Příjmy pro limit ${kc(r.prijmyLimit)}, pásmo paušální daně ${r.pasmo || 'nelze'}, DPH: ${r.platceDph ? `plátce, odběratelé ${v.odberatelPlatce ? 'plátci' : 'neplátci'}` : 'neplátce'}.</p>
   </div>`;
 
-  let userEmailed = false;
+  let userEmailed = false, leadEmailed = false;
   try {
     userEmailed = await send({ from: FROM, to: [email], reply_to: TO, subject: 'Váš výsledek z kalkulačky HPP, nebo OSVČ', html: userHtml });
-    await send({ from: FROM, to: [TO], reply_to: email, subject: `Lead z kalkulačky: ${email}${userEmailed ? '' : ' (souhrn NEODEŠEL, pošli ručně)'}`, html: leadHtml });
+    leadEmailed = await send({ from: FROM, to: [TO], reply_to: email, subject: `Lead z kalkulačky: ${email}${userEmailed ? '' : ' (souhrn NEODEŠEL, pošli ručně)'}`, html: leadHtml });
   } catch (e) {
     console.error('[kalkulacka] výjimka', e.message);
   }
-  return res.status(200).json({ ok: true, userEmailed });
+  return res.status(200).json({ ok: true, userEmailed, leadEmailed });
 }

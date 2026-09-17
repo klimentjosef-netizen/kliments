@@ -331,11 +331,13 @@
       const r = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       const json = await r.json().catch(() => ({}));
       if (!r.ok || !json.ok) { setStatus('err', json.error || 'Něco se pokazilo. Napište prosím přímo na kliment.josef@email.cz.'); }
-      else { setStatus('ok', 'Děkuji, zadání mám. Ozvu se do 24 hodin.'); form.reset(); }
+      else if (json.emailed === false) { setStatus('err', 'Zprávu se nepodařilo doručit. Napište mi prosím přímo na kliment.josef@email.cz, omlouvám se.'); }
+      else { setStatus('ok', 'Děkuji, zadání mám. Ozvu se do 24 hodin.'); if (window.kxTrack) window.kxTrack('generate_lead', { form: 'projekt', interest: 'Projekt za 4 990 Kč', value: 4990, currency: 'CZK' }); form.reset(); }
     } catch (err) { setStatus('err', 'Nepodařilo se odeslat. Napište prosím přímo na kliment.josef@email.cz.'); }
     finally { setLoading(false); }
   });
 })();
 </script>
+<script src="/mereni.js" defer></script>
 </body>
 </html>

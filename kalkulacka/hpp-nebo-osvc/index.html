@@ -511,7 +511,22 @@
     }
   }
   let touched = false;
-  function edited() { if (!touched) { touched = true; $('kx-example').hidden = true; } }
+  function edited() {
+    if (!touched) {
+      touched = true; $('kx-example').hidden = true;
+      if (window.kxTrack) window.kxTrack('kalk_start', { rezim: state.bezHpp ? 'rezim' : 'nabidka' });
+    }
+  }
+  let vysledekZmeren = false, vysledekCasovac = null;
+  function zmerVysledek(r) {
+    if (vysledekZmeren || !touched) return;
+    clearTimeout(vysledekCasovac);
+    // až když člověk chvíli nepíše, ať se neměří rozepsaná čísla
+    vysledekCasovac = setTimeout(() => {
+      vysledekZmeren = true;
+      if (window.kxTrack) window.kxTrack('kalk_vysledek', { rezim: r.bezHpp ? 'rezim' : 'nabidka', vitez: r.vitez, situace: r.situace, vyrovnane: r.vyrovnane });
+    }, 2500);
+  }
 
   const LOCK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c97b84" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
   let last = null;
@@ -543,6 +558,7 @@
     const by = Object.fromEntries(r.varianty.map((v) => [v.id, v]));
     const win = by[r.vitez];
     const hpp = by.hpp;
+    zmerVysledek(r);
 
     const druha = r.druha ? by[r.druha] : null;
     if (r.bezHpp) {
@@ -862,7 +878,14 @@
       try { localStorage.setItem(PLATBA_KEY, id); } catch (e) {}
       nastavVstup(j.vstup);
       render();
-      if (zOdkazu) { history.replaceState(null, '', location.pathname); $('kx-full').scrollIntoView({ behavior: 'smooth' }); }
+      if (zOdkazu) {
+        // nákup změřit jen jednou za platbu
+        let zmereno = false;
+        try { zmereno = localStorage.getItem('kx-zmereno-' + id) === '1'; localStorage.setItem('kx-zmereno-' + id, '1'); } catch (e) {}
+        if (!zmereno && window.kxTrack) window.kxTrack('purchase', { value: CENA, currency: 'CZK', transaction_id: id, item: 'kompletni-vysledek' });
+        history.replaceState(null, '', location.pathname);
+        $('kx-full').scrollIntoView({ behavior: 'smooth' });
+      }
     } catch (e) { /* bez spojení zůstává zamčeno */ }
   }
 
@@ -870,6 +893,7 @@
     const st = $('kx-buy-status'); st.textContent = '';
     if (!$('kx-souhlas').checked) { st.textContent = 'Pro pokračování potvrďte souhlas s obchodními podmínkami.'; return; }
     const btn = $('kx-buy-btn'); btn.disabled = true;
+    if (window.kxTrack) window.kxTrack('begin_checkout', { value: CENA, currency: 'CZK', item: 'kompletni-vysledek' });
     try {
       const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ souhlas: true, vstup: state, testToken: new URLSearchParams(location.search).get('testcena') || undefined }) });
       const j = await res.json().catch(() => ({}));
@@ -891,13 +915,16 @@
         body: JSON.stringify({ email, website: e.target.website.value, kalkulacka: 'hpp-nebo-osvc', vstup: state }) });
       const j = await res.json().catch(() => ({}));
       if (!res.ok || !j.ok) throw new Error(j.error || 'chyba');
+      if (!j.userEmailed && !j.leadEmailed) throw new Error('nedoruceno');
       st.className = 'kx-mail-status ok';
       st.textContent = j.userEmailed ? 'Hotovo, souhrn je na cestě do vaší schránky.' : 'Děkuji, výsledek mám a souhrn vám pošlu osobně.';
+      if (window.kxTrack) window.kxTrack('generate_lead', { form: 'kalkulacka', rezim: state.bezHpp ? 'rezim' : 'nabidka', vitez: last ? last.vitez : '' });
     } catch (err) {
       st.className = 'kx-mail-status err'; st.textContent = 'Nepodařilo se odeslat. Napište prosím na kliment.josef@email.cz.';
     } finally { btn.disabled = false; }
   });
 
+  $('r-cta').addEventListener('click', () => { if (window.kxTrack) window.kxTrack('projekt_klik', { zdroj: 'kalkulacka' }); });
   render();
 
   // mobil: lišta s výsledkem, když je vidět formulář, ale ne výsledek
@@ -931,5 +958,6 @@
   if (qp.get('zruseno')) { $('kx-buy-status').textContent = 'Platba byla zrušena. Můžete to zkusit znovu.'; history.replaceState(null, '', location.pathname); }
 })();
 </script>
+<script src="/mereni.js" defer></script>
 </body>
 </html>

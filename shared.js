@@ -76,6 +76,7 @@
         <ul class="footer-links">
           <li><a href="https://instagram.com/kliments.cz" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="/obchodni-podminky/">Obchodní podmínky</a></li>
+          <li hidden><button type="button" data-cookies>Nastavení cookies</button></li>
           <li><a href="/kontakt/">Kontakt</a></li>
         </ul>
       </div>

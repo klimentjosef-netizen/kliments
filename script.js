@@ -304,8 +304,11 @@ function closeProjLb() {
       const json = await r.json().catch(() => ({}));
       if (!r.ok || !json.ok) {
         setStatus('err', json.error || 'Omlouvám se, něco se pokazilo. Napište prosím přímo na kliment.josef@email.cz.');
+      } else if (json.emailed === false) {
+        setStatus('err', 'Zprávu se nepodařilo doručit. Napište mi prosím přímo na kliment.josef@email.cz, omlouvám se.');
       } else {
         setStatus('ok', 'Děkuji. Ozvu se vám do 24 hodin.');
+        if (window.kxTrack) window.kxTrack('generate_lead', { form: 'uvod', interest: data.interest || '' });
         form.reset();
       }
     } catch (err) {
