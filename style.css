@@ -3811,3 +3811,40 @@ footer {
   .calc-teaser-inner { grid-template-columns: 1fr; gap: 32px; }
 }
 @media (max-width: 640px) { .calc-teaser { padding: 64px 22px; } }
+
+/* ── Úvodní stránka: tři pilíře vedle sebe ── */
+.flagship-grid.roles-grid-3 { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.roles-grid-3 .flagship-card { padding: 32px 28px 28px; }
+.roles-grid-3 .role-title { font-size: 1.4rem; }
+@media (max-width: 1024px) {
+  .flagship-grid.roles-grid-3 { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* ── Úvodní stránka: jak to funguje ── */
+.howto-section { padding: 100px 64px 0; background: var(--sand-light); }
+.howto-inner { max-width: 1180px; margin: 0 auto; }
+.howto-header { margin-bottom: 44px; }
+.howto-steps {
+  list-style: none; padding: 0; margin: 0; counter-reset: howto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+}
+.howto-steps li {
+  counter-increment: howto;
+  background: white; border: 1px solid var(--border-light); border-radius: 20px;
+  padding: 28px 26px;
+}
+.howto-steps li::before {
+  content: counter(howto, decimal-leading-zero);
+  display: block; margin-bottom: 14px;
+  font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 1.1rem; color: var(--rose);
+}
+.howto-step-h { margin: 0 0 10px; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
+.howto-steps li p:not(.howto-step-h) { margin: 0; font-size: 0.92rem; line-height: 1.6; color: var(--ink-soft); }
+@media (max-width: 1024px) {
+  .howto-section { padding: 72px 32px 0; }
+  .howto-steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .howto-section { padding: 56px 22px 0; }
+  .howto-steps { grid-template-columns: 1fr; }
+}
