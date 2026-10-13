@@ -3896,3 +3896,22 @@ footer {
 .whyme-card-does { font-size: 0.88rem; color: rgba(249,247,244,0.72); }
 .whyme-card-gain { font-size: 0.88rem; }
 .kx-live-solo { flex: none; width: 100%; max-width: 480px; }
+
+/* ── AkiNow: logo, ukázka v úvodu, jednorázové služby jako řádky ── */
+.logo-now { color: var(--rose-deep); }
+.footer-logo .logo-now { color: var(--rose-pale); }
+.kx-live-hero { flex: none; width: 100%; max-width: 460px; align-self: center; background: white; box-shadow: 0 4px 24px rgba(31,26,24,0.06); position: relative; z-index: 2; }
+.kx-live-hero .kx-tile { background: var(--sand-light); }
+.kx-live-hero .kx-tile.hot { background: var(--rose-blush); }
+.kx-services-header { grid-template-columns: 1fr; margin-bottom: 40px; }
+.kx-rows { list-style: none; max-width: 1180px; margin: 0 auto; border-top: 1px solid var(--border); }
+.kx-rows li { border-bottom: 1px solid var(--border); }
+.kx-rows a { display: grid; grid-template-columns: 1fr 2fr auto; gap: 32px; align-items: baseline; padding: 28px 8px; text-decoration: none; color: var(--ink); transition: background 0.25s, padding 0.25s; }
+.kx-rows a:hover { background: var(--sand-light); padding-left: 20px; padding-right: 20px; }
+.kx-row-name { font-family: 'Lora', Georgia, serif; font-size: 1.5rem; }
+.kx-row-desc { font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); }
+.kx-row-price { font-family: 'Lora', Georgia, serif; font-size: 1.15rem; color: var(--rose-deep); white-space: nowrap; }
+@media (max-width: 760px) {
+  .kx-rows a { grid-template-columns: 1fr; gap: 6px; padding: 22px 4px; }
+  .kx-rows a:hover { padding-left: 4px; padding-right: 4px; }
+}

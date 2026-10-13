@@ -117,7 +117,7 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">AkiNow<span class="nav-logo-dot">.</span></a>
+  <a class="nav-logo" href="#" aria-label="AkiNow">Aki<span class="logo-now">Now</span><span class="nav-logo-dot">.</span></a>
   <ul class="nav-links">
     <li><a href="#sluzby">Služby</a></li>
     <li><a href="/klientsky-portal/">Portál</a></li>
@@ -169,6 +169,17 @@
       <p class="hero-card-name">Josef Kliment</p>
       <p class="hero-card-role">Účetnictví · Finanční řízení · Struktury firem · Ostrava, celá ČR</p>
     </div>
+
+    <figure class="kx-live kx-live-hero reveal d2" aria-label="Ukázka živého přehledu v portálu s vymyšlenými čísly">
+      <div class="kx-live-top"><span>Váš živý přehled</span><span class="kx-live-state">dnes v 8:00</span></div>
+      <dl class="kx-live-grid">
+        <div class="kx-tile hot"><dt>DPH za září</dt><dd><b data-counter-target="48214" data-counter-suffix="&nbsp;Kč">48 214 Kč</b><small>k odvodu do 25. 10.</small></dd></div>
+        <div class="kx-tile"><dt>Daňový základ 2026</dt><dd><b data-counter-target="1236480" data-counter-suffix="&nbsp;Kč">1 236 480 Kč</b><small>předběžně z dokladů</small></dd></div>
+        <div class="kx-tile"><dt>Neuhrazené faktury</dt><dd><b data-counter-target="86950" data-counter-suffix="&nbsp;Kč">86 950 Kč</b><small>1 po splatnosti</small></dd></div>
+        <div class="kx-tile"><dt>Chybí doklady</dt><dd><b>2</b><small>platby bez dokladu</small></dd></div>
+      </dl>
+      <figcaption>Ukázka z portálu · čísla jsou vymyšlená</figcaption>
+    </figure>
 
   </div>
 </section>
@@ -284,76 +295,47 @@
 
 <!-- HLAVNI SLUZBY (3 vstupni body do spoluprace) -->
 <section class="services-section" id="services" aria-labelledby="services-h">
-  <div class="services-header reveal">
+  <div class="services-header kx-services-header reveal">
     <div>
       <p class="s-eyebrow">Jednorázové služby</p>
       <h2 class="s-h2" id="services-h">Začněme tím, <em>co potřebujete teď</em></h2>
     </div>
-    <p class="services-header-right">Jednorázové projekty s jasným výstupem. Dlouhodobou přípravu firmy na prodej (1 až 3 roky) vedu samostatně, <a href="/sluzby/priprava-na-prodej/">od 79 900 Kč</a>.</p>
   </div>
 
-  <div class="services-grid-3">
-    <div class="svc-card reveal d1">
-      <div class="svc-flag">Jednorázově</div>
-      <h3 class="svc-name">Valuace</h3>
-      <p class="svc-desc">Zjistěte tržní hodnotu svého podniku, abyste věděli, kde teď stojíte.</p>
-      <ul class="svc-list">
-        <li>Cenové rozpětí (low / mid / high)</li>
-        <li>Rizikové faktory ovlivňující hodnotu</li>
-        <li>Růstové scénáře (3 varianty)</li>
-      </ul>
-      <div class="svc-price">od 39 900 Kč <span>jednorázově</span></div>
-      <p class="svc-portal">Včetně přístupu do portálu</p>
-    </div>
-
-    <div class="svc-card reveal d2">
-      <div class="svc-flag">Jednorázově</div>
-      <h3 class="svc-name">Firemní audit</h3>
-      <p class="svc-desc">Odhalte, kde ztrácíte peníze. 6 modulů s konkrétními akcemi v korunách.</p>
-      <ul class="svc-list">
-        <li>Ziskovost, marže a ceny</li>
-        <li>Marketing, retence a hodnota klienta</li>
-        <li>Sklady, provoz a fixní náklady</li>
-      </ul>
-      <div class="svc-price">od 14 900 Kč <span>jednorázově</span></div>
-      <p class="svc-portal">Výstup: prioritní akce seřazené podle dopadu v Kč</p>
-    </div>
-
-    <div class="svc-card reveal d3">
-      <div class="svc-flag">Pro startupy</div>
-      <h3 class="svc-name">Startup kit</h3>
-      <p class="svc-desc">Nastavení financí pro nový byznys. Od první faktury po investorské podklady.</p>
-      <ul class="svc-list">
-        <li>Finanční plán pro první rok</li>
-        <li>OSVČ vs. s.r.o., kdy a jak přejít</li>
-        <li>Příprava podkladů pro první investory</li>
-      </ul>
-      <div class="svc-price">od 14 900 Kč <span>jednorázově</span></div>
-      <p class="svc-portal">Včetně přístupu do portálu</p>
-    </div>
-  </div>
+  <ul class="kx-rows reveal">
+    <li><a href="/sluzby/valuace/">
+      <span class="kx-row-name">Valuace</span>
+      <span class="kx-row-desc">Zjistěte tržní hodnotu svého podniku, abyste věděli, kde teď stojíte.</span>
+      <span class="kx-row-price">od 39 900 Kč</span>
+    </a></li>
+    <li><a href="/sluzby/firemni-audit/">
+      <span class="kx-row-name">Firemní audit</span>
+      <span class="kx-row-desc">Odhalte, kde ztrácíte peníze. 6 modulů s konkrétními akcemi v korunách.</span>
+      <span class="kx-row-price">od 14 900 Kč</span>
+    </a></li>
+    <li><a href="/sluzby/startup-kit/">
+      <span class="kx-row-name">Startup kit</span>
+      <span class="kx-row-desc">Nastavení financí pro nový byznys. Od první faktury po investorské podklady.</span>
+      <span class="kx-row-price">od 14 900 Kč</span>
+    </a></li>
+    <li><a href="/sluzby/priprava-na-prodej/">
+      <span class="kx-row-name">Příprava na prodej</span>
+      <span class="kx-row-desc">Dlouhodobá příprava firmy na prodej, 1 až 3 roky.</span>
+      <span class="kx-row-price">od 79 900 Kč</span>
+    </a></li>
+  </ul>
 </section>
 
 
 
 <!-- PORTAL (kratce) -->
 <section class="portal-strip" aria-label="Klientský portál">
-  <div class="portal-strip-inner has-live reveal">
+  <div class="portal-strip-inner reveal">
     <div>
       <p class="s-eyebrow">Klientský portál</p>
       <p class="portal-strip-text">Účetnictví, DPH, daňový základ, neuhrazené faktury, chybějící doklady, cashflow a výsledovka na jedné obrazovce. Doklady do portálu rovnou nahrajete a každý dohledáte podle popisu. Vlastní aplikace, v ceně každé spolupráce, na mobilu i v počítači.</p>
-      <a href="/klientsky-portal/" class="btn-ghost">Jak portál funguje →</a>
     </div>
-    <figure class="kx-live" aria-label="Ukázka živého přehledu v portálu s vymyšlenými čísly">
-      <div class="kx-live-top"><span>Váš živý přehled</span><span class="kx-live-state">dnes v 8:00</span></div>
-      <dl class="kx-live-grid">
-        <div class="kx-tile hot"><dt>DPH za září</dt><dd><b data-counter-target="48214" data-counter-suffix="&nbsp;Kč">48 214 Kč</b><small>k odvodu do 25. 10.</small></dd></div>
-        <div class="kx-tile"><dt>Daňový základ 2026</dt><dd><b data-counter-target="1236480" data-counter-suffix="&nbsp;Kč">1 236 480 Kč</b><small>předběžně z dokladů</small></dd></div>
-        <div class="kx-tile"><dt>Neuhrazené faktury</dt><dd><b data-counter-target="86950" data-counter-suffix="&nbsp;Kč">86 950 Kč</b><small>1 po splatnosti</small></dd></div>
-        <div class="kx-tile"><dt>Chybí doklady</dt><dd><b>2</b><small>platby bez dokladu</small></dd></div>
-      </dl>
-      <figcaption>Ukázka z portálu · čísla jsou vymyšlená</figcaption>
-    </figure>
+    <a href="/klientsky-portal/" class="btn-ghost">Jak portál funguje →</a>
   </div>
 </section>
 
@@ -557,7 +539,7 @@
 <footer class="footer">
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="footer-logo">AkiNow<span class="footer-logo-dot">.</span></div>
+      <div class="footer-logo">Aki<span class="logo-now">Now</span><span class="footer-logo-dot">.</span></div>
       <p class="footer-tagline">Účetnictví, finanční řízení a struktura firmy.<br>Ostrava, celá ČR.</p>
     </div>
 

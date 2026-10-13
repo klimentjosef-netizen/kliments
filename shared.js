@@ -8,7 +8,7 @@
   if (navEl) {
     navEl.outerHTML = `
     <nav>
-      <a class="nav-logo" href="${root}">AkiNow<span class="nav-logo-dot">.</span></a>
+      <a class="nav-logo" href="${root}" aria-label="AkiNow">Aki<span class="logo-now">Now</span><span class="nav-logo-dot">.</span></a>
       <button class="nav-burger" id="nav-burger" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open');this.classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
@@ -29,7 +29,7 @@
     <footer class="footer">
       <div class="footer-top">
         <div class="footer-brand">
-          <div class="footer-logo">AkiNow<span class="footer-logo-dot">.</span></div>
+          <div class="footer-logo">Aki<span class="logo-now">Now</span><span class="footer-logo-dot">.</span></div>
           <p class="footer-tagline">Účetnictví, finanční řízení a struktura firmy.<br>Ostrava, celá ČR.</p>
         </div>
         <div class="footer-cols">
