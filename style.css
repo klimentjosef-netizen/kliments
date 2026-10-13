@@ -3913,3 +3913,8 @@ footer {
   .kx-rows a { grid-template-columns: 1fr; gap: 6px; padding: 22px 4px; }
   .kx-rows a:hover { padding-left: 4px; padding-right: 4px; }
 }
+.kp-hero-screen-live { padding: 22px; background: white; }
+.kp-hero-screen-live .kx-live { max-width: none; border: 0; }
+.kp-hero-trust { flex-wrap: wrap; gap: 8px 28px; }
+.kp-hero-trust li:not(:last-child)::after { content: none; }
+@media (min-width: 1025px) { .kp-hero-split { padding-top: 140px; } }
