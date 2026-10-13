@@ -3879,11 +3879,8 @@ footer {
 @media (min-width: 1025px) {
   :root { --kx-gutter: max(64px, calc((100vw - 1180px) / 2)); }
   nav, .whyme-section, .footer { padding-left: var(--kx-gutter); padding-right: var(--kx-gutter); }
-  .hero-left, .contact-left { padding-left: var(--kx-gutter); }
+  .hero-left, .contact-left, .subpage-hero { padding-left: var(--kx-gutter); }
   .hero-right, .contact-right { padding-right: var(--kx-gutter); }
-  .whyme-grid { grid-template-columns: repeat(6, 1fr); }
-  .whyme-card { grid-column: span 2; }
-  .whyme-card:nth-child(n+4) { grid-column: span 3; }
 }
 .nav-logo { gap: 1px; }
 .hero-h1-pre { line-height: 1.55; }

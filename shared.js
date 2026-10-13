@@ -8,18 +8,15 @@
   if (navEl) {
     navEl.outerHTML = `
     <nav>
-      <a class="nav-logo" href="${root}">Kliments<span class="nav-logo-dot">.</span></a>
+      <a class="nav-logo" href="${root}">AkiNow<span class="nav-logo-dot">.</span></a>
       <button class="nav-burger" id="nav-burger" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open');this.classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links">
-        <li><a href="${root}#services">Služby</a></li>
-        <li><a href="/sluzby/projekt/">Projekt</a></li>
+        <li><a href="${root}#sluzby">Služby</a></li>
         <li><a href="/klientsky-portal/">Portál</a></li>
-        <li><a href="${root}#projects">Proč já</a></li>
-        <li><a href="/blog/">Blog</a></li>
-        <li><a href="${root}#faq">FAQ</a></li>
-        <li><a href="${root}#contact">Kontakt</a></li>
+        <li><a href="/o-mne/">O mně</a></li>
+        <li><a href="/kontakt/">Kontakt</a></li>
         <li><a href="/portal" class="nav-pill">Přístup do portálu &rarr;</a></li>
       </ul>
     </nav>`;
@@ -32,38 +29,36 @@
     <footer class="footer">
       <div class="footer-top">
         <div class="footer-brand">
-          <div class="footer-logo">Kliments<span class="footer-logo-dot">.</span></div>
-          <p class="footer-tagline">Business architekt a finanční ředitel.<br>Ostrava, celá ČR.</p>
+          <div class="footer-logo">AkiNow<span class="footer-logo-dot">.</span></div>
+          <p class="footer-tagline">Účetnictví, finanční řízení a struktura firmy.<br>Ostrava, celá ČR.</p>
         </div>
         <div class="footer-cols">
           <div class="footer-col">
             <p class="footer-col-h">Služby</p>
             <ul>
-              <li><a href="/sluzby/projekt/">Projekt za 4 990 Kč</a></li>
-              <li><a href="/#business-architektura">Struktury firem</a></li>
-              <li><a href="/kalkulacka/hpp-nebo-osvc/">Kalkulačka HPP, nebo OSVČ</a></li>
+              <li><a href="/#ucetnictvi">Účetnictví</a></li>
               <li><a href="/sluzby/cfo-na-volne-noze/">CFO na volné noze</a></li>
+              <li><a href="/#business-architektura">Struktury firem</a></li>
+              <li><a href="/sluzby/projekt/">Projekt za 4 990 Kč</a></li>
               <li><a href="/sluzby/valuace/">Valuace</a></li>
               <li><a href="/sluzby/firemni-audit/">Firemní audit</a></li>
               <li><a href="/sluzby/startup-kit/">Startup kit</a></li>
               <li><a href="/sluzby/priprava-na-prodej/">Příprava na prodej</a></li>
-              <li><a href="/klientsky-portal/">Klientský portál</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <p class="footer-col-h">Vlastní projekty</p>
+            <p class="footer-col-h">Nástroje a čtení</p>
             <ul>
-              <li><a href="https://www.firsen.cz/" target="_blank" rel="noopener">Firsen</a></li>
-              <li><a href="https://mnai-nine.vercel.app/" target="_blank" rel="noopener">M&Ai</a></li>
-              <li><a href="https://www.webbykliment.com/" target="_blank" rel="noopener">WebByKliment</a></li>
-              <li><a href="https://www.darkee.cz/" target="_blank" rel="noopener">Dárkee</a></li>
-              <li><a href="https://www.chlumeckydvur.cz/" target="_blank" rel="noopener">Chlumecký dvůr</a></li>
+              <li><a href="/klientsky-portal/">Klientský portál</a></li>
+              <li><a href="/kalkulacka/hpp-nebo-osvc/">Kalkulačka HPP, nebo OSVČ</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/12-chyb/">12 chyb (PDF zdarma)</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <p class="footer-col-h">Kontakt</p>
             <ul>
-              <li>Josef Kliment</li>
+              <li><a href="/o-mne/">Josef Kliment</a></li>
               <li><a href="mailto:kliment.josef@email.cz">kliment.josef@email.cz</a></li>
               <li>Ostrava, celá ČR</li>
               <li><a href="/portal">Klientský portál &rarr;</a></li>
@@ -72,7 +67,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2026 Kliments &middot; Josef Kliment</p>
+        <p class="footer-copy">&copy; 2026 AkiNow &middot; Josef Kliment</p>
         <ul class="footer-links">
           <li><a href="https://instagram.com/kliments.cz" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="/obchodni-podminky/">Obchodní podmínky</a></li>
