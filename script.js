@@ -168,7 +168,7 @@ const PROJ_DATA = [
     chips: ['AI','60 sekund','Startup'],
   },
   {
-    id: 5, title: 'AkiNow', role: 'Zakladatel',
+    id: 5, title: 'Kliments', role: 'Zakladatel',
     badge: 'STRUKTURY A FINANČNÍ ŘÍZENÍ', url: 'kliments.cz',
     link: 'https://www.kliments.cz',
     desc: 'Business architekt a finanční ředitel pro české firmy. Navrhuji struktury firem, řeším projekty na míru a vedu firmy v číslech. Od jednoho rozhodnutí po případný prodej.',

@@ -3849,7 +3849,7 @@ footer {
   .howto-steps { grid-template-columns: 1fr; }
 }
 
-/* ── AkiNow: ukázka živého přehledu v pruhu portálu ── */
+/* ── ukázka živého přehledu v pruhu portálu ── */
 .portal-strip-inner.has-live { align-items: stretch; gap: 48px; padding: 40px; }
 .portal-strip-inner.has-live > div { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 22px; }
 .portal-strip-inner.has-live .s-eyebrow { margin-bottom: 0; }
@@ -3868,14 +3868,14 @@ footer {
 @media (max-width: 1024px) { .kx-live { flex: none; width: 100%; max-width: 460px; } }
 @media (max-width: 640px) { .portal-strip-inner.has-live { padding: 26px 22px; gap: 28px; } .kx-tile b { font-size: 1.15rem; } }
 
-/* ── AkiNow: ceny v tabulce (FAQ) ── */
+/* ── ceny v tabulce (FAQ) ── */
 .kx-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 0 36px; margin: 0 0 16px; }
 .kx-prices div { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--border-light); }
 .kx-prices dt { color: var(--ink-soft); }
 .kx-prices dd { margin: 0; font-weight: 500; color: var(--ink); white-space: nowrap; }
 @media (max-width: 760px) { .kx-prices { grid-template-columns: 1fr; } }
 
-/* ── AkiNow: doladění (zarovnání na jednu osu, čitelnost, drobnosti) ── */
+/* ── doladění (zarovnání na jednu osu, čitelnost, drobnosti) ── */
 @media (min-width: 1025px) {
   :root { --kx-gutter: max(64px, calc((100vw - 1180px) / 2)); }
   nav, .whyme-section, .footer { padding-left: var(--kx-gutter); padding-right: var(--kx-gutter); }
@@ -3897,9 +3897,7 @@ footer {
 .whyme-card-gain { font-size: 0.88rem; }
 .kx-live-solo { flex: none; width: 100%; max-width: 480px; }
 
-/* ── AkiNow: logo, ukázka v úvodu, jednorázové služby jako řádky ── */
-.logo-now { color: var(--rose-deep); }
-.footer-logo .logo-now { color: var(--rose-pale); }
+/* ── logo, ukázka v úvodu, jednorázové služby jako řádky ── */
 .kx-live-hero { flex: none; width: 100%; max-width: 460px; align-self: center; background: white; box-shadow: 0 4px 24px rgba(31,26,24,0.06); position: relative; z-index: 2; }
 .kx-live-hero .kx-tile { background: var(--sand-light); }
 .kx-live-hero .kx-tile.hot { background: var(--rose-blush); }

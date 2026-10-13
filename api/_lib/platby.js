@@ -72,7 +72,7 @@ export async function stripe(path, { method = 'GET', params } = {}) {
 async function posliEmail(payload) {
   const KEY = (process.env.RESEND_API_KEY || "").trim();
   if (!KEY) return false;
-  const FROM = process.env.LEAD_EMAIL_FROM || 'AkiNow <onboarding@resend.dev>';
+  const FROM = process.env.LEAD_EMAIL_FROM || 'Kliments.cz <onboarding@resend.dev>';
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
