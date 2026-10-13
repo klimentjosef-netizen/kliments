@@ -457,3 +457,40 @@ a { color: inherit; }
   .hero .live { animation: rise 1s var(--ease) 0.2s both; }
 }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+/* ── Osobní vrstva: fotka v úvodu, citát, kontakt ── */
+:root { --r-card: 24px; }
+.tile { border-radius: 14px; }
+.hero-visual { position: relative; padding-bottom: 40px; }
+.hero-photo {
+  width: 64%; margin-left: auto; aspect-ratio: 2 / 3; border-radius: var(--r-card);
+  overflow: hidden; background: var(--deep);
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.hero-visual .live {
+  position: absolute; left: 0; bottom: 0; width: 68%; padding: 18px;
+}
+.hero-visual .live-top { margin-bottom: 14px; }
+.hero-visual .tile { padding: 13px 14px; }
+.hero-visual .tile dd { font-size: 1.2rem; }
+.hero-visual .live-note { text-align: left; margin-top: 10px; }
+@media (max-width: 959px) {
+  .hero-visual { padding-bottom: 0; max-width: 520px; }
+  .hero-photo { width: 78%; }
+  .hero-visual .live { position: relative; width: 92%; margin-top: -140px; }
+}
+@media (max-width: 479px) {
+  .hero-photo { width: 84%; }
+  .hero-visual .live { width: 100%; margin-top: -110px; }
+}
+
+.founder-grid { align-items: center; }
+.founder-quote { font-size: clamp(2.2rem, 4.2vw, 3.6rem); line-height: 1.05; letter-spacing: -0.04em; }
+.founder .founder-cap { margin-top: 22px; }
+.founder .body:first-child { margin-top: 0; }
+
+.c-me { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
+.c-me img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top; }
+.c-me b { display: block; font-weight: 600; }
+.c-me span { font-size: 0.92rem; color: var(--muted); }
+.contact .c-me + .body { margin-top: 20px; }
