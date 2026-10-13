@@ -1,23 +1,23 @@
 /* AkiNow · vizuální systém
    Tvary: tlačítka jako pilulka, karty 16px, pole formuláře 10px.
-   Barvy: neutrální základ + jediný akcent (lesní zelená), tmavý režim podle systému. */
+   Barvy: neutrální základ + jediný akcent (hluboká růžová), tmavý režim podle systému. */
 
 :root {
-  --bg: #f5f6f3;
-  --surface: #fcfcfa;
-  --surface-2: #eceee9;
-  --ink: #121513;
-  --ink-2: #353b37;
-  --muted: #5a635d;
-  --line: rgba(18, 21, 19, 0.11);
-  --accent: #156b4c;
-  --accent-hover: #0f5a3f;
-  --accent-ink: #f3f8f5;
-  --accent-soft: #e2eee7;
-  --deep: #14271e;
-  --deep-ink: #eaf1ec;
-  --deep-muted: #a9bcb1;
-  --shadow: 0 1px 2px rgba(20, 39, 30, 0.06), 0 12px 32px -12px rgba(20, 39, 30, 0.18);
+  --bg: #f6f5f5;
+  --surface: #fcfbfb;
+  --surface-2: #efeced;
+  --ink: #161314;
+  --ink-2: #3b3537;
+  --muted: #615a5d;
+  --line: rgba(22, 19, 20, 0.11);
+  --accent: #c2185b;
+  --accent-hover: #a5124c;
+  --accent-ink: #fff7fa;
+  --accent-soft: #f7e4eb;
+  --deep: #24161c;
+  --deep-ink: #f6edf0;
+  --deep-muted: #c4aab5;
+  --shadow: 0 1px 2px rgba(36, 22, 28, 0.06), 0 12px 32px -12px rgba(36, 22, 28, 0.18);
 
   --r-card: 16px;
   --r-field: 10px;
@@ -33,20 +33,20 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d100e;
-    --surface: #141815;
-    --surface-2: #1b201c;
-    --ink: #edf1ee;
-    --ink-2: #c4ccc6;
-    --muted: #919c95;
-    --line: rgba(237, 241, 238, 0.10);
-    --accent: #4fc492;
-    --accent-hover: #6fd3a7;
-    --accent-ink: #06130d;
-    --accent-soft: #15271e;
-    --deep: #183025;
-    --deep-ink: #eaf1ec;
-    --deep-muted: #9fb5a8;
+    --bg: #0f0d0e;
+    --surface: #171415;
+    --surface-2: #1f1b1d;
+    --ink: #f1edee;
+    --ink-2: #cbc4c7;
+    --muted: #9a9295;
+    --line: rgba(241, 237, 238, 0.10);
+    --accent: #ff6f9f;
+    --accent-hover: #ff8fb4;
+    --accent-ink: #1c0710;
+    --accent-soft: #2a141d;
+    --deep: #2c1922;
+    --deep-ink: #f6edf0;
+    --deep-muted: #c4aab5;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -16px rgba(0, 0, 0, 0.6);
     color-scheme: dark;
   }
@@ -239,9 +239,9 @@ a { color: inherit; }
 .p-arch .pillar-ctas { margin-top: 0; }
 .p-arch .pillar-tag { color: var(--deep-muted); }
 .p-arch li { color: var(--deep-ink); }
-.p-arch .pillar-price { border-color: rgba(234, 241, 236, 0.14); }
+.p-arch .pillar-price { border-color: rgba(246, 237, 240, 0.14); }
 .p-arch .note { color: var(--deep-muted); }
-.p-arch .link { color: var(--deep-ink); border-color: rgba(234, 241, 236, 0.35); }
+.p-arch .link { color: var(--deep-ink); border-color: rgba(246, 237, 240, 0.35); }
 .p-arch .link:hover { border-color: var(--deep-ink); }
 .p-arch .btn-primary { background: var(--deep-ink); color: var(--deep); }
 .p-arch .btn-primary:hover { background: #ffffff; }
