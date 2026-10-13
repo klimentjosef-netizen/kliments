@@ -3874,3 +3874,27 @@ footer {
 .kx-prices dt { color: var(--ink-soft); }
 .kx-prices dd { margin: 0; font-weight: 500; color: var(--ink); white-space: nowrap; }
 @media (max-width: 760px) { .kx-prices { grid-template-columns: 1fr; } }
+
+/* ── AkiNow: doladění (zarovnání na jednu osu, čitelnost, drobnosti) ── */
+@media (min-width: 1025px) {
+  :root { --kx-gutter: max(64px, calc((100vw - 1180px) / 2)); }
+  nav, .whyme-section, .footer { padding-left: var(--kx-gutter); padding-right: var(--kx-gutter); }
+  .hero-left, .contact-left { padding-left: var(--kx-gutter); }
+  .hero-right, .contact-right { padding-right: var(--kx-gutter); }
+  .whyme-grid { grid-template-columns: repeat(6, 1fr); }
+  .whyme-card { grid-column: span 2; }
+  .whyme-card:nth-child(n+4) { grid-column: span 3; }
+}
+.nav-logo { gap: 1px; }
+.hero-h1-pre { line-height: 1.55; }
+.hero-trust { font-size: 0.84rem; gap: 8px 28px; }
+.hero-trust li:not(:last-child)::after { content: none; }
+.whyme-grid { margin-bottom: 0; }
+.hero-card { width: 100%; max-width: 460px; align-self: center; padding: 30px 32px; }
+.services-header-right a, .faq-a a { color: var(--rose-deep); text-underline-offset: 3px; }
+.svc-desc { font-size: 0.88rem; color: rgba(255,255,255,0.72); }
+.svc-list li { font-size: 0.85rem; color: rgba(255,255,255,0.72); }
+.svc-price span { color: rgba(255,255,255,0.6); }
+.svc-portal { font-size: 0.74rem; color: rgba(255,255,255,0.6); }
+.whyme-card-does { font-size: 0.88rem; color: rgba(249,247,244,0.72); }
+.whyme-card-gain { font-size: 0.88rem; }
