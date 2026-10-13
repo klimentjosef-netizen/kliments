@@ -1,4 +1,5 @@
-// ── Custom cursor ──
+// ── Custom cursor (jen na stránkách, které ho mají) ──
+if (document.getElementById('cur') && document.getElementById('cur-r')) {
 const cur = document.getElementById('cur');
 const curR = document.getElementById('cur-r');
 let mx = 0, my = 0, rx = 0, ry = 0;
@@ -27,6 +28,7 @@ document.querySelectorAll('a, button, .prod-card, .mini-card, .profile-card, .p-
     curR.style.width = '40px'; curR.style.height = '40px';
   });
 });
+}
 
 // ── Scroll reveal ──
 const io = new IntersectionObserver(entries => {
