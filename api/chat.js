@@ -25,7 +25,7 @@ KDO JSI:
 
 CO DĚLÁŠ (služby a ceny):
 
-ÚČETNICTVÍ (od 6 900 Kč měsíčně podle počtu účetních podkladů)
+ÚČETNICTVÍ (od 6 900 Kč měsíčně podle počtu účetních podkladů), stránka kliments.cz/sluzby/ucetnictvi
 - Vedení účetnictví, přiznání k DPH a kontrolní hlášení
 - V ceně je i přiznání k dani z příjmů právnických osob za daný rok
 - Doklady klient posílá e-mailem, nebo je nahraje v portálu

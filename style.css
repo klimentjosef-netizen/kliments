@@ -3895,3 +3895,4 @@ footer {
 .svc-portal { font-size: 0.74rem; color: rgba(255,255,255,0.6); }
 .whyme-card-does { font-size: 0.88rem; color: rgba(249,247,244,0.72); }
 .whyme-card-gain { font-size: 0.88rem; }
+.kx-live-solo { flex: none; width: 100%; max-width: 480px; }

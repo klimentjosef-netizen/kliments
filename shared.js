@@ -36,7 +36,7 @@
           <div class="footer-col">
             <p class="footer-col-h">Služby</p>
             <ul>
-              <li><a href="/#ucetnictvi">Účetnictví</a></li>
+              <li><a href="/sluzby/ucetnictvi/">Účetnictví</a></li>
               <li><a href="/sluzby/cfo-na-volne-noze/">CFO na volné noze</a></li>
               <li><a href="/#business-architektura">Struktury firem</a></li>
               <li><a href="/sluzby/projekt/">Projekt za 4 990 Kč</a></li>
