@@ -43,6 +43,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ── Animated counters (data-counter-target="565800") ──
 function animateCounter(el) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const target = parseInt(el.dataset.counterTarget, 10);
   const suffix = el.dataset.counterSuffix || '';
   if (isNaN(target)) return;

@@ -75,26 +75,10 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Kolik to celé stojí?",
+      "name": "Kolik to stojí?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cena závisí na rozsahu. Vedení účetnictví stojí od 6 900 Kč měsíčně podle počtu účetních podkladů, v ceně je i přiznání k dani z příjmů právnických osob za daný rok. Projekt k osobnímu nastavení (HPP, nebo faktura, daňový režim, vlastní s.r.o.) stojí 4 990 Kč. Vlastnickou nebo holdingovou strukturu a vstup společníka posuzuji podle vaší situace a cenu navrhnu po jejím zhodnocení. Jednorázové služby: Valuace od 39 900 Kč, Firemní audit od 14 900 Kč, Startup kit od 14 900 Kč. Průběžně: CFO na volné noze od 15 000 Kč měsíčně s měsíční výpovědní dobou. Dlouhodobá příprava firmy na prodej (1 až 3 roky) má vlastní cenovou strukturu od 79 900 Kč. Konkrétní cenu rád doladím na úvodní schůzce, která je nezávazná."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Co dělá business architekt?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Navrhuje, jak má firma fungovat. Vlastnickou strukturu a holding, organizační uspořádání a procesy, obchodní model a to, jak je firma financovaná. Architekt kreslí dům dřív, než se začne stavět. Business architekt dělá totéž s firmou."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Co je projekt za 4 990 Kč?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Odpověď na otázku osobního nastavení: HPP, nebo faktura, jaký daňový režim zvolit, jak zapojit vlastní s.r.o. nebo služební auto. Dostanete doporučení s čísly, srovnání variant, přesný postup krok za krokem, kalkulačku, ve které si přepočítáte vlastní čísla, a hodinovou konzultaci online nebo osobně v Ostravě. Holding, vstup společníka nebo uspořádání celé firmy do projektu nespadají, to je návrh struktury na míru."
+        "text": "Účetnictví od 6 900 Kč měsíčně podle počtu účetních podkladů, v ceně je i přiznání k dani z příjmů právnických osob za daný rok. CFO na volné noze od 15 000 Kč měsíčně. Projekt k osobnímu nastavení 4 990 Kč. Struktura firmy podle situace. Valuace od 39 900 Kč, Firemní audit od 14 900 Kč, Startup kit od 14 900 Kč, Příprava na prodej od 79 900 Kč. Konkrétní cenu rád doladím na úvodní schůzce."
       }
     },
     {
@@ -102,20 +86,20 @@
       "name": "Musím k vám převést i účetnictví?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nemusíte. Finanční řízení i návrh struktury fungují i se stávající účetní, pracuji pak s jejími výstupy. Když účetnictví vedeme my, vidíte čísla v portálu průběžně a finanční řízení stojí na aktuálních datech, ne na loňské závěrce."
+        "text": "Nemusíte. Finanční řízení i návrh struktury fungují i se stávající účetní, pracuji pak s jejími výstupy. Když účetnictví vedeme my, vidíte čísla v portálu průběžně a rozhodujete se podle aktuálních dat, ne podle loňské závěrky."
       }
     },
     {
       "@type": "Question",
-      "name": "Pro koho spolupráce naopak není?",
+      "name": "Pro koho spolupráce není?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Měsíční finanční ředitel nedává smysl pro firmy s obratem do 2 mil. Kč ročně, tam stačí účetnictví s živým přehledem v portálu. Na konkrétní rozhodnutí je určený projekt, a ten dává smysl i jednotlivcům. Spolupráce není pro situace, kdy chcete prodat firmu za tři měsíce."
+        "text": "Měsíční finanční ředitel nedává smysl pro firmy s obratem do 2 mil. Kč ročně, tam stačí účetnictví s živým přehledem v portálu. Spolupráce také není pro situace, kdy chcete prodat firmu za tři měsíce."
       }
     },
     {
       "@type": "Question",
-      "name": "Co když po měsíci spolupráce zjistím, že to nefunguje?",
+      "name": "Co když zjistím, že to nefunguje?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "CFO na volné noze má měsíční výpověď, žádné penále. U jednorázových projektů vracím poměrnou část ceny za nedokončenou práci."
@@ -130,13 +114,9 @@
 <header class="nav">
   <div class="wrap nav-in">
     <a class="logo" href="/" aria-label="AkiNow, úvod">Aki<b>Now</b></a>
-    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#ucetnictvi">Účetnictví</a></li>
-      <li><a href="#cfo-na-volne-noze">Finanční řízení</a></li>
-      <li><a href="#business-architektura">Struktura firmy</a></li>
-      <li><a href="/klientsky-portal/">Portál</a></li>
-      <li><a href="/blog/">Blog</a></li>
+    <ul class="nav-links">
+      <li class="wide"><a href="#services">Služby</a></li>
+      <li class="wide"><a href="#projects">O mně</a></li>
       <li><a href="#contact">Kontakt</a></li>
       <li><a href="/portal" class="btn btn-primary">Do portálu</a></li>
     </ul>
@@ -145,301 +125,238 @@
 
 <main>
 
-<!-- HERO -->
+<!-- UVOD -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
       <h1 class="h1 rise">Účetnictví, které vidíte <em>teď</em>.</h1>
-      <p class="lead rise">Jsem Josef Kliment. Vedu vám účetnictví, řídím finance a pomáhám postavit firmu tak, aby dávala smysl. Všechno nad živými čísly.</p>
-      <div class="hero-ctas rise">
-        <a href="#contact" class="btn btn-primary">Domluvit schůzku <span class="arr" aria-hidden="true">→</span></a>
-        <a href="#jak-to-funguje" class="btn btn-ghost">Jak to funguje</a>
+      <p class="lead rise r2">Vedu vám účetnictví, řídím finance a pomáhám postavit firmu. Všechno nad živými čísly ve vašem portálu.</p>
+      <a href="#contact" class="btn btn-primary rise r3">Domluvit schůzku <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+
+    <figure class="live rise r4" aria-label="Ukázka živého přehledu v portálu s vymyšlenými čísly">
+      <div class="live-top">
+        <span class="live-firm">Váš živý přehled</span>
+        <span class="live-state"><span class="live-pulse" aria-hidden="true"></span>dnes v 8:00</span>
       </div>
-    </div>
-
-    <div>
-      <figure class="live" aria-label="Ukázka živého přehledu v portálu s vymyšlenými čísly">
-        <div class="live-top">
-          <span class="live-firm">Váš živý přehled</span>
-          <span class="live-state"><span class="live-pulse" aria-hidden="true"></span>dnes v 8:00</span>
+      <dl class="live-grid">
+        <div class="tile hot">
+          <dt>DPH za září</dt>
+          <dd><span class="num" data-counter-target="48214" data-counter-suffix="&nbsp;Kč">48 214 Kč</span><small>k odvodu do 25. 10.</small></dd>
         </div>
-        <dl class="live-grid">
-          <div class="tile hot">
-            <dt>DPH za září</dt>
-            <dd class="num">48 214 Kč<small>k odvodu do 25. 10.</small></dd>
-          </div>
-          <div class="tile">
-            <dt>Daňový základ 2026</dt>
-            <dd class="num">1 236 480 Kč<small>předběžně</small></dd>
-          </div>
-          <div class="tile">
-            <dt>Neuhrazené faktury</dt>
-            <dd class="num">86 950 Kč<small>1 po splatnosti</small></dd>
-          </div>
-          <div class="tile">
-            <dt>Chybí doklady</dt>
-            <dd class="num">2<small>platby bez dokladu</small></dd>
-          </div>
-        </dl>
-        <figcaption class="live-note">Ukázka z portálu, čísla jsou vymyšlená</figcaption>
-      </figure>
-    </div>
+        <div class="tile">
+          <dt>Daňový základ 2026</dt>
+          <dd><span class="num" data-counter-target="1236480" data-counter-suffix="&nbsp;Kč">1 236 480 Kč</span><small>předběžně z dokladů</small></dd>
+        </div>
+        <div class="tile">
+          <dt>Neuhrazené faktury</dt>
+          <dd><span class="num" data-counter-target="86950" data-counter-suffix="&nbsp;Kč">86 950 Kč</span><small>1 po splatnosti</small></dd>
+        </div>
+        <div class="tile">
+          <dt>Chybí doklady</dt>
+          <dd><span class="num">2</span><small>platby bez dokladu</small></dd>
+        </div>
+      </dl>
+      <figcaption class="live-note">Ukázka z portálu, čísla jsou vymyšlená</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- CISLA -->
-<section class="facts" aria-label="V číslech">
-  <div class="wrap facts-in">
-    <p class="fact"><b>12</b><span>let praxe</span></p>
-    <p class="fact"><b>30+</b><span>oceněných firem</span></p>
-    <p class="fact"><b>5</b><span>vlastních byznysů</span></p>
-  </div>
-</section>
-
-<!-- TRI PILIRE -->
-<section class="section" aria-labelledby="roles-h">
+<!-- SLUZBY -->
+<section class="section" id="services" aria-labelledby="services-h" style="padding-top:0">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2 class="h2" id="roles-h">Tři role. Jeden člověk.</h2>
-      <p class="body">Účetnictví, finanční řízení i stavbu firmy máte u mě. Nic se nepředává mezi účetní a poradcem a nic se cestou neztratí.</p>
+      <h2 class="h2" id="services-h">Co pro vás udělám.</h2>
     </div>
 
-    <div class="pillars">
-      <article class="pillar p-acc reveal" id="ucetnictvi">
-        <p class="pillar-tag">Účetnictví</p>
-        <h3 class="h3">Účetnictví, které vidíte živě, ne jednou za rok.</h3>
-        <ul>
-          <li>Vedení účetnictví, přiznání k DPH a kontrolní hlášení</li>
-          <li>Doklady posíláte e-mailem, nebo je nahrajete v portálu</li>
-          <li>V portálu průběžně vidíte DPH, daňový základ, neuhrazené faktury a chybějící doklady</li>
-          <li>V ceně je i přiznání k dani z příjmů právnických osob za daný rok</li>
-        </ul>
-        <div class="pillar-price">
-          <strong>od 6 900 Kč</strong>
-          <span>měsíčně podle počtu účetních podkladů</span>
+    <div class="svc-grid">
+      <article class="svc-card svc-main reveal" id="ucetnictvi">
+        <div>
+          <p class="svc-tag">Účetnictví</p>
+          <h3>Účetnictví, které vidíte živě, ne jednou za rok.</h3>
+          <p>Doklady pošlete e-mailem nebo nahrajete do portálu. O zbytek se postaráme a čísla vidíte průběžně.</p>
+          <ul class="svc-points">
+            <li>Účetnictví, DPH a kontrolní hlášení</li>
+            <li>Přiznání k dani z příjmů právnických osob v ceně</li>
+            <li>Živý přehled v portálu</li>
+          </ul>
         </div>
-        <div class="pillar-ctas">
-          <a href="#contact" class="btn btn-primary" data-interest="Účetnictví">Domluvit schůzku <span class="arr" aria-hidden="true">→</span></a>
-          <a href="#jak-to-funguje" class="link">Jak to funguje</a>
+        <div>
+          <div class="svc-price">
+            <strong class="num">od 6 900 Kč</strong>
+            <span>měsíčně podle počtu účetních podkladů</span>
+          </div>
+          <div class="svc-cta">
+            <a href="#contact" class="btn btn-primary" data-interest="Účetnictví">Domluvit schůzku <span class="arr" aria-hidden="true">→</span></a>
+          </div>
         </div>
       </article>
 
-      <article class="pillar p-cfo reveal d1" id="cfo-na-volne-noze">
-        <p class="pillar-tag">Finanční řízení</p>
-        <h3 class="h3">Firma s čísly pod kontrolou, každý měsíc.</h3>
-        <ul>
-          <li>Měsíční reporting v klientském portálu do 15. dne</li>
-          <li>Cashflow projekce na 12 měsíců a úspory vyčíslené v Kč</li>
-          <li>Partner při investicích, růstu a jednání s bankou</li>
-        </ul>
-        <div class="pillar-price">
-          <strong>od 15 000 Kč</strong>
-          <span>měsíčně jako CFO na volné noze, výpověď 1 měsíc</span>
+      <article class="svc-card svc-plain reveal d1" id="cfo-na-volne-noze">
+        <h3>Finanční řízení</h3>
+        <p>Měsíční reporting, cashflow na 12 měsíců a partner při investicích, růstu a jednání s bankou.</p>
+        <div class="svc-price">
+          <strong class="num">od 15 000 Kč</strong>
+          <span>měsíčně, výpověď 1 měsíc</span>
         </div>
-        <div class="pillar-ctas">
-          <a href="#contact" class="btn btn-ghost" data-interest="CFO na volné noze">Domluvit schůzku</a>
+        <div class="svc-cta">
           <a href="/sluzby/cfo-na-volne-noze/" class="link">Více o službě</a>
         </div>
       </article>
 
-      <article class="pillar p-arch reveal" id="business-architektura">
-        <div>
-          <p class="pillar-tag">Business architektura</p>
-          <h3 class="h3">Firma postavená tak, aby dávala smysl.</h3>
-          <div class="pillar-ctas">
-            <a href="/sluzby/projekt/#objednat" class="btn btn-primary">Objednat projekt <span class="arr" aria-hidden="true">→</span></a>
-          </div>
+      <article class="svc-card svc-plain reveal d2" id="business-architektura">
+        <h3>Struktura firmy</h3>
+        <p>Holding, vstup společníka nebo investora, vyplácení peněz z firmy. Popíšete mi situaci a cenu navrhnu podle ní.</p>
+        <div class="svc-price">
+          <strong class="num">podle situace</strong>
+          <span>osobní nastavení (HPP, nebo faktura) řeší samostatný projekt za 4 990 Kč</span>
         </div>
-        <div class="arch-split">
-          <div>
-            <h4>Struktura firmy</h4>
-            <p class="note">Holding, vstup společníka nebo investora, vyplácení peněz z firmy, organizace a financování. Popíšete mi situaci a cenu navrhnu podle ní.</p>
-            <a href="#contact" class="link" data-interest="Návrh struktury firmy">Domluvit schůzku</a>
-          </div>
-          <div>
-            <h4>Osobní nastavení</h4>
-            <p class="note">HPP, nebo faktura, daňový režim, zapojení vlastní s.r.o., služební auto. Projekt za 4 990 Kč.</p>
-            <a href="/sluzby/projekt/" class="link">Co projekt obsahuje</a>
-          </div>
+        <div class="svc-cta">
+          <a href="#contact" class="link" data-interest="Návrh struktury firmy">Domluvit schůzku</a>
+          <a href="/sluzby/projekt/" class="link">Projekt za 4 990 Kč</a>
         </div>
       </article>
     </div>
+
+    <div class="oneoff reveal">
+      <p>Jednorázově:</p>
+      <a class="pill" href="/sluzby/valuace/">Valuace <span>od 39 900 Kč</span></a>
+      <a class="pill" href="/sluzby/firemni-audit/">Firemní audit <span>od 14 900 Kč</span></a>
+      <a class="pill" href="/sluzby/startup-kit/">Startup kit <span>od 14 900 Kč</span></a>
+      <a class="pill" href="/sluzby/priprava-na-prodej/">Příprava na prodej <span>od 79 900 Kč</span></a>
+    </div>
   </div>
 </section>
 
-<!-- JAK TO FUNGUJE -->
-<section class="section" id="jak-to-funguje" aria-labelledby="howto-h" style="padding-top:0">
+<!-- PORTAL -->
+<section class="section portal" aria-labelledby="portal-h">
+  <div class="wrap portal-grid">
+    <div class="reveal">
+      <h2 class="h2" id="portal-h">Vaše firma v jednom okně.</h2>
+      <ul class="portal-list">
+        <li>DPH, daňový základ a neuhrazené faktury vidíte průběžně</li>
+        <li>Doklady nahrajete z mobilu nebo pošlete e-mailem</li>
+        <li>Každý doklad dohledáte podle popisu</li>
+        <li>Portál je v ceně každé spolupráce</li>
+      </ul>
+      <a href="/klientsky-portal/" class="btn">Jak portál funguje <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <figure class="search reveal d1" aria-label="Ukázka hledání dokladu v portálu s vymyšlenými údaji">
+      <div class="search-box">faktura za ledničku</div>
+      <div class="search-hit">
+        <b>Elektro Novák s.r.o.</b><span class="num">12 990 Kč</span>
+        <span>Přijatá faktura, 14. 8. 2026</span><span class="num">uhrazeno</span>
+      </div>
+      <figcaption class="search-cap">Ukázka hledání v portálu, údaje jsou vymyšlené</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- JAK ZACIT -->
+<section class="section" id="jak-to-funguje" aria-labelledby="howto-h">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2 class="h2" id="howto-h">Od dokladu k rozhodnutí.</h2>
+      <h2 class="h2" id="howto-h">Jak začít.</h2>
     </div>
-    <ol class="flow">
+    <ol class="steps">
+      <li class="reveal">
+        <h3>Schůzka</h3>
+        <p>Řeknete mi, co řešíte. Online nebo osobně v Ostravě, nezávazně.</p>
+      </li>
       <li class="reveal d1">
-        <h3>Doklady</h3>
-        <p>Faktury, účtenky a výpisy posíláte e-mailem, nebo je nahrajete přímo v portálu. Nic nevyplňujete.</p>
+        <h3>Návrh</h3>
+        <p>Navrhnu rozsah a cenu podle toho, co opravdu potřebujete.</p>
       </li>
       <li class="reveal d2">
-        <h3>Zaúčtování</h3>
-        <p>Doklady zpracujeme, spárujeme s platbami na účtu a zaúčtujeme. Když je potřeba vaše rozhodnutí, zeptám se.</p>
-      </li>
-      <li class="reveal d3">
-        <h3>Živý přehled</h3>
-        <p>V portálu vidíte předběžné DPH, daňový základ, neuhrazené faktury a doklady, které ještě chybí. Každý doklad dohledáte podle popisu.</p>
-      </li>
-      <li class="reveal d3">
-        <h3>Rozhodnutí</h3>
-        <p>Nad stejnými čísly s vámi řeším finance a strukturu firmy. Žádné předávání podkladů mezi účetní a poradcem.</p>
+        <h3>Posíláte doklady</h3>
+        <p>E-mailem nebo přes portál. My účtujeme, vy vidíte čísla průběžně.</p>
       </li>
     </ol>
-    <div class="flow-foot reveal">
-      <p>Portál je vlastní aplikace, v ceně každé spolupráce, na mobilu i v počítači. Účetnictví, DPH, cashflow a výsledovka na jedné obrazovce.</p>
-      <a href="/klientsky-portal/" class="link">Jak portál funguje</a>
+    <div class="calc-note reveal">
+      <p>HPP, nebo faktura?<span>Kalkulačka zdarma, výsledek za minutu.</span></p>
+      <a href="/kalkulacka/hpp-nebo-osvc/" class="btn btn-ghost">Spustit kalkulačku</a>
     </div>
   </div>
 </section>
 
-<!-- KALKULACKA -->
-<section class="section calc" aria-labelledby="calc-h">
-  <div class="wrap calc-grid">
+<!-- O MNE -->
+<section class="section me" id="projects" aria-labelledby="me-h">
+  <div class="wrap me-grid">
     <div class="reveal">
-      <p class="eyebrow">Kalkulačka zdarma</p>
-      <h2 class="h2" id="calc-h">HPP, nebo faktura? Spočítejte si to za minutu.</h2>
-      <p class="body">Zadejte nabídku, kterou máte na stole. Kalkulačka porovná zaměstnání s fakturací v několika daňových režimech, včetně auta a vlastní s.r.o.</p>
-      <a href="/kalkulacka/hpp-nebo-osvc/" class="btn btn-primary">Spustit kalkulačku <span class="arr" aria-hidden="true">→</span></a>
+      <h2 class="me-quote" id="me-h">„Neradím z knížek. Sám podnikám.“</h2>
+      <div class="me-who">
+        <img src="josef.png" alt="Josef Kliment" width="84" height="84" loading="lazy">
+        <div><b>Josef Kliment</b><span>zakladatel AkiNow, Ostrava</span></div>
+      </div>
     </div>
-    <div class="calc-demo reveal d2" aria-label="Příklad výpočtu">
-      <p class="calc-cap">Příklad: HPP 80 000 Kč, nebo faktura 120 000 Kč</p>
-      <div class="calc-row"><span>Na HPP zůstane</span><b>61 290 Kč</b></div>
-      <div class="calc-row win"><span>Paušální daň</span><b>109 005 Kč</b></div>
-      <p class="calc-diff">Měsíčně o <b class="num">47 700 Kč</b> víc.</p>
-    </div>
-  </div>
-</section>
-
-<!-- JEDNORAZOVE SLUZBY -->
-<section class="section" id="services" aria-labelledby="services-h">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <h2 class="h2" id="services-h">Jednorázově, s jasným výstupem.</h2>
-      <p class="body">Když potřebujete odpověď na jednu velkou otázku, ne dlouhodobou spolupráci.</p>
-    </div>
-    <ul class="svc reveal">
-      <li>
-        <a href="/sluzby/valuace/">
-          <span class="svc-name">Valuace</span>
-          <span class="svc-desc">Tržní hodnota firmy jako cenové rozpětí, rizika, růstové scénáře a pohled investora.</span>
-          <span class="svc-price"><b>od 39 900 Kč</b><span>jednorázově</span></span>
-        </a>
-      </li>
-      <li>
-        <a href="/sluzby/firemni-audit/">
-          <span class="svc-name">Firemní audit</span>
-          <span class="svc-desc">Šest oblastí od marží po fixní náklady. Výstupem jsou kroky seřazené podle dopadu v korunách.</span>
-          <span class="svc-price"><b>od 14 900 Kč</b><span>jednorázově</span></span>
-        </a>
-      </li>
-      <li>
-        <a href="/sluzby/startup-kit/">
-          <span class="svc-name">Startup kit</span>
-          <span class="svc-desc">Finanční plán na první rok, cashflow, volba OSVČ, nebo s.r.o., a podklady pro první investory.</span>
-          <span class="svc-price"><b>od 14 900 Kč</b><span>jednorázově</span></span>
-        </a>
-      </li>
-      <li>
-        <a href="/sluzby/priprava-na-prodej/">
-          <span class="svc-name">Příprava na prodej</span>
-          <span class="svc-desc">Dlouhodobá příprava firmy na prodej, obvykle 1 až 3 roky, s vlastní cenovou strukturou.</span>
-          <span class="svc-price"><b>od 79 900 Kč</b><span>celý projekt</span></span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- PROC JA -->
-<section class="section founder" id="projects" aria-labelledby="founder-h" style="padding-top:0">
-  <div class="wrap founder-grid">
-    <div class="reveal">
-      <h2 class="h2 founder-quote" id="founder-h">„Neradím z knížek. Sám podnikám.“</h2>
-      <div class="c-me founder-me"><img src="josef.png" alt="Josef Kliment" width="96" height="96" loading="lazy"><div><b>Josef Kliment</b><span>zakladatel AkiNow, Ostrava</span></div></div>
-    </div>
-    <div class="reveal d2">
+    <div class="reveal d1">
       <p class="body">Většina poradců pracovala v korporátu, dělala čísla, ale nikdy nepostavila firmu. Já jich postavil pět, každou s jinou strukturou.</p>
-      <p class="body">Když navrhuji, jak firmu uspořádat, stavím na tom, jak jsem uspořádal vlastní. Když řeším cashflow, dělám to každý měsíc v Chlumeckém dvoře. A přes Firsen vidím zevnitř účetnictví víc než 60 firem.</p>
-      <ul class="ventures">
-        <li><a href="https://www.firsen.cz/" target="_blank" rel="noopener"><b>Firsen</b><span>Účetní a daňové služby pro 60+ firem</span></a></li>
-        <li><a href="https://mnai-nine.vercel.app/" target="_blank" rel="noopener"><b>M&amp;Ai</b><span>M&amp;A poradenství, transakce 20 mil. až 2 mld. Kč</span></a></li>
-        <li><a href="https://www.webbykliment.com/" target="_blank" rel="noopener"><b>WebByKliment</b><span>30+ webů a aplikací</span></a></li>
-        <li><a href="https://www.darkee.cz/" target="_blank" rel="noopener"><b>Dárkee</b><span>AI dárkový asistent</span></a></li>
-        <li><a href="https://www.chlumeckydvur.cz/" target="_blank" rel="noopener"><b>Chlumecký dvůr</b><span>Ubytování a sport na Vysočině</span></a></li>
-      </ul>
+      <p class="body">Cashflow řeším každý měsíc ve vlastních firmách a přes Firsen vidím zevnitř účetnictví víc než 60 firem.</p>
+      <div class="me-facts">
+        <p><b class="num">12</b><span>let praxe</span></p>
+        <p><b class="num">30+</b><span>oceněných firem</span></p>
+        <p><b class="num">5</b><span>vlastních byznysů</span></p>
+      </div>
+      <p class="me-firms">Moje firmy:
+        <a href="https://www.firsen.cz/" target="_blank" rel="noopener">Firsen</a>,
+        <a href="https://mnai-nine.vercel.app/" target="_blank" rel="noopener">M&amp;Ai</a>,
+        <a href="https://www.webbykliment.com/" target="_blank" rel="noopener">WebByKliment</a>,
+        <a href="https://www.darkee.cz/" target="_blank" rel="noopener">Dárkee</a>,
+        <a href="https://www.chlumeckydvur.cz/" target="_blank" rel="noopener">Chlumecký dvůr</a>
+      </p>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section" id="faq" aria-labelledby="faq-h" style="padding-top:0">
+<!-- OTAZKY -->
+<section class="section" id="faq" aria-labelledby="faq-h">
   <div class="wrap faq-grid">
-    <div class="faq-side reveal">
-      <p class="eyebrow">Časté otázky</p>
+    <div class="reveal">
       <h2 class="h2" id="faq-h">Než se ozvete.</h2>
-      <p class="body">Na tohle se klienti ptají nejčastěji. Na zbytek vám rád odpovím na schůzce.</p>
     </div>
-    <div class="faq reveal d2">
+    <div class="faq reveal d1">
       <details open>
-        <summary>Kolik to celé stojí?</summary>
+        <summary>Kolik to stojí?</summary>
         <div class="faq-a">
-          Cena závisí na rozsahu. <strong>Vedení účetnictví stojí od 6 900 Kč měsíčně podle počtu účetních podkladů</strong>, v ceně je i přiznání k dani z příjmů právnických osob za daný rok. <strong>Projekt k osobnímu nastavení (HPP, nebo faktura, daňový režim, vlastní s.r.o.) stojí 4 990 Kč.</strong> Vlastnickou nebo holdingovou strukturu a vstup společníka posoudím podle vaší situace a cenu navrhnu po jejím zhodnocení. Jednorázové služby: Valuace od 39 900 Kč, Firemní audit od 14 900 Kč, Startup kit od 14 900 Kč. Průběžně: CFO na volné noze od 15 000 Kč měsíčně s měsíční výpovědní dobou. Dlouhodobá příprava firmy na prodej (1 až 3 roky) má vlastní cenovou strukturu od 79 900 Kč. Konkrétní cenu rád doladím na úvodní schůzce. Pokud spolupráce nedává smysl, otevřeně to řeknu.
-        </div>
-      </details>
-      <details>
-        <summary>Co dělá business architekt?</summary>
-        <div class="faq-a">
-          Navrhuje, jak má firma fungovat. Vlastnickou strukturu a holding, organizační uspořádání a procesy, obchodní model a to, jak je firma financovaná. Architekt kreslí dům dřív, než se začne stavět. Business architekt dělá totéž s firmou, dřív než se špatné rozhodnutí zabetonuje do smluv a daní. A protože jsem zároveň finanční ředitel, vidím, co každá varianta udělá s čísly.
-        </div>
-      </details>
-      <details>
-        <summary>Co je projekt za 4 990 Kč?</summary>
-        <div class="faq-a">
-          Odpověď na otázku osobního nastavení: HPP, nebo faktura, jaký daňový režim zvolit, jak zapojit vlastní s.r.o. nebo služební auto. Dostanete doporučení s čísly, srovnání všech rozumných variant, přesný postup krok za krokem, kalkulačku, ve které si přepočítáte vlastní čísla, a hodinovou konzultaci online nebo osobně v Ostravě. Holding, vstup společníka nebo uspořádání celé firmy do projektu nespadají, to je návrh struktury na míru. <a class="link" href="/sluzby/projekt/">Více o projektu</a>
+          <dl class="prices">
+            <div><dt>Účetnictví</dt><dd>od 6 900 Kč měsíčně</dd></div>
+            <div><dt>CFO na volné noze</dt><dd>od 15 000 Kč měsíčně</dd></div>
+            <div><dt>Projekt k osobnímu nastavení</dt><dd>4 990 Kč</dd></div>
+            <div><dt>Struktura firmy</dt><dd>podle situace</dd></div>
+            <div><dt>Valuace</dt><dd>od 39 900 Kč</dd></div>
+            <div><dt>Firemní audit</dt><dd>od 14 900 Kč</dd></div>
+            <div><dt>Startup kit</dt><dd>od 14 900 Kč</dd></div>
+            <div><dt>Příprava na prodej</dt><dd>od 79 900 Kč</dd></div>
+          </dl>
+          <p class="prices-note">Účetnictví se počítá podle počtu účetních podkladů a v ceně je i přiznání k dani z příjmů právnických osob za daný rok. Konkrétní cenu rád doladím na úvodní schůzce. Pokud spolupráce nedává smysl, otevřeně to řeknu.</p>
         </div>
       </details>
       <details>
         <summary>Musím k vám převést i účetnictví?</summary>
-        <div class="faq-a">
-          Nemusíte. Finanční řízení i návrh struktury fungují i se stávající účetní, pracuji pak s jejími výstupy. Když účetnictví vedeme my, vidíte čísla v portálu průběžně a finanční řízení stojí na aktuálních datech, ne na loňské závěrce. Odpadá i předávání podkladů mezi účetní a poradcem.
-        </div>
+        <div class="faq-a">Nemusíte. Finanční řízení i návrh struktury fungují i se stávající účetní, pracuji pak s jejími výstupy. Když účetnictví vedeme my, vidíte čísla v portálu průběžně a rozhodujete se podle aktuálních dat, ne podle loňské závěrky.</div>
       </details>
       <details>
-        <summary>Pro koho spolupráce naopak není?</summary>
-        <div class="faq-a">
-          Měsíční finanční ředitel nedává smysl pro firmy s obratem do 2 mil. Kč ročně. Tam stačí účetnictví s živým přehledem v portálu. Na konkrétní rozhodnutí je určený projekt, a ten dává smysl i jednotlivcům. Spolupráce není pro situace, kdy chcete prodat firmu za tři měsíce. Přípravu nestihneme udělat pořádně a prodali byste levně.
-        </div>
+        <summary>Pro koho spolupráce není?</summary>
+        <div class="faq-a">Měsíční finanční ředitel nedává smysl pro firmy s obratem do 2 mil. Kč ročně. Tam stačí účetnictví s živým přehledem v portálu. Spolupráce také není pro situace, kdy chcete prodat firmu za tři měsíce. Přípravu nestihneme udělat pořádně a prodali byste levně.</div>
       </details>
       <details>
-        <summary>Co když po měsíci zjistím, že to nefunguje?</summary>
-        <div class="faq-a">
-          CFO na volné noze má měsíční výpověď. Žádná dlouhá smlouva, žádné penále. Pokud po prvním měsíci uvidíte, že nejsem váš člověk, řekneme si to a rozejdeme se v dobrém. U jednorázových projektů vracím poměrnou část ceny za nedokončenou práci.
-        </div>
+        <summary>Co když zjistím, že to nefunguje?</summary>
+        <div class="faq-a">CFO na volné noze má měsíční výpověď. Žádná dlouhá smlouva, žádné penále. U jednorázových projektů vracím poměrnou část ceny za nedokončenou práci.</div>
       </details>
     </div>
   </div>
 </section>
 
 <!-- KONTAKT -->
-<section class="section contact" id="contact" aria-labelledby="contact-h">
+<section class="section contact" id="contact" aria-labelledby="contact-h" style="padding-top:0">
   <div class="wrap contact-grid">
     <div class="reveal">
       <h2 class="h2" id="contact-h">Pojďme si promluvit.</h2>
-      <div class="c-me"><img src="josef.png" alt="" width="64" height="64" loading="lazy"><div><b>Josef Kliment</b><span>Účetní, finanční ředitel a business architekt</span></div></div>
       <p class="body">Napište mi pár vět o své situaci. Ozvu se do 24 hodin a navrhnu termín, online nebo osobně v Ostravě.</p>
-      <dl class="c-list">
-        <div><dt>E-mail</dt><dd><a href="mailto:kliment.josef@email.cz">kliment.josef@email.cz</a></dd></div>
-        <div><dt>Působnost</dt><dd>Ostrava, online po celé ČR</dd></div>
-      </dl>
+      <a class="contact-mail" href="mailto:kliment.josef@email.cz">kliment.josef@email.cz</a>
     </div>
 
-    <div class="reveal d2">
+    <div class="reveal d1">
       <form class="form" id="lead-form" novalidate>
         <div class="form-row">
           <div class="fg">
@@ -520,7 +437,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h2>Nástroje</h2>
+          <h2>Nástroje a čtení</h2>
           <ul>
             <li><a href="/klientsky-portal/">Klientský portál</a></li>
             <li><a href="/kalkulacka/hpp-nebo-osvc/">Kalkulačka HPP, nebo OSVČ</a></li>
@@ -579,19 +496,6 @@
   </div>
 </div>
 
-<script>
-  (function () {
-    var b = document.querySelector('.burger'), l = document.getElementById('nav-links');
-    if (!b || !l) return;
-    b.addEventListener('click', function () {
-      var open = l.classList.toggle('open');
-      b.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    l.addEventListener('click', function (e) {
-      if (e.target.closest('a')) { l.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
-    });
-  })();
-</script>
 <script src="script.js"></script>
 <script src="/mereni.js" defer></script>
 </body>
