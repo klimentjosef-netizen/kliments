@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Cesta dokladu · Kliments</title>
+<meta name="description" content="Ukázka cesty dokladu od e-mailu po Pohodu na vymyšlené kanceláři.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap">
+<style>
+:root { color-scheme: light; }
+body { margin: 0; -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+</style>
+<style>
+/* Layout: prezentační stůl. Vlevo kroky cesty dokladu, uprostřed jedna obrazovka kroku, dole ovládání jako u prezentace. Identita podle webu kliments.cz. */
+:root {
+  --bg: #f9f7f4;
+  --surface: #ffffff;
+  --surface-2: #f3eee9;
+  --ink: #1f1a18;
+  --ink-soft: #3d3330;
+  --mid: #6e625b;
+  --line: rgba(31, 26, 24, 0.12);
+  --line-soft: rgba(31, 26, 24, 0.06);
+  --rose: #c75b78;
+  --rose-deep: #a8425f;
+  --rose-pale: #ecc6d0;
+  --rose-blush: #f8e8ec;
+  --sand: #cdbfb2;
+  --sand-pale: #ebe5df;
+  --sure-bg: #1f1a18;
+  --sure-fg: #f9f7f4;
+  --paper: #fffdfa;
+  --paper-ink: #1f1a18;
+  --paper-mid: #6e625b;
+  --paper-line: rgba(31, 26, 24, 0.14);
+  --code-bg: #f3eee9;
+  --shadow: 0 4px 24px rgba(31, 26, 24, 0.07);
+  --f-display: 'Lora', Georgia, 'Times New Roman', serif;
+  --f-body: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --f-mono: ui-monospace, 'Cascadia Mono', Consolas, 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171311; --surface: #211c19; --surface-2: #2a2420; --ink: #f3ece6; --ink-soft: #ddd2ca; --mid: #a99c93;
+    --line: rgba(243, 236, 230, 0.14); --line-soft: rgba(243, 236, 230, 0.07);
+    --rose: #e08aa1; --rose-deep: #eba2b5; --rose-pale: #5c3340; --rose-blush: #3a2229;
+    --sand: #6b5d52; --sand-pale: #322a26; --sure-bg: #f3ece6; --sure-fg: #171311;
+    --paper: #efe9e2; --paper-ink: #1f1a18; --paper-mid: #5e534d; --paper-line: rgba(31, 26, 24, 0.16);
+    --code-bg: #1d1916; --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171311; --surface: #211c19; --surface-2: #2a2420; --ink: #f3ece6; --ink-soft: #ddd2ca; --mid: #a99c93;
+  --line: rgba(243, 236, 230, 0.14); --line-soft: rgba(243, 236, 230, 0.07);
+  --rose: #e08aa1; --rose-deep: #eba2b5; --rose-pale: #5c3340; --rose-blush: #3a2229;
+  --sand: #6b5d52; --sand-pale: #322a26; --sure-bg: #f3ece6; --sure-fg: #171311;
+  --paper: #efe9e2; --paper-ink: #1f1a18; --paper-mid: #5e534d; --paper-line: rgba(31, 26, 24, 0.16);
+  --code-bg: #1d1916; --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; font-weight: 400; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
+
+.app { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* horní lišta */
+.top { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; padding-block: 12px; border-bottom: 1px solid var(--line-soft); background: var(--bg); }
+.brand { font-family: var(--f-display); font-size: 1.15rem; display: flex; align-items: baseline; gap: 8px; }
+.brand b { font-weight: 600; color: var(--rose-deep); }
+.brand span { color: var(--mid); font-size: 0.95rem; }
+.firm { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--ink-soft); }
+.firm .demo { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rose-deep); background: var(--rose-blush); border: 1px solid var(--rose-pale); padding: 2px 8px; border-radius: 999px; }
+.top-actions { margin-left: auto; display: flex; gap: 8px; }
+.ghost { background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 0.8rem; cursor: pointer; color: var(--ink-soft); }
+.ghost:hover { border-color: var(--rose); color: var(--rose-deep); }
+.ghost[aria-pressed="true"] { background: var(--rose-blush); border-color: var(--rose-pale); color: var(--rose-deep); }
+
+/* tělo */
+.main { display: grid; grid-template-columns: 236px minmax(0, 1fr); min-height: 0; }
+.rail { border-right: 1px solid var(--line-soft); padding: 20px 14px 20px max(16px, env(safe-area-inset-left, 0px)); overflow-y: auto; }
+.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.rail button { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; background: transparent; border: 0; border-radius: 10px; padding: 8px 10px; cursor: pointer; color: var(--ink-soft); font-size: 0.9rem; }
+.rail button:hover { background: var(--surface-2); }
+.rail .n { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-variant-numeric: tabular-nums; border: 1px solid var(--line); color: var(--mid); }
+.rail button.done .n { background: var(--sand-pale); border-color: var(--sand-pale); color: var(--ink-soft); }
+.rail button[aria-current="step"] { background: var(--rose-blush); color: var(--ink); font-weight: 500; }
+.rail button[aria-current="step"] .n { background: var(--rose); border-color: var(--rose); color: var(--surface); }
+
+.stage { overflow-y: auto; padding-block: 28px 32px; min-width: 0; }
+.step { max-width: 1080px; margin: 0 auto; display: grid; gap: 22px; }
+.step-head { display: grid; gap: 6px; max-width: 760px; }
+.eyebrow { margin: 0; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose-deep); font-weight: 500; }
+.step h1 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.2; text-wrap: balance; }
+.lede { margin: 0; color: var(--ink-soft); font-size: 1.02rem; max-width: 66ch; }
+
+.card { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 14px; box-shadow: var(--shadow); min-width: 0; }
+.card-pad { padding: 18px 20px; }
+.card-title { margin: 0 0 10px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); font-weight: 500; }
+.scroll { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th { text-align: left; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.date { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.sub { display: block; font-size: 0.78rem; color: var(--mid); }
+.strong { font-weight: 500; }
+
+/* štítky */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; font-weight: 500; padding: 3px 10px; border-radius: 999px; white-space: nowrap; border: 1px solid transparent; }
+.chip.soft { background: var(--sand-pale); color: var(--ink-soft); }
+.chip.hot { background: var(--rose); color: var(--surface); }
+.chip.out { border-color: var(--line); color: var(--mid); }
+.chip.warn { border-color: var(--rose); color: var(--rose-deep); }
+.chip.sure { background: var(--sure-bg); color: var(--sure-fg); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 0.82rem; color: var(--mid); }
+
+/* krok 1: schránka */
+.inbox td:nth-child(2) { min-width: 240px; }
+.action { font-size: 0.84rem; color: var(--ink-soft); white-space: nowrap; }
+.action.alert { color: var(--rose-deep); font-weight: 500; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.88rem; color: var(--ink-soft); padding: 12px 20px; border-top: 1px solid var(--line-soft); }
+.tally b { font-family: var(--f-display); font-weight: 500; font-size: 1.05rem; color: var(--ink); margin-right: 4px; }
+
+/* krok 2: doklad */
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.paper { background: var(--paper); color: var(--paper-ink); border: 1px solid var(--paper-line); border-radius: 4px; padding: 26px 26px 22px; box-shadow: var(--shadow); font-size: 0.82rem; position: relative; }
+.paper h3 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; letter-spacing: 0.02em; }
+.paper .pnum { color: var(--paper-mid); margin: 2px 0 18px; }
+.paper .parties { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.paper .lab { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--paper-mid); margin-bottom: 2px; }
+.paper .dates { display: grid; grid-template-columns: repeat(4, auto); gap: 4px 16px; justify-content: start; margin-bottom: 16px; padding: 10px 0; border-top: 1px solid var(--paper-line); border-bottom: 1px solid var(--paper-line); }
+.paper table { font-size: 0.8rem; }
+.paper th { color: var(--paper-mid); border-color: var(--paper-line); padding: 6px 4px; font-size: 0.64rem; }
+.paper td { border-color: var(--paper-line); padding: 6px 4px; }
+.paper .total { display: flex; justify-content: flex-end; gap: 18px; margin-top: 12px; font-size: 0.8rem; color: var(--paper-mid); flex-wrap: wrap; }
+.paper .total b { color: var(--paper-ink); font-size: 1rem; font-family: var(--f-display); }
+.stamp { position: absolute; top: 18px; right: 18px; font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-mid); border: 1px dashed var(--paper-mid); padding: 3px 8px; border-radius: 4px; }
+.fields { display: grid; grid-template-columns: auto 1fr; gap: 0; margin: 0; font-size: 0.88rem; }
+.fields dt, .fields dd { padding: 7px 0; border-bottom: 1px solid var(--line-soft); margin: 0; }
+.fields dt { color: var(--mid); padding-right: 16px; }
+.fields dd { font-variant-numeric: tabular-nums; font-weight: 500; text-align: right; }
+.src { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.86rem; color: var(--ink-soft); }
+.checks li { display: flex; gap: 10px; align-items: baseline; }
+.tick { flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--sand-pale); color: var(--ink); display: inline-grid; place-items: center; font-size: 0.7rem; }
+.tick.flag { background: var(--rose-blush); color: var(--rose-deep); }
+.booking { margin-top: 14px; padding: 12px 14px; background: var(--surface-2); border-radius: 10px; font-size: 0.86rem; }
+.booking b { font-variant-numeric: tabular-nums; }
+.stack { display: grid; gap: 16px; }
+
+/* krok 3: banka */
+.balance { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: baseline; padding: 12px 20px; border-top: 1px solid var(--line-soft); font-size: 0.86rem; color: var(--mid); }
+.balance b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+.balance .ok { margin-left: auto; color: var(--ink-soft); }
+.result { font-size: 0.84rem; }
+.result .chip { margin-bottom: 3px; }
+.plus { color: var(--ink); }
+
+/* krok 4 a 5 */
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.miss { display: grid; gap: 4px; }
+.miss .amt { font-family: var(--f-display); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.letter { white-space: pre-wrap; font-size: 0.92rem; line-height: 1.6; margin: 0; padding: 16px 18px; background: var(--surface-2); border-radius: 10px; color: var(--ink); font-family: var(--f-body); }
+.row-between { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.btn { background: var(--ink); color: var(--bg); border: 0; border-radius: 999px; padding: 8px 18px; font-size: 0.84rem; cursor: pointer; }
+.btn:hover { background: var(--rose-deep); }
+.note { font-size: 0.84rem; color: var(--mid); margin: 0; }
+.alertcard { border-left: 0; display: grid; gap: 10px; }
+.alertcard .meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; color: var(--mid); }
+.alertcard h3 { margin: 0; font-family: var(--f-display); font-weight: 500; font-size: 1.12rem; }
+.alertcard p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+.ask { background: var(--rose-blush); border: 1px solid var(--rose-pale); border-radius: 10px; padding: 10px 12px; font-size: 0.88rem; color: var(--ink); }
+.ask b { color: var(--rose-deep); font-weight: 500; }
+.quiet { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* krok 6: přehled */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.tile { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; padding: 16px 18px; }
+.tile dt { font-size: 0.8rem; color: var(--mid); margin-bottom: 4px; }
+.tile dd { margin: 0; }
+.tile b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.55rem; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.tile small { display: block; font-size: 0.78rem; color: var(--mid); margin-top: 2px; }
+.tile.hot { background: var(--rose-blush); border-color: var(--rose-pale); }
+.tile.hot b { color: var(--rose-deep); }
+.portal-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.portal-top span:first-child { font-family: var(--f-display); font-size: 1.12rem; }
+.portal-top span:last-child { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rose-deep); }
+.portal { background: var(--surface-2); border-radius: 16px; padding: 20px; }
+
+/* krok 7: deník */
+.journal tr.first td { border-top: 1px solid var(--line); }
+.journal tr.first:first-child td { border-top: 0; }
+.acct { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }
+.acct small { font-weight: 400; color: var(--mid); margin-left: 6px; font-size: 0.76rem; }
+
+/* krok 8: Pohoda */
+.file { display: flex; gap: 14px; align-items: center; }
+.file-ico { flex: none; width: 42px; height: 52px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; color: var(--rose-deep); }
+.file b { display: block; font-weight: 500; word-break: break-all; }
+.steps-list { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.9rem; color: var(--ink-soft); }
+pre.xml { margin: 0; padding: 16px 18px; background: var(--code-bg); border-radius: 12px; font-family: var(--f-mono); font-size: 0.76rem; line-height: 1.6; overflow-x: auto; color: var(--ink-soft); }
+.xml .t { color: var(--rose-deep); }
+.xml .a { color: var(--mid); }
+.xml .c { color: var(--mid); font-style: italic; }
+.xml .v { color: var(--ink); font-weight: 600; }
+.okline { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* krok 9: shrnutí */
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.plain { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 0.92rem; color: var(--ink-soft); }
+.real { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.real div { padding: 14px 0 0; border-top: 2px solid var(--rose); }
+.real dt { font-size: 0.8rem; color: var(--mid); }
+.real dd { margin: 0; font-family: var(--f-display); font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.next { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: var(--ink); color: var(--bg); border-radius: 14px; padding: 18px 22px; }
+.next p { margin: 0; font-family: var(--f-display); font-size: 1.15rem; }
+.next span { font-size: 0.84rem; opacity: 0.8; }
+
+/* krok 0: kancelář */
+.linkbtn { background: none; border: 0; padding: 0; font: inherit; font-weight: 500; color: var(--rose-deep); cursor: pointer; text-align: left; }
+.linkbtn:hover { text-decoration: underline; }
+.muted { color: var(--mid); }
+
+/* poznámky pro prezentujícího */
+.notes { background: var(--rose-blush); border: 1px dashed var(--rose); border-radius: 12px; padding: 12px 16px; font-size: 0.9rem; color: var(--ink); }
+.notes b { color: var(--rose-deep); font-weight: 500; }
+.notes p { margin: 4px 0 0; }
+
+/* ovládání */
+.controls { display: flex; align-items: center; gap: 14px; padding-block: 10px calc(10px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line-soft); background: var(--bg); }
+.nav { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; cursor: pointer; font-size: 0.88rem; white-space: nowrap; }
+.nav.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.nav:disabled { opacity: 0.4; cursor: default; }
+.nav:not(:disabled):hover { border-color: var(--rose); }
+.nav.primary:not(:disabled):hover { background: var(--rose-deep); border-color: var(--rose-deep); }
+.progress { flex: 1; height: 4px; background: var(--sand-pale); border-radius: 4px; overflow: hidden; min-width: 40px; }
+.progress span { display: block; height: 100%; width: 0; background: var(--rose); transition: width 0.3s ease; }
+.counter { font-size: 0.82rem; color: var(--mid); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.keys { font-size: 0.74rem; color: var(--mid); white-space: nowrap; }
+
+/* pohyb: řádky se objeví postupně, nikdy úplně neviditelné */
+@keyframes rise { from { opacity: 0.15; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes pop { 0% { opacity: 0.2; transform: scale(0.85); } 70% { transform: scale(1.04); } 100% { opacity: 1; transform: none; } }
+.play .anim { animation: rise 0.45s ease both; animation-delay: calc(var(--i, 0) * 110ms); }
+.play .pop { animation: pop 0.4s ease both; animation-delay: calc(var(--i, 0) * 110ms + 300ms); }
+@media (prefers-reduced-motion: reduce) {
+  .play .anim, .play .pop { animation: none; }
+  .progress span { transition: none; }
+}
+
+/* úzké obrazovky */
+@media (max-width: 980px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .real { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .main { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .rail { border-right: 0; border-bottom: 1px solid var(--line-soft); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px)); overflow-x: auto; overflow-y: hidden; }
+  .rail ol { display: flex; gap: 4px; width: max-content; }
+  .rail button { padding: 6px 10px; font-size: 0.82rem; white-space: nowrap; }
+  .split, .two, .cols { grid-template-columns: minmax(0, 1fr); }
+  .keys { display: none; }
+}
+@media (max-width: 520px) {
+  .real { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .paper { padding: 20px 16px 18px; }
+  .paper .parties { grid-template-columns: 1fr; }
+  .paper .dates { grid-template-columns: repeat(2, auto); }
+  .stamp { position: static; display: inline-block; margin-bottom: 10px; }
+  .top-actions { margin-left: 0; }
+  .nav { padding: 8px 14px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top gutter">
+    <div class="brand"><b>Kliments</b><span>Cesta dokladu</span></div>
+    <div class="firm"><span>Ukázková účetní kancelář · říjen 2026</span><span class="demo">vymyšlená data</span></div>
+    <div class="top-actions">
+      <button class="ghost" id="btn-notes" type="button" aria-pressed="false" title="Poznámky pro prezentujícího (N)">Poznámky</button>
+      <button class="ghost" id="btn-full" type="button" title="Celá obrazovka (F)">Celá obrazovka</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <nav class="rail" aria-label="Kroky ukázky"><ol id="rail"></ol></nav>
+
+    <main class="stage gutter" id="stage">
+
+      <!-- 0 KANCELÁŘ -->
+      <section class="step" id="kancelar" data-short="Celá kancelář">
+        <header class="step-head">
+          <p class="eyebrow">Celá kancelář</p>
+          <h1>Všechna data kanceláře na jednom místě</h1>
+          <p class="lede">Doklady, banka, deník, DPH, chybějící doklady a komunikace všech klientů v jednom systému. Účetní ráno vidí, kde co čeká, a proklikne se do konkrétní firmy.</p>
+        </header>
+        <dl class="tiles anim" style="--i:0">
+          <div class="tile"><dt>Podklady za říjen</dt><dd><b>920</b><small>doklady a bankovní pohyby, 8 firem</small></dd></div>
+          <div class="tile hot"><dt>Čeká na účetní</dt><dd><b>30</b><small>návrhy k potvrzení</small></dd></div>
+          <div class="tile"><dt>Chybí doklady</dt><dd><b>12</b><small>seznamy jdou klientům</small></dd></div>
+          <div class="tile"><dt>Upozornění</dt><dd><b>5</b><small>úřady a dotazy klientů</small></dd></div>
+        </dl>
+        <div class="card anim" style="--i:1">
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Firma</th><th>Účetní</th><th class="num">Podklady</th><th class="num">Čeká na účetní</th><th class="num">Chybí doklady</th><th class="num">DPH za říjen</th><th>Stav měsíce</th></tr></thead>
+              <tbody>
+                <tr><td><button class="linkbtn" type="button" data-go="krok-1">Ukázková firma s.r.o. ›</button><span class="sub">služby, měsíční plátce</span></td><td>Účetní 1</td><td class="num">16</td><td class="num">3</td><td class="num">2</td><td class="num">7 502 Kč</td><td><span class="chip hot">Čeká na klienta</span></td></tr>
+                <tr><td class="strong">Obchod Demo s.r.o.<span class="sub">e-shop, měsíční plátce</span></td><td>Účetní 2</td><td class="num">512</td><td class="num">12</td><td class="num">4</td><td class="num">18 940 Kč</td><td><span class="chip hot">Čeká na klienta</span></td></tr>
+                <tr><td class="strong">Doprava Demo s.r.o.<span class="sub">doprava, měsíční plátce</span></td><td>Účetní 3</td><td class="num">143</td><td class="num">7</td><td class="num">3</td><td class="num">22 115 Kč</td><td><span class="chip hot">Čeká na klienta</span></td></tr>
+                <tr><td class="strong">Dílna Demo s.r.o.<span class="sub">výroba, měsíční plátce</span></td><td>Účetní 2</td><td class="num">58</td><td class="num">1</td><td class="num">2</td><td class="num">6 410 Kč</td><td><span class="chip hot">Čeká na klienta</span></td></tr>
+                <tr><td class="strong">Kavárna Demo s.r.o.<span class="sub">gastro, čtvrtletní plátce</span></td><td>Účetní 3</td><td class="num">61</td><td class="num">0</td><td class="num">1</td><td class="num muted">čtvrtletně</td><td><span class="chip hot">Čeká na klienta</span></td></tr>
+                <tr><td class="strong">Instalace Demo s.r.o.<span class="sub">stavebnictví, měsíční plátce</span></td><td>Účetní 1</td><td class="num">84</td><td class="num">5</td><td class="num">0</td><td class="num">12 480 Kč</td><td><span class="chip warn">Ke kontrole</span></td></tr>
+                <tr><td class="strong">Software Demo s.r.o.<span class="sub">IT služby, měsíční plátce</span></td><td>Účetní 1</td><td class="num">37</td><td class="num">2</td><td class="num">0</td><td class="num">9 870 Kč</td><td><span class="chip warn">Ke kontrole</span></td></tr>
+                <tr><td class="strong">Nájmy Demo s.r.o.<span class="sub">pronájem, neplátce</span></td><td>Účetní 2</td><td class="num">9</td><td class="num">0</td><td class="num">0</td><td class="num muted">neplátce</td><td><span class="chip sure">Hotovo</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tally"><span>Návrh přehledu kanceláře na vymyšlených firmách. Dnes systém ukazuje přehled po jednotlivých firmách, souhrn za celou kancelář je další krok.</span></div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Mým cílem je mít všechna data účetní kanceláře na jednom místě. Takhle by vypadal ranní pohled vaší účetní.“ Kliknout na Ukázkovou firmu a projít jeden měsíc od e-mailu po Pohodu. Říct, že souhrn za kancelář je návrh, přehled po firmách už běží.</p></aside>
+      </section>
+
+      <!-- 1 PŘÍJEM -->
+      <section class="step" id="krok-1" data-short="Příjem" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 1 · Příjem</p>
+          <h1>E-maily se roztřídí samy</h1>
+          <p class="lede">Doklady chodí do jedné sběrné schránky. Automat ji čte 4× denně, pozná, co v e-mailu je, a přiřadí ho k firmě podle složky nebo IČO v dokladu.</p>
+        </header>
+        <div class="card">
+          <div class="scroll">
+            <table class="inbox">
+              <thead><tr><th>Přijato</th><th>Od a předmět</th><th>Příloha</th><th>Rozpoznáno</th><th>Co dál</th></tr></thead>
+              <tbody>
+                <tr class="anim" style="--i:0"><td class="date">3. 10. 9:12</td><td><span class="strong">Papírnictví Demo s.r.o.</span><span class="sub">Faktura 2026-0412</span></td><td>PDF s ISDOC</td><td><span class="chip soft pop" style="--i:0">Přijatá faktura</span><span class="sub">firma podle IČO odběratele</span></td><td class="action">Vytěžit</td></tr>
+                <tr class="anim" style="--i:1"><td class="date">9. 10. 14:40</td><td><span class="strong">Telefon Demo a.s.</span><span class="sub">Vyúčtování služeb 10/2026</span></td><td>PDF</td><td><span class="chip soft pop" style="--i:1">Přijatá faktura</span><span class="sub">firma podle IČO odběratele</span></td><td class="action">Vytěžit</td></tr>
+                <tr class="anim" style="--i:2"><td class="date">13. 10. 18:05</td><td><span class="strong">Jan Ukázka, jednatel</span><span class="sub">Účtenky z cesty do Brna</span></td><td>2 fotky</td><td><span class="chip soft pop" style="--i:2">Účtenky</span><span class="sub">firma podle složky schránky</span></td><td class="action">Vytěžit</td></tr>
+                <tr class="anim" style="--i:3"><td class="date">16. 10. 10:20</td><td><span class="strong">Datová schránka</span><span class="sub">Nová zpráva od finančního úřadu</span></td><td>bez přílohy</td><td><span class="chip hot pop" style="--i:3">Úřad</span><span class="sub">firma podle složky schránky</span></td><td class="action alert">Upozornit účetního</td></tr>
+                <tr class="anim" style="--i:4"><td class="date">21. 10. 8:47</td><td><span class="strong">Jan Ukázka, jednatel</span><span class="sub">Můžu si dát nový notebook do nákladů?</span></td><td>bez přílohy</td><td><span class="chip hot pop" style="--i:4">Dotaz klienta</span><span class="sub">firma podle složky schránky</span></td><td class="action alert">Upozornit účetního</td></tr>
+                <tr class="anim" style="--i:5"><td class="date">24. 10. 7:30</td><td><span class="strong">E-shop Demo</span><span class="sub">Víkendové slevy až 40 %</span></td><td>bez přílohy</td><td><span class="chip out pop" style="--i:5">Reklama</span></td><td class="action">Archivovat</td></tr>
+                <tr class="anim" style="--i:6"><td class="date">27. 10. 11:02</td><td><span class="strong">Papírnictví Demo s.r.o.</span><span class="sub">Upomínka: faktura 2026-0412</span></td><td>PDF</td><td><span class="chip warn pop" style="--i:6">Duplicita</span><span class="sub">stejná faktura už je v systému</span></td><td class="action">Nezapočítat znovu</td></tr>
+                <tr class="anim" style="--i:7"><td class="date">1. 11. 6:15</td><td><span class="strong">Banka</span><span class="sub">Výpis z účtu za říjen 2026</span></td><td>CSV</td><td><span class="chip soft pop" style="--i:7">Bankovní výpis</span><span class="sub">firma podle čísla účtu</span></td><td class="action">Načíst pohyby</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tally"><span><b>8</b>e-mailů</span><span><b>6</b>zpracováno potichu</span><span><b>2</b>upozornění pro účetního</span></div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Klient nic nevyplňuje, jen přepošle doklady na jednu adresu. Systém sám pozná, co je faktura, co výpis, co dopis z úřadu a co reklama.“ Ukázat řádek s duplicitou: dodavatel poslal stejnou fakturu znovu jako upomínku a systém ji podruhé nezapočítá.</p></aside>
+      </section>
+
+      <!-- 2 VYTĚŽENÍ -->
+      <section class="step" id="krok-2" data-short="Vytěžení" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 2 · Vytěžení</p>
+          <h1>Z přílohy jsou údaje, které se už nepřepisují</h1>
+          <p class="lede">Faktura s ISDOC se přečte přesně. PDF, sken nebo fotku čte AI a doklad označí ke kontrole. Každý doklad projde kontrolami dřív, než se s ním dál počítá.</p>
+        </header>
+        <div class="tabs" role="group" aria-label="Vyberte doklad">
+          <button class="ghost" type="button" data-doc="isdoc" aria-pressed="true">Faktura s ISDOC</button>
+          <button class="ghost" type="button" data-doc="ai" aria-pressed="false">Vyúčtování, čte AI</button>
+        </div>
+
+        <div class="split doc-pane" data-pane="isdoc">
+          <article class="paper anim" style="--i:0" aria-label="Náhled faktury">
+            <span class="stamp">ISDOC uvnitř PDF</span>
+            <h3>FAKTURA · DAŇOVÝ DOKLAD</h3>
+            <p class="pnum">č. 2026-0412</p>
+            <div class="parties">
+              <div><div class="lab">Dodavatel</div>Papírnictví Demo s.r.o.<br>Ukázková 12, Ostrava<br>IČO 07654321 · DIČ CZ07654321</div>
+              <div><div class="lab">Odběratel</div>Ukázková firma s.r.o.<br>Vzorová 3, Ostrava<br>IČO 01234567 · DIČ CZ01234567</div>
+            </div>
+            <div class="dates">
+              <div><div class="lab">Vystaveno</div>3. 10. 2026</div>
+              <div><div class="lab">DUZP</div>3. 10. 2026</div>
+              <div><div class="lab">Splatnost</div>17. 10. 2026</div>
+              <div><div class="lab">VS</div>20260412</div>
+            </div>
+            <table>
+              <thead><tr><th>Položka</th><th class="num">Množství</th><th class="num">Cena</th><th class="num">Celkem</th></tr></thead>
+              <tbody>
+                <tr><td>Kancelářský papír A4</td><td class="num">40 bal.</td><td class="num">65,00</td><td class="num">2 600,00</td></tr>
+                <tr><td>Toner do tiskárny</td><td class="num">2 ks</td><td class="num">800,00</td><td class="num">1 600,00</td></tr>
+              </tbody>
+            </table>
+            <div class="total"><span>Základ 21 % 4 200,00</span><span>DPH 21 % 882,00</span><span>Celkem <b>5 082,00 Kč</b></span></div>
+          </article>
+          <div class="stack">
+            <div class="card card-pad anim" style="--i:1">
+              <div class="src"><p class="card-title" style="margin:0">Vytěžené údaje</p><span class="chip sure">ISDOC · přesně</span></div>
+              <dl class="fields">
+                <dt>Dodavatel</dt><dd>Papírnictví Demo s.r.o.</dd>
+                <dt>IČO dodavatele</dt><dd>07654321</dd>
+                <dt>Číslo dokladu</dt><dd>2026-0412</dd>
+                <dt>Variabilní symbol</dt><dd>20260412</dd>
+                <dt>Vystaveno · DUZP</dt><dd>3. 10. 2026 · 3. 10. 2026</dd>
+                <dt>Splatnost</dt><dd>17. 10. 2026</dd>
+                <dt>Základ 21 %</dt><dd>4 200,00 Kč</dd>
+                <dt>DPH 21 %</dt><dd>882,00 Kč</dd>
+                <dt>Celkem</dt><dd>5 082,00 Kč</dd>
+              </dl>
+            </div>
+            <div class="card card-pad anim" style="--i:2">
+              <p class="card-title">Kontroly</p>
+              <ul class="checks">
+                <li><span class="tick">✓</span>Odběratel je Ukázková firma, IČO sedí</li>
+                <li><span class="tick">✓</span>Doklad v systému ještě není, nejde o duplicitu</li>
+                <li><span class="tick">✓</span>Splatnost je po datu vystavení</li>
+                <li><span class="tick">✓</span>Základ a DPH dávají dohromady celkovou částku</li>
+                <li><span class="tick">✓</span>Měna CZK; cizí měnu by přepočetl kurzem ČNB</li>
+              </ul>
+              <div class="booking">Návrh: <b>501</b> Spotřeba materiálu / <b>321</b> Dodavatelé · DPH tuzemské plnění, plný odpočet</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="split doc-pane" data-pane="ai" hidden>
+          <article class="paper anim" style="--i:0" aria-label="Náhled vyúčtování">
+            <span class="stamp">PDF bez ISDOC</span>
+            <h3>VYÚČTOVÁNÍ SLUŽEB</h3>
+            <p class="pnum">Období 10/2026 · č. vyúčtování 2610-5531</p>
+            <div class="parties">
+              <div><div class="lab">Poskytovatel</div>Telefon Demo a.s.<br>Hlavní 1, Praha<br>IČO 07001122 · DIČ CZ07001122</div>
+              <div><div class="lab">Zákazník</div>Ukázková firma s.r.o.<br>Vzorová 3, Ostrava<br>IČO 01234567</div>
+            </div>
+            <div class="dates">
+              <div><div class="lab">Vystaveno</div>9. 10. 2026</div>
+              <div><div class="lab">DUZP</div>9. 10. 2026</div>
+              <div><div class="lab">Splatnost</div>23. 10. 2026</div>
+              <div><div class="lab">Platba</div>inkasem</div>
+            </div>
+            <table>
+              <thead><tr><th>Služba</th><th class="num">Bez DPH</th></tr></thead>
+              <tbody>
+                <tr><td>Měsíční paušál, 3 čísla</td><td class="num">661,16</td></tr>
+                <tr><td>Data nad rámec tarifu</td><td class="num">165,29</td></tr>
+              </tbody>
+            </table>
+            <div class="total"><span>Základ 21 % 826,45</span><span>DPH 21 % 173,55</span><span>Celkem <b>1 000,00 Kč</b></span></div>
+          </article>
+          <div class="stack">
+            <div class="card card-pad anim" style="--i:1">
+              <div class="src"><p class="card-title" style="margin:0">Vytěžené údaje</p><span class="chip warn">AI · ke kontrole</span></div>
+              <dl class="fields">
+                <dt>Dodavatel</dt><dd>Telefon Demo a.s.</dd>
+                <dt>IČO dodavatele</dt><dd>07001122</dd>
+                <dt>Číslo dokladu</dt><dd>2610-5531</dd>
+                <dt>Variabilní symbol</dt><dd>neuveden</dd>
+                <dt>Vystaveno · DUZP</dt><dd>9. 10. 2026 · 9. 10. 2026</dd>
+                <dt>Splatnost</dt><dd>23. 10. 2026</dd>
+                <dt>Základ 21 %</dt><dd>826,45 Kč</dd>
+                <dt>DPH 21 %</dt><dd>173,55 Kč</dd>
+                <dt>Celkem</dt><dd>1 000,00 Kč</dd>
+              </dl>
+            </div>
+            <div class="card card-pad anim" style="--i:2">
+              <p class="card-title">Kontroly</p>
+              <ul class="checks">
+                <li><span class="tick">✓</span>Zákazník je Ukázková firma, IČO sedí</li>
+                <li><span class="tick">✓</span>Doklad v systému ještě není</li>
+                <li><span class="tick">✓</span>Základ a DPH dávají dohromady celkovou částku</li>
+                <li><span class="tick flag">!</span>Čteno AI, účetní údaje potvrdí při hromadné kontrole</li>
+                <li><span class="tick flag">!</span>Bez variabilního symbolu, platba se bude párovat podle částky</li>
+              </ul>
+              <div class="booking">Návrh: <b>518</b> Ostatní služby / <b>321</b> Dodavatelé · DPH tuzemské plnění, plný odpočet</div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Tady končí běžné vytěžovače: mají vyplněný formulář. U mě je to teprve začátek.“ Přepnout na vyúčtování: AI čte i PDF bez ISDOC, ale vždy ho označí ke kontrole. Naslepo se nic nepouští dál.</p></aside>
+      </section>
+
+      <!-- 3 BANKA -->
+      <section class="step" id="krok-3" data-short="Banka" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 3 · Banka</p>
+          <h1>Platby se spárují s doklady</h1>
+          <p class="lede">Klient pošle výpis (CSV, PDF nebo napojený systém). Platba se páruje podle variabilního symbolu, jinak podle částky jako návrh. Platby, ke kterým doklad nepatří, poznají účetní pravidla.</p>
+        </header>
+        <div class="legend"><span class="chip sure">Jisté</span><span class="chip warn">Návrh k potvrzení</span><span class="chip soft">Pravidlo</span><span class="chip hot">Chybí doklad</span></div>
+        <div class="card">
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Datum</th><th>Protistrana a zpráva</th><th class="num">Částka Kč</th><th>Výsledek</th></tr></thead>
+              <tbody>
+                <tr class="anim" style="--i:0"><td class="date">2. 10.</td><td>Stavby Demo s.r.o.<span class="sub">VS 2026010</span></td><td class="num plus">+36 300,00</td><td class="result"><span class="chip sure pop" style="--i:0">Jisté</span><span class="sub">podle VS · vydaná faktura 2026010</span></td></tr>
+                <tr class="anim" style="--i:1"><td class="date">6. 10.</td><td>Papírnictví Demo s.r.o.<span class="sub">VS 20260412</span></td><td class="num">−5 082,00</td><td class="result"><span class="chip sure pop" style="--i:1">Jisté</span><span class="sub">podle VS · faktura 2026-0412</span></td></tr>
+                <tr class="anim" style="--i:2"><td class="date">10. 10.</td><td>Telefon Demo a.s.<span class="sub">inkaso, bez VS</span></td><td class="num">−1 000,00</td><td class="result"><span class="chip warn pop" style="--i:2">Návrh</span><span class="sub">podle částky · vyúčtování 10/2026</span></td></tr>
+                <tr class="anim" style="--i:3"><td class="date">12. 10.</td><td>Karta · čerpací stanice<span class="sub">Brno</span></td><td class="num">−1 452,00</td><td class="result"><span class="chip warn pop" style="--i:3">Návrh</span><span class="sub">podle částky · účtenka za pohonné hmoty</span></td></tr>
+                <tr class="anim" style="--i:4"><td class="date">13. 10.</td><td>Karta · parkoviště<span class="sub">Brno</span></td><td class="num">−60,00</td><td class="result"><span class="chip warn pop" style="--i:4">Návrh</span><span class="sub">podle částky · účtenka za parkování</span></td></tr>
+                <tr class="anim" style="--i:5"><td class="date">15. 10.</td><td>Karta · předplatné softwaru<span class="sub">měsíční, faktura nechodí</span></td><td class="num">−451,00</td><td class="result"><span class="chip soft pop" style="--i:5">Pravidlo</span><span class="sub">předplatné bez faktury → náklad z banky</span></td></tr>
+                <tr class="anim" style="--i:6"><td class="date">20. 10.</td><td>Finanční úřad<span class="sub">účet s předčíslím 705 · DPH 09/2026</span></td><td class="num">−18 450,00</td><td class="result"><span class="chip soft pop" style="--i:6">Pravidlo</span><span class="sub">platba finančnímu úřadu → odvod DPH</span></td></tr>
+                <tr class="anim" style="--i:7"><td class="date">22. 10.</td><td>Jan Ukázka<span class="sub">zpráva „půjčka“</span></td><td class="num plus">+20 000,00</td><td class="result"><span class="chip soft pop" style="--i:7">Pravidlo</span><span class="sub">slovo „půjčka“ → půjčka od společníka</span></td></tr>
+                <tr class="anim" style="--i:8"><td class="date">27. 10.</td><td>Karta · elektro e-shop<span class="sub">bez dokladu v systému</span></td><td class="num">−7 990,00</td><td class="result"><span class="chip hot pop" style="--i:8">Chybí doklad</span><span class="sub">jde na seznam pro klienta</span></td></tr>
+                <tr class="anim" style="--i:9"><td class="date">29. 10.</td><td>Převod na účet …4417/0800<span class="sub">bez zprávy</span></td><td class="num">−3 500,00</td><td class="result"><span class="chip hot pop" style="--i:9">Chybí doklad</span><span class="sub">jde na seznam pro klienta</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="balance"><span>Počáteční zůstatek <b>166 305,00</b></span><span>Pohyby celkem <b>+18 315,00</b></span><span>Konečný zůstatek <b>184 620,00</b></span><span class="ok">✓ návaznost zůstatků sedí</span></div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Párování výpisů je v účtárně nejvíc ruční práce. Tady z deseti plateb dvě sedí jistě, tři mají návrh, tři vyřeší pravidla a jen dvě jdou klientovi.“ Ukázat řádky s pravidly: tohle je know-how účetního, ne AI.</p></aside>
+      </section>
+
+      <!-- 4 CO CHYBÍ -->
+      <section class="step" id="krok-4" data-short="Co chybí" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 4 · Co chybí</p>
+          <h1>Seznam chybějících dokladů je hotový sám</h1>
+          <p class="lede">Platby, ke kterým nesedí žádný doklad ani pravidlo, systém sepíše. Účetní nic nehledá ve výpisu a klient přesně ví, co má dodat.</p>
+        </header>
+        <div class="two">
+          <div class="card card-pad miss anim" style="--i:0"><span class="chip hot" style="justify-self:start">Chybí doklad</span><span class="amt">7 990,00 Kč</span><span>27. 10. 2026 · platba kartou, elektro e-shop</span></div>
+          <div class="card card-pad miss anim" style="--i:1"><span class="chip hot" style="justify-self:start">Chybí doklad</span><span class="amt">3 500,00 Kč</span><span>29. 10. 2026 · převod na účet …4417/0800 bez zprávy</span></div>
+        </div>
+        <div class="card card-pad anim" style="--i:2">
+          <div class="row-between"><p class="card-title" style="margin:0">Text pro klienta</p><button class="btn" type="button" id="btn-copy">Kopírovat text</button></div>
+<pre class="letter" id="letter">Dobrý den,
+k těmto platbám za říjen nám chybí doklad:
+
+· 27. 10. 2026, platba kartou v elektro e-shopu, 7 990,00 Kč
+· 29. 10. 2026, převod 3 500,00 Kč na účet …4417/0800 bez zprávy
+
+Pošlete prosím fakturu, nebo napište, za co platba byla.
+Děkuji</pre>
+        </div>
+        <p class="note">Klient seznam vidí v portálu a dostává ho spolu s fakturou za účetnictví.</p>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Nespárovaná platba je většinou doklad, který klient zapomněl poslat. Systém ho najde dřív, než se na to přijde při DPH.“</p></aside>
+      </section>
+
+      <!-- 5 UPOZORNĚNÍ -->
+      <section class="step" id="krok-5" data-short="Upozornění" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 5 · Upozornění</p>
+          <h1>Účetní řeší jen to, co chce rozhodnutí</h1>
+          <p class="lede">Běžné faktury, účtenky a výpisy se zpracují potichu. Samostatné upozornění přijde jen na dopis z úřadu, dotaz klienta, smlouvu nebo nesrovnalost, se shrnutím a otázkou.</p>
+        </header>
+        <div class="two">
+          <article class="card card-pad alertcard anim" style="--i:0">
+            <div class="meta"><span class="chip hot">Úřad</span><span>16. 10. 2026 · Ukázková firma s.r.o.</span></div>
+            <h3>Výzva finančního úřadu k doložení dokladů</h3>
+            <p><b>Shrnutí:</b> úřad chce doložit doklady k přiznání k DPH za září 2026. Lhůta 15 dnů od doručení.</p>
+            <div class="ask"><b>Potřebuje rozhodnutí:</b> připravit podklady k výzvě, nebo se nejdřív spojit s klientem?</div>
+          </article>
+          <article class="card card-pad alertcard anim" style="--i:1">
+            <div class="meta"><span class="chip hot">Dotaz klienta</span><span>21. 10. 2026 · Ukázková firma s.r.o.</span></div>
+            <h3>Můžu si dát nový notebook do nákladů?</h3>
+            <p><b>Shrnutí:</b> jednatel plánuje koupit notebook pro firmu a ptá se, jak ho uplatnit.</p>
+            <div class="ask"><b>Potřebuje rozhodnutí:</b> odpověď klientovi.</div>
+          </article>
+        </div>
+        <div class="card card-pad anim" style="--i:2">
+          <p class="card-title">Zpracováno potichu, bez upozornění</p>
+          <div class="quiet"><span class="chip soft">2 přijaté faktury</span><span class="chip soft">2 účtenky</span><span class="chip soft">bankovní výpis</span><span class="chip out">reklama</span><span class="chip warn">duplicita</span></div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Systém čte celý e-mail, ne jen přílohu. Do schránky mi chodí jen věci, kde musím něco rozhodnout. Všechno ostatní je hotové.“</p></aside>
+      </section>
+
+      <!-- 6 PŘEHLED -->
+      <section class="step" id="krok-6" data-short="Přehled pro klienta" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 6 · Přehled pro klienta</p>
+          <h1>Klient vidí čísla průběžně v portálu</h1>
+          <p class="lede">Předběžné DPH, daňový základ, neuhrazené faktury a chybějící doklady se počítají z dokladů hned, jak dorazí. Přiznání se dál podává z Pohody; tady slouží jako nezávislá kontrola.</p>
+        </header>
+        <div class="portal anim" style="--i:0">
+          <div class="portal-top"><span>Živý přehled · Ukázková firma s.r.o.</span><span>aktualizováno dnes v 8:00</span></div>
+          <dl class="tiles">
+            <div class="tile hot"><dt>DPH za říjen</dt><dd><b>7 502 Kč</b><small>k odvodu do 25. 11. 2026</small></dd></div>
+            <div class="tile"><dt>Daňový základ 2026</dt><dd><b>412 300 Kč</b><small>předběžně z dokladů od 1. 1.</small></dd></div>
+            <div class="tile"><dt>Neuhrazené faktury</dt><dd><b>14 520 Kč</b><small>1 po splatnosti</small></dd></div>
+            <div class="tile"><dt>Chybí doklady</dt><dd><b>2</b><small>platby bez dokladu, 11 490 Kč</small></dd></div>
+          </dl>
+        </div>
+        <div class="two">
+          <div class="card card-pad anim" style="--i:1">
+            <p class="card-title">Podklad k přiznání k DPH za říjen</p>
+            <div class="scroll">
+              <table>
+                <thead><tr><th>Řádek</th><th class="num">Základ</th><th class="num">Daň</th></tr></thead>
+                <tbody>
+                  <tr><td>ř. 1 · výstup 21 %<span class="sub">2 vydané faktury</span></td><td class="num">42 000</td><td class="num">8 820</td></tr>
+                  <tr><td>ř. 40 · odpočet 21 %<span class="sub">2 faktury, 2 účtenky</span></td><td class="num">6 276</td><td class="num">1 318</td></tr>
+                  <tr><td class="strong">Vlastní daňová povinnost</td><td class="num"></td><td class="num strong">7 502</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card card-pad anim" style="--i:2">
+            <p class="card-title">Kontrolní hlášení</p>
+            <div class="scroll">
+              <table>
+                <thead><tr><th>Oddíl</th><th class="num">Dokladů</th><th class="num">Daň</th></tr></thead>
+                <tbody>
+                  <tr><td>A4 · vydané nad 10 000 Kč</td><td class="num">2</td><td class="num">8 820,00</td></tr>
+                  <tr><td>B3 · přijaté do 10 000 Kč</td><td class="num">4</td><td class="num">1 317,96</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note" style="margin-top:10px">Neuhrazená faktura: vydaná 2026011, Byty Demo s.r.o., 14 520 Kč, splatná 31. 10. 2026.</p>
+          </div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Klient nečeká na konec čtvrtletí. Ví, kolik zaplatí na DPH, ještě než mu napíšu.“ Zdůraznit: podává se z Pohody, přehled je kontrola navíc.</p></aside>
+      </section>
+
+      <!-- 7 DENÍK -->
+      <section class="step" id="krok-7" data-short="Deník" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 7 · Deník</p>
+          <h1>Návrh zápisů ke kontrole</h1>
+          <p class="lede">Z dokladů a plateb vzniknou podvojné zápisy jako koncept. Účetní je zkontroluje hromadně a jednotlivě řeší jen upozornění. Naslepo se neúčtuje nic.</p>
+        </header>
+        <div class="card anim" style="--i:0">
+          <div class="scroll">
+            <table class="journal">
+              <thead><tr><th>Doklad</th><th>Popis</th><th>MD</th><th>D</th><th class="num">Částka Kč</th></tr></thead>
+              <tbody>
+                <tr class="first"><td rowspan="2" class="strong">FP 2026-0412</td><td>Papír a tonery, základ</td><td class="acct">501</td><td class="acct">321</td><td class="num">4 200,00</td></tr>
+                <tr><td>DPH 21 %</td><td class="acct">343</td><td class="acct">321</td><td class="num">882,00</td></tr>
+                <tr class="first"><td rowspan="2" class="strong">FP 2610-5531</td><td>Telefon 10/2026, základ</td><td class="acct">518</td><td class="acct">321</td><td class="num">826,45</td></tr>
+                <tr><td>DPH 21 %</td><td class="acct">343</td><td class="acct">321</td><td class="num">173,55</td></tr>
+                <tr class="first"><td rowspan="2" class="strong">Účtenka PHM</td><td>Pohonné hmoty, placeno kartou</td><td class="acct">501</td><td class="acct">221</td><td class="num">1 200,00</td></tr>
+                <tr><td>DPH 21 %</td><td class="acct">343</td><td class="acct">221</td><td class="num">252,00</td></tr>
+                <tr class="first"><td rowspan="2" class="strong">Účtenka parkování</td><td>Parkovné, placeno kartou</td><td class="acct">518</td><td class="acct">221</td><td class="num">49,59</td></tr>
+                <tr><td>DPH 21 %</td><td class="acct">343</td><td class="acct">221</td><td class="num">10,41</td></tr>
+                <tr class="first"><td rowspan="2" class="strong">FV 2026010</td><td>Stavby Demo, základ</td><td class="acct">311</td><td class="acct">602</td><td class="num">30 000,00</td></tr>
+                <tr><td>DPH 21 %</td><td class="acct">311</td><td class="acct">343</td><td class="num">6 300,00</td></tr>
+                <tr class="first"><td rowspan="2" class="strong">FV 2026011</td><td>Byty Demo, základ</td><td class="acct">311</td><td class="acct">602</td><td class="num">12 000,00</td></tr>
+                <tr><td>DPH 21 %</td><td class="acct">311</td><td class="acct">343</td><td class="num">2 520,00</td></tr>
+                <tr class="first"><td class="strong">BV 2. 10.</td><td>Úhrada FV 2026010</td><td class="acct">221</td><td class="acct">311</td><td class="num">36 300,00</td></tr>
+                <tr class="first"><td class="strong">BV 6. 10.</td><td>Úhrada FP 2026-0412</td><td class="acct">321</td><td class="acct">221</td><td class="num">5 082,00</td></tr>
+                <tr class="first"><td class="strong">BV 10. 10.</td><td>Úhrada telefonu, inkaso</td><td class="acct">321</td><td class="acct">221</td><td class="num">1 000,00</td></tr>
+                <tr class="first"><td class="strong">BV 15. 10.</td><td>Předplatné softwaru bez faktury</td><td class="acct">518</td><td class="acct">221</td><td class="num">451,00</td></tr>
+                <tr class="first"><td class="strong">BV 20. 10.</td><td>Odvod DPH za 09/2026</td><td class="acct">343</td><td class="acct">221</td><td class="num">18 450,00</td></tr>
+                <tr class="first"><td class="strong">BV 22. 10.</td><td>Půjčka od společníka</td><td class="acct">221</td><td class="acct">365</td><td class="num">20 000,00</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tally"><span><b>12</b>zápisů v konceptu</span><span><b>2</b>platby čekají na doklad, 11 490 Kč</span><span>každý zápis má u sebe doklad nebo platbu</span></div>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Systém předzpracuje a zkontroluje, hlavní kniha zůstává v Pohodě. To je záměr.“ Ukázat, že každý zápis vede na konkrétní doklad nebo pohyb na účtu.</p></aside>
+      </section>
+
+      <!-- 8 POHODA -->
+      <section class="step" id="krok-8" data-short="Pohoda" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 8 · Pohoda</p>
+          <h1>Jedna dávka, jeden import</h1>
+          <p class="lede">Zkontrolované doklady odejdou do Pohody jako XML dávka. Jedna instalace Pohody obslouží víc firem, bez mServeru a bez licence navíc pro každou firmu.</p>
+        </header>
+        <div class="split">
+          <div class="stack">
+            <div class="card card-pad anim" style="--i:0">
+              <div class="file"><span class="file-ico">XML</span><div><b>ukazkova-firma_2026-10.xml</b><span class="sub">4 faktury: 2 přijaté, 2 vydané · kódování Windows-1250</span></div></div>
+            </div>
+            <div class="card card-pad anim" style="--i:1">
+              <p class="card-title">V Pohodě</p>
+              <ol class="steps-list">
+                <li>Soubor → Datová komunikace → XML import</li>
+                <li>Vybrat dávku. Účetní jednotka je určená v dávce.</li>
+                <li>Číslo dokladu přidělí Pohoda z vlastní číselné řady, číslo od dodavatele jde do variabilního symbolu.</li>
+              </ol>
+            </div>
+            <div class="card card-pad anim" style="--i:2">
+              <p class="card-title">Protokol z Pohody</p>
+              <div class="okline"><span class="chip sure">FAK-1 ok</span><span class="chip sure">FAK-2 ok</span><span class="chip sure">FAK-3 ok</span><span class="chip sure">FAK-4 ok</span></div>
+            </div>
+          </div>
+          <pre class="xml anim" style="--i:1" aria-label="Ukázka XML dávky"><span class="c">&lt;!-- zkráceno: jedna ze čtyř faktur --&gt;</span>
+<span class="t">&lt;dat:dataPack</span> <span class="a">id=</span>"UKAZKA-2026-10" <span class="a">ico=</span>"01234567" <span class="a">version=</span>"2.0"<span class="t">&gt;</span>
+  <span class="t">&lt;dat:dataPackItem</span> <span class="a">id=</span>"FAK-1" <span class="a">version=</span>"2.0"<span class="t">&gt;</span>
+    <span class="t">&lt;inv:invoice</span> <span class="a">version=</span>"2.0"<span class="t">&gt;</span>
+      <span class="t">&lt;inv:invoiceHeader&gt;</span>
+        <span class="t">&lt;inv:invoiceType&gt;</span><span class="v">receivedInvoice</span><span class="t">&lt;/inv:invoiceType&gt;</span>
+        <span class="t">&lt;inv:symVar&gt;</span><span class="v">20260412</span><span class="t">&lt;/inv:symVar&gt;</span>
+        <span class="t">&lt;inv:originalDocument&gt;</span><span class="v">2026-0412</span><span class="t">&lt;/inv:originalDocument&gt;</span>
+        <span class="t">&lt;inv:date&gt;</span><span class="v">2026-10-03</span><span class="t">&lt;/inv:date&gt;</span>
+        <span class="t">&lt;inv:dateTax&gt;</span><span class="v">2026-10-03</span><span class="t">&lt;/inv:dateTax&gt;</span>
+        <span class="t">&lt;inv:dateDue&gt;</span><span class="v">2026-10-17</span><span class="t">&lt;/inv:dateDue&gt;</span>
+        <span class="t">&lt;inv:classificationVAT&gt;</span>
+          <span class="t">&lt;typ:ids&gt;</span><span class="v">UD</span><span class="t">&lt;/typ:ids&gt;</span>
+        <span class="t">&lt;/inv:classificationVAT&gt;</span>
+        <span class="t">&lt;inv:text&gt;</span><span class="v">Kancelářský papír a tonery</span><span class="t">&lt;/inv:text&gt;</span>
+        <span class="t">&lt;inv:partnerIdentity&gt;</span>
+          <span class="t">&lt;typ:address&gt;</span>
+            <span class="t">&lt;typ:company&gt;</span><span class="v">Papírnictví Demo s.r.o.</span><span class="t">&lt;/typ:company&gt;</span>
+            <span class="t">&lt;typ:ico&gt;</span><span class="v">07654321</span><span class="t">&lt;/typ:ico&gt;</span>
+          <span class="t">&lt;/typ:address&gt;</span>
+        <span class="t">&lt;/inv:partnerIdentity&gt;</span>
+      <span class="t">&lt;/inv:invoiceHeader&gt;</span>
+      <span class="t">&lt;inv:invoiceSummary&gt;</span>
+        <span class="t">&lt;inv:homeCurrency&gt;</span>
+          <span class="t">&lt;typ:priceHigh&gt;</span><span class="v">4200</span><span class="t">&lt;/typ:priceHigh&gt;</span>
+          <span class="t">&lt;typ:priceHighVAT&gt;</span><span class="v">882</span><span class="t">&lt;/typ:priceHighVAT&gt;</span>
+          <span class="t">&lt;typ:priceHighSum&gt;</span><span class="v">5082</span><span class="t">&lt;/typ:priceHighSum&gt;</span>
+        <span class="t">&lt;/inv:homeCurrency&gt;</span>
+      <span class="t">&lt;/inv:invoiceSummary&gt;</span>
+    <span class="t">&lt;/inv:invoice&gt;</span>
+  <span class="t">&lt;/dat:dataPackItem&gt;</span>
+<span class="t">&lt;/dat:dataPack&gt;</span></pre>
+        </div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Import je jedno kliknutí na dávku. Plně automatický zápis je ověřený testem a je dalším krokem.“ Pokud je čas, ukázat skutečný import ve vzdálené ploše na ukázkové firmě.</p></aside>
+      </section>
+
+      <!-- 9 SHRNUTÍ -->
+      <section class="step" id="krok-9" data-short="Shrnutí" hidden>
+        <header class="step-head">
+          <p class="eyebrow">Krok 9 · Shrnutí</p>
+          <h1>Účetnímu zbylo rozhodovat, ne přepisovat</h1>
+          <p class="lede">Ukázková firma za říjen: z 8 e-mailů a 10 plateb zbylo účetnímu potvrdit 3 návrhy, rozhodnout 2 upozornění a poslat klientovi jeden seznam.</p>
+        </header>
+        <div class="cols">
+          <div class="card card-pad anim" style="--i:0">
+            <p class="card-title">Udělal systém</p>
+            <ul class="plain">
+              <li>Roztřídil 8 e-mailů, poznal duplicitu a reklamu</li>
+              <li>Vytěžil 6 dokladů a zkontroloval je</li>
+              <li>Spároval nebo vysvětlil 8 z 10 plateb</li>
+              <li>Spočítal předběžné DPH a kontrolní hlášení</li>
+              <li>Připravil 12 zápisů a XML dávku pro Pohodu</li>
+            </ul>
+          </div>
+          <div class="card card-pad anim" style="--i:1">
+            <p class="card-title">Zbylo účetnímu</p>
+            <ul class="plain">
+              <li>Potvrdit 3 návrhy spárování podle částky</li>
+              <li>Rozhodnout výzvu úřadu a odpovědět na dotaz klienta</li>
+              <li>Poslat klientovi seznam 2 chybějících dokladů</li>
+              <li>Zkontrolovat zápisy a jednou importovat do Pohody</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card card-pad anim" style="--i:2">
+          <p class="card-title">Skutečný provoz k 15. 11. 2026</p>
+          <dl class="real">
+            <div><dt>Napojené firmy</dt><dd>14</dd></div>
+            <div><dt>E-maily</dt><dd>1 112</dd></div>
+            <div><dt>Doklady</dt><dd>3 795</dd></div>
+            <div><dt>Bankovní pohyby</dt><dd>2 381</dd></div>
+            <div><dt>Účetní zápisy</dt><dd>1 541</dd></div>
+          </dl>
+        </div>
+        <div class="next anim" style="--i:3"><p>Další krok: pilot na jedné vaší firmě.</p><span>Čas a přesnost změříme na vašich dokladech.</span></div>
+        <aside class="notes" hidden><b>Co říct:</b><p>„Tohle byla vymyšlená firma, čísla dole jsou skutečná z provozu od září.“ Pak přejít k variantám spolupráce a zeptat se, která je jim nejbližší.</p></aside>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="controls gutter">
+    <button class="nav" id="btn-prev" type="button">‹ Zpět</button>
+    <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+    <span class="counter" id="counter">1 / 10</span>
+    <span class="keys">šipky ← → · N poznámky</span>
+    <button class="nav" id="btn-replay" type="button" title="Přehrát krok znovu">↻</button>
+    <button class="nav primary" id="btn-next" type="button">Další ›</button>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var rail = document.getElementById('rail');
+  var stage = document.getElementById('stage');
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var prev = document.getElementById('btn-prev');
+  var next = document.getElementById('btn-next');
+  var notesBtn = document.getElementById('btn-notes');
+  var idx = 0;
+  var showNotes = false;
+
+  steps.forEach(function (s, i) {
+    var li = document.createElement('li');
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<span class="n">' + (i + 1) + '</span><span>' + s.getAttribute('data-short') + '</span>';
+    b.addEventListener('click', function () { go(i); });
+    var eb = s.querySelector('.eyebrow');
+    if (eb) eb.textContent = 'Krok ' + (i + 1) + ' · ' + s.getAttribute('data-short');
+    li.appendChild(b);
+    rail.appendChild(li);
+  });
+  var railBtns = rail.querySelectorAll('button');
+
+  function play(s) {
+    s.classList.remove('play');
+    void s.offsetWidth;
+    s.classList.add('play');
+  }
+
+  function go(i, fromHash) {
+    if (i < 0 || i >= steps.length) return;
+    idx = i;
+    steps.forEach(function (s, j) { s.hidden = j !== i; });
+    railBtns.forEach(function (b, j) {
+      if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      b.classList.toggle('done', j < i);
+    });
+    railBtns[i].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    bar.style.width = ((i + 1) / steps.length * 100) + '%';
+    counter.textContent = (i + 1) + ' / ' + steps.length;
+    prev.disabled = i === 0;
+    next.disabled = i === steps.length - 1;
+    stage.scrollTop = 0;
+    applyNotes();
+    play(steps[i]);
+    if (!fromHash) {
+      try { history.replaceState(null, '', '#' + steps[i].id); } catch (e) { location.hash = steps[i].id; }
+    }
+  }
+
+  function applyNotes() {
+    steps.forEach(function (s) {
+      var n = s.querySelector('.notes');
+      if (n) n.hidden = !showNotes;
+    });
+    notesBtn.setAttribute('aria-pressed', showNotes ? 'true' : 'false');
+  }
+
+  function fromHash() {
+    var h = (location.hash || '').replace('#', '');
+    for (var i = 0; i < steps.length; i++) if (steps[i].id === h) return i;
+    return 0;
+  }
+
+  prev.addEventListener('click', function () { go(idx - 1); });
+  next.addEventListener('click', function () { go(idx + 1); });
+  document.getElementById('btn-replay').addEventListener('click', function () { play(steps[idx]); });
+  notesBtn.addEventListener('click', function () { showNotes = !showNotes; applyNotes(); });
+
+  document.getElementById('btn-full').addEventListener('click', function () {
+    var el = document.documentElement;
+    try {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else if (el.requestFullscreen) { var p = el.requestFullscreen(); if (p && p.catch) p.catch(function () {}); }
+    } catch (e) {}
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown') { e.preventDefault(); go(idx + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(idx - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(steps.length - 1); }
+    else if (k === 'n' || k === 'N') { showNotes = !showNotes; applyNotes(); }
+    else if (k === 'f' || k === 'F') { document.getElementById('btn-full').click(); }
+  });
+
+  window.addEventListener('hashchange', function () { go(fromHash(), true); });
+
+  // proklik z přehledu kanceláře do firmy
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.getAttribute('data-go');
+      for (var i = 0; i < steps.length; i++) if (steps[i].id === id) { go(i); break; }
+    });
+  });
+
+  // doklady v kroku 2
+  var tabBtns = document.querySelectorAll('[data-doc]');
+  var panes = document.querySelectorAll('.doc-pane');
+  tabBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var which = b.getAttribute('data-doc');
+      tabBtns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      panes.forEach(function (p) { p.hidden = p.getAttribute('data-pane') !== which; });
+      play(steps[idx]);
+    });
+  });
+
+  // kopírování textu pro klienta
+  var copyBtn = document.getElementById('btn-copy');
+  copyBtn.addEventListener('click', function () {
+    var text = document.getElementById('letter').textContent;
+    function done() { copyBtn.textContent = 'Zkopírováno'; setTimeout(function () { copyBtn.textContent = 'Kopírovat text'; }, 1800); }
+    function fallback() {
+      var r = document.createRange();
+      r.selectNodeContents(document.getElementById('letter'));
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      copyBtn.textContent = 'Text je označený';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  go(fromHash(), true);
+})();
+</script>
+</body>
+</html>
