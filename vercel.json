@@ -1,6 +1,8 @@
 {
   "redirects": [
-    { "source": "/portal", "destination": "/portal/login", "statusCode": 302 }
+    { "source": "/portal", "destination": "/portal/login", "statusCode": 302 },
+    { "source": "/kalkulacka", "destination": "/kalkulacka/hpp-nebo-osvc/", "statusCode": 301 },
+    { "source": "/kalkulacka/", "destination": "/kalkulacka/hpp-nebo-osvc/", "statusCode": 301 }
   ],
   "rewrites": [
     { "source": "/portal/:path*", "destination": "https://kliments-portal.vercel.app/portal/:path*" }
