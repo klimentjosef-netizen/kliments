@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kontakt · Josef Kliment | Kliments.cz</title>
-<meta name="description" content="Domluvte si úvodní schůzku. Josef Kliment, business architekt a finanční ředitel pro české firmy. Ostrava, celá ČR.">
+<meta name="description" content="Domluvte si nezávaznou úvodní schůzku. Josef Kliment, účetnictví a finanční řízení pro malé a střední firmy. Ostrava a celá ČR.">
 <link rel="canonical" href="https://www.kliments.cz/kontakt/">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:title" content="Kontakt · Kliments.cz">
 <meta property="og:description" content="Domluvte si nezávaznou úvodní schůzku. Business architekt a finanční ředitel pro české firmy. Ostrava, celá ČR.">
@@ -21,87 +23,55 @@
 
 <div id="shared-nav"></div>
 
-<section class="subpage-hero">
-  <div class="subpage-hero-inner">
-    <p class="s-eyebrow">Kontakt</p>
-    <h1 class="subpage-hero-h1">
-      Pojďme si<br>
-      <em>promluvit.</em>
-    </h1>
-    <p class="subpage-hero-lead">
-      Úvodní schůzka je nezávazná. Ozvu se do 24 hodin.
-    </p>
-  </div>
-</section>
-
-<section class="sp-section">
-  <div class="sp-content">
-    <div class="kontakt-grid">
-      <div class="kontakt-info reveal">
-        <div class="c-persons">
-          <div>
-            <p class="c-pname">Josef Kliment</p>
-            <div class="c-line"><span class="c-icon">&check;</span> kliment.josef@email.cz</div>
-            <div class="c-line"><span class="c-icon">&loz;</span> Účetní · Finanční ředitel · Business architekt</div>
-          </div>
-        </div>
-        <div class="c-location" style="margin-top:32px">
-          <p class="c-loc-label">Sídlo a působnost</p>
-          <p class="c-loc-val">Ostrava, Česká republika<br>Online i osobně, celá ČR</p>
-        </div>
-      </div>
-
-      <div class="kontakt-form reveal d2">
-        <form class="form" id="lead-form" novalidate>
-          <div class="form-row">
-            <div class="fg">
-              <label class="fl" for="lf-name">Jméno a příjmení</label>
-              <input id="lf-name" name="name" class="fi" type="text" placeholder="Jan Novák" required autocomplete="name">
-            </div>
-            <div class="fg">
-              <label class="fl" for="lf-email">E-mail</label>
-              <input id="lf-email" name="email" class="fi" type="email" placeholder="jan@firma.cz" required autocomplete="email">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="fg">
-              <label class="fl" for="lf-phone">Telefon</label>
-              <input id="lf-phone" name="phone" class="fi" type="tel" placeholder="+420 xxx xxx xxx" autocomplete="tel">
-            </div>
-            <div class="fg">
-              <label class="fl" for="lf-interest">Zajímá mě</label>
-              <select id="lf-interest" name="interest" class="fs">
-                <option value="">Vyberte službu...</option>
-                <option>Účetnictví</option>
-            <option>Projekt za 4 990 Kč</option>
-                <option>Návrh struktury firmy</option>
-                <option>Příprava firmy na prodej</option>
-                <option>CFO na volné noze</option>
-                <option>Firemní audit</option>
-                <option>Startup kit</option>
-                <option>Příprava na investora</option>
-                <option>Jednorázová konzultace</option>
-                <option>Jiné</option>
-              </select>
-            </div>
-          </div>
-          <div class="fg">
-            <label class="fl" for="lf-message">Zpráva</label>
-            <textarea id="lf-message" name="message" class="ft" placeholder="Stručně popište svou situaci..." rows="4"></textarea>
-          </div>
-          <div class="fg-honey" aria-hidden="true">
-            <label>Web</label>
-            <input name="website" type="text" tabindex="-1" autocomplete="off">
-          </div>
-          <button type="submit" class="fsub" id="lf-submit">
-            <span class="fsub-label">Odeslat zprávu &rarr;</span>
-            <span class="fsub-spinner" aria-hidden="true"></span>
-          </button>
-          <p class="fgdpr">Odesláním souhlasíte se zpracováním osobních údajů pro účely zodpovězení vašeho dotazu.</p>
-          <p class="lf-status" id="lf-status" role="status" aria-live="polite"></p>
-        </form>
-      </div>
+<section class="subpage-hero kontakt-hero">
+  <div class="subpage-hero-inner has-aside">
+    <div>
+      <p class="s-eyebrow">Kontakt</p>
+      <h1 class="subpage-hero-h1">Pojďme si <em>promluvit.</em></h1>
+      <p class="subpage-hero-lead">Napište pár vět o&nbsp;tom, co řešíte. Ozvu se do 24 hodin a&nbsp;domluvíme nezávaznou úvodní schůzku.</p>
+      <ul class="contact-lines">
+        <li><span>E-mail</span><a href="mailto:kliment.josef@email.cz">kliment.josef@email.cz</a></li>
+        <li><span>Sídlo a&nbsp;působnost</span>Ostrava, Česká republika. Online i&nbsp;osobně, celá ČR.</li>
+        <li><span>Kdo</span>Ing. Josef Kliment, účetní a&nbsp;finanční ředitel</li>
+      </ul>
     </div>
+
+    <form class="form form-card" id="lead-form" novalidate>
+      <div class="form-row">
+        <div class="fg">
+          <label class="fl" for="lf-name">Jméno</label>
+          <input id="lf-name" name="name" class="fi" type="text" required autocomplete="name">
+        </div>
+        <div class="fg">
+          <label class="fl" for="lf-email">E-mail</label>
+          <input id="lf-email" name="email" class="fi" type="email" required autocomplete="email" inputmode="email">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl" for="lf-interest">Téma <small>(nepovinné)</small></label>
+        <select id="lf-interest" name="interest" class="fs">
+          <option value="">Vyberte...</option>
+          <option>Účetnictví</option>
+          <option>CFO na volné noze</option>
+          <option>Jednorázový projekt</option>
+          <option>Jiné</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl" for="lf-message">Co řešíte</label>
+        <textarea id="lf-message" name="message" class="ft" rows="4" placeholder="Pár vět o firmě a o tom, s čím chcete pomoct."></textarea>
+      </div>
+      <div class="fg-honey" aria-hidden="true">
+        <label>Web</label>
+        <input name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit" class="fsub" id="lf-submit">
+        <span class="fsub-label">Odeslat zprávu</span>
+        <span class="fsub-spinner" aria-hidden="true"></span>
+      </button>
+      <p class="fgdpr">Odesláním souhlasíte se zpracováním osobních údajů pro účely zodpovězení vašeho dotazu. <a href="/obchodni-podminky/">Zásady zpracování</a></p>
+      <p class="lf-status" id="lf-status" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -118,7 +88,8 @@
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     setStatus('', '');
-    const data = { name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(), interest: form.interest.value, message: form.message.value.trim(), website: form.website.value };
+    const el = form.elements;
+    const data = { name: el.name.value.trim(), email: el.email.value.trim(), phone: '', interest: el.interest.value, message: el.message.value.trim(), website: el.website.value };
     if (!data.name || !data.email) { setStatus('err', 'Vyplňte prosím jméno a e-mail.'); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { setStatus('err', 'Zkontrolujte prosím tvar e-mailu.'); return; }
     setLoading(true);
